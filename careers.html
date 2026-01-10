@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS Isolation: Prefix 'cr-' (Careers)
+           ========================================= */
+
+        :root {
+            --cr-font-family: 'Bricolage Grotesque', sans-serif;
+            --cr-navy: #020035;
+            --cr-orange: #F06449;
+            --cr-soft-bg: #F8F9FA;
+            --cr-white: #ffffff;
+            --cr-text-grey: #555555;
+            --cr-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .cr-page-wrapper {
+            font-family: var(--cr-font-family);
+            color: var(--cr-navy);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cr-section {
+            padding: 100px 20px;
+            box-sizing: border-box;
+        }
+
+        .cr-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- 1. Career Hero Section --- */
+        .cr-hero {
+            background-color: var(--cr-navy);
+            color: var(--cr-white);
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .cr-hero h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .cr-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        /* --- 2. Culture/Values Section --- */
+        .cr-culture {
+            background-color: var(--cr-white);
+        }
+
+        .cr-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .cr-image-collage {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .cr-img-item {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .cr-img-tall {
+            grid-row: span 2;
+            height: 516px;
+        }
+
+        .cr-tagline {
+            color: var(--cr-orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .cr-culture h2 {
+            font-size: 42px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        /* --- 3. Benefits Section --- */
+        .cr-benefits {
+            background-color: var(--cr-soft-bg);
+        }
+
+        .cr-benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .cr-benefit-card {
+            background: var(--cr-white);
+            padding: 40px;
+            border-radius: 24px;
+            transition: var(--cr-transition);
+        }
+
+        .cr-benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .cr-icon-circle {
+            width: 50px;
+            height: 50px;
+            background: rgba(240, 100, 73, 0.1);
+            color: var(--cr-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* --- 4. Open Roles Section --- */
+        .cr-roles {
+            background-color: var(--cr-white);
+        }
+
+        .cr-role-list {
+            margin-top: 40px;
+        }
+
+        .cr-role-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #eeeeee;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--cr-transition);
+        }
+
+        .cr-role-item:hover {
+            padding-left: 20px;
+            background-color: #fafafa;
+        }
+
+        .cr-role-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .cr-role-meta {
+            color: var(--cr-text-grey);
+            font-size: 16px;
+            margin-top: 4px;
+        }
+
+        .cr-apply-arrow {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--cr-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--cr-transition);
+        }
+
+        .cr-role-item:hover .cr-apply-arrow {
+            background-color: var(--cr-navy);
+            color: var(--cr-white);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 968px) {
+            .cr-split-grid, .cr-benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .cr-hero h1 { font-size: 48px; }
+            .cr-section { padding: 60px 20px; }
+            .cr-role-item { flex-direction: column; align-items: flex-start; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cr-page-wrapper">
+
+    <section class="cr-hero">
+        <div class="cr-container">
+            <h1>Shape the future<br>of education.</h1>
+            <p>Join a team of passionate educators, innovators, and leaders dedicated to providing heart and soul to every student's journey.</p>
+            <a href="#open-roles" style="background: var(--cr-orange); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 600;">View Open Roles</a>
+        </div>
+    </section>
+
+    <section class="cr-section cr-culture">
+        <div class="cr-container cr-split-grid">
+            <div class="cr-image-collage">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600" class="cr-img-item cr-img-tall" alt="Team collaborating">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" class="cr-img-item" alt="Staff meeting">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600" class="cr-img-item" alt="Campus life">
+            </div>
+            <div>
+                <span class="cr-tagline">Why Join Us</span>
+                <h2>A community where your work matters.</h2>
+                <p>At our college, we believe that education is more than just grades. It's about character, innovation, and community. We seek individuals who are not just experts in their fields, but mentors who are eager to ignite a lifelong passion for learning in our students.</p>
+                <p style="margin-top: 20px;">Whether you are administrative staff or faculty across our 8 campuses, you are part of a global reputation for excellence.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cr-section cr-benefits">
+        <div class="cr-container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <span class="cr-tagline">Perks & Benefits</span>
+                <h2 style="font-size: 42px;">Supporting your growth.</h2>
+            </div>
+            <div class="cr-benefits-grid">
+                <div class="cr-benefit-card">
+                    <div class="cr-icon-circle">🌱</div>
+                    <h3>Professional Growth</h3>
+                    <p>Continuous learning opportunities and funding for further certifications and degrees.</p>
+                </div>
+                <div class="cr-benefit-card">
+                    <div class="cr-icon-circle">🏥</div>
+                    <h3>Comprehensive Health</h3>
+                    <p>Top-tier medical, dental, and wellness programs for you and your family.</p>
+                </div>
+                <div class="cr-benefit-card">
+                    <div class="cr-icon-circle">🌍</div>
+                    <h3>Campus Diversity</h3>
+                    <p>The opportunity to work across any of our 8 unique campus locations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cr-section cr-roles" id="open-roles">
+        <div class="cr-container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+                <div>
+                    <span class="cr-tagline">Careers</span>
+                    <h2 style="font-size: 42px;">Current Opportunities</h2>
+                </div>
+                <p style="color: var(--cr-text-grey); font-weight: 500;">Showing 4 open positions</p>
+            </div>
+
+            <div class="cr-role-list">
+                <a href="#" class="cr-role-item">
+                    <div>
+                        <div class="cr-role-title">Senior Lecturer: Health Sciences</div>
+                        <div class="cr-role-meta">Bethlehem Campus • Full-Time • Academic</div>
+                    </div>
+                    <div class="cr-apply-arrow">→</div>
+                </a>
+
+                <a href="#" class="cr-role-item">
+                    <div>
+                        <div class="cr-role-title">Campus Administrator</div>
+                        <div class="cr-role-meta">Lere La Tshepe • Full-Time • Management</div>
+                    </div>
+                    <div class="cr-apply-arrow">→</div>
+                </a>
+
+                <a href="#" class="cr-role-item">
+                    <div>
+                        <div class="cr-role-title">IT Support Specialist</div>
+                        <div class="cr-role-meta">Main Campus • Contract • Technical</div>
+                    </div>
+                    <div class="cr-apply-arrow">→</div>
+                </a>
+
+                <a href="#" class="cr-role-item">
+                    <div>
+                        <div class="cr-role-title">Admissions Coordinator</div>
+                        <div class="cr-role-meta">Harrismith Campus • Full-Time • Administration</div>
+                    </div>
+                    <div class="cr-apply-arrow">→</div>
+                </a>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; background: #f0f0f0; padding: 40px; border-radius: 20px;">
+                <h3>Don't see the right fit?</h3>
+                <p>Send us your CV anyway and we'll keep you in mind for future openings across our campuses.</p>
+                <a href="#" style="display: inline-block; margin-top: 20px; color: var(--cr-navy); font-weight: 700; text-decoration: underline;">careers@kentwoodcollege.edu</a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  /* --- Unique Namespace: maluti-stats-full- --- */
+  .maluti-stats-full-section {
+    width: 100vw;
+    background-color: #000c2d;
+    padding: 100px 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .maluti-stats-full-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    max-width: 1400px;
+    gap: 40px;
+    padding: 0 50px;
+  }
+
+  .maluti-stats-full-item {
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Large Counter Style */
+  .maluti-stats-full-number {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 800;
+    color: #0091ff; /* Maluti Blue */
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -3px;
+  }
+
+  .maluti-stats-full-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #b0b8d1;
+  }
+
+  .maluti-stats-full-desc {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 16px;
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 200px;
+    line-height: 1.4;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .maluti-stats-full-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .maluti-stats-full-grid {
+      grid-template-columns: 1fr;
+    }
+    .maluti-stats-full-section {
+      padding: 60px 0;
+    }
+  }
+</style>
+
+<section class="maluti-stats-full-section">
+  <div class="maluti-stats-full-grid">
+    
+    <div class="maluti-stats-full-item">
+      <div class="maluti-stats-full-number">06</div>
+      <div class="maluti-stats-full-label">Campuses</div>
+      <p class="maluti-stats-full-desc">Strategically located across the Free State.</p>
+    </div>
+
+    <div class="maluti-stats-full-item">
+      <div class="maluti-stats-full-number">88%</div>
+      <div class="maluti-stats-full-label">Employment</div>
+      <p class="maluti-stats-full-desc">Graduate placement rate in industrial sectors.</p>
+    </div>
+
+    <div class="maluti-stats-full-item">
+      <div class="maluti-stats-full-number">15k+</div>
+      <div class="maluti-stats-full-label">Students</div>
+      <p class="maluti-stats-full-desc">Active learners currently enrolled for 2026.</p>
+    </div>
+
+    <div class="maluti-stats-full-item">
+      <div class="maluti-stats-full-number">40+</div>
+      <div class="maluti-stats-full-label">Partners</div>
+      <p class="maluti-stats-full-desc">Top-tier corporate and industrial partners.</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+

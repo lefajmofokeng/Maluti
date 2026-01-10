@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maluti School - Education with Heart & Soul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #141414;
+            --text-light: #ffffff;
+            --accent: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(0, 0, 0, 0.9);
+            --header-blur: 15px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* --- Header Structure --- */
+        .kw-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(var(--header-blur));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- Top Bar (Hides on Scroll) --- */
+        .kw-top-bar {
+            background-color: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            max-height: 50px; /* Explicit height for transition */
+            opacity: 1;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+
+        /* State when scrolled */
+        .kw-header.scrolled .kw-top-bar {
+            max-height: 0;
+            opacity: 0;
+            border-bottom: none;
+        }
+
+        .kw-top-nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            padding: 10px 50px;
+            margin: 0;
+        }
+
+        .kw-top-nav-link {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s ease;
+            position: relative; /* Context for dropdown */
+        }
+
+        .kw-top-nav-link:hover { color: #ffffff; }
+
+        /* --- Main Navigation --- */
+        .kw-main-nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Logo left, Nav right */
+            padding: 15px 50px;
+            position: relative;
+            transition: padding 0.3s ease;
+        }
+        
+        .kw-header.scrolled .kw-main-nav-container {
+            padding: 10px 50px; /* Slightly compact on scroll */
+        }
+
+        /* Logo */
+        .kw-logo-container {
+            flex-shrink: 0;
+            margin-right: 40px;
+            z-index: 1002;
+        }
+
+        .kw-shield-icon {
+            width: 40px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .kw-header.scrolled .kw-shield-icon {
+            width: 35px;
+        }
+
+        /* Combined Nav List */
+        .kw-nav-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px; /* Minimized gap */
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .kw-nav-item {
+            position: relative;
+        }
+
+        .kw-nav-link {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .kw-nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .kw-caret-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            opacity: 0.7;
+            transition: transform 0.3s ease;
+        }
+
+        .kw-nav-item:hover .kw-caret-icon,
+        .kw-top-nav-item:hover .kw-caret-icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- Dropdowns (Z-Index Fix) --- */
+        .kw-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1a1a1a;
+            min-width: 200px;
+            list-style: none;
+            padding: 8px 0;
+            margin-top: 5px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 9999; /* Ensure it overlays everything */
+        }
+        
+        /* Align dropdowns for items on the far right so they don't go offscreen */
+        .kw-nav-list .kw-nav-item:last-child .kw-dropdown-menu,
+        .kw-nav-list .kw-nav-item:nth-last-child(2) .kw-dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+
+        .kw-nav-item:hover .kw-dropdown-menu,
+        .kw-top-nav-item:hover .kw-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .kw-dropdown-link {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .kw-dropdown-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding-left: 25px;
+        }
+
+        /* --- Hero Section with Image --- */
+        .kw-hero-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .kw-hero-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .kw-hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Subtly scale the image on load */
+            animation: zoomIn 20s infinite alternate;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Overlay gradient */
+        .kw-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.6) 0%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.8) 100%
+            );
+            z-index: 2;
+        }
+
+        .kw-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px; /* Offset for header */
+        }
+
+        .kw-hero-headline {
+            font-size: clamp(40px, 8vw, 90px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .kw-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .kw-cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- Mobile Responsive --- */
+        .kw-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .kw-mobile-toggle span {
+            width: 30px;
+            height: 2px;
+            background-color: #ffffff;
+            transition: 0.3s ease;
+        }
+
+        .kw-mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .kw-mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .kw-mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        @media (max-width: 1024px) {
+            .kw-main-nav-container { padding: 15px 30px; }
+            .kw-nav-link { font-size: 14px; padding: 8px; }
+            .kw-top-nav-list { justify-content: center; }
+        }
+
+        @media (max-width: 900px) {
+            .kw-mobile-toggle { display: flex; }
+            
+            /* Hide top bar on mobile to save space */
+            .kw-top-bar { display: none; }
+
+            .kw-nav-list {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 400px;
+                height: 100vh;
+                background-color: #141414;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 40px;
+                transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+                overflow-y: auto;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            }
+
+            .kw-nav-list.active { right: 0; }
+            
+            .kw-nav-item { width: 100%; }
+            
+            .kw-nav-link {
+                padding: 15px 0;
+                font-size: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                justify-content: space-between;
+            }
+
+            .kw-dropdown-menu {
+                position: static;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                background: transparent;
+                box-shadow: none;
+                border: none;
+                padding-left: 20px;
+                display: none; /* JS toggle */
+                min-width: unset;
+                transition: none;
+            }
+
+            .kw-nav-item.dropdown-active .kw-dropdown-menu { display: block; }
+            .kw-nav-item.dropdown-active .kw-caret-icon { transform: rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="kw-header" id="mainHeader">
+        <div class="kw-top-bar">
+            <ul class="kw-top-nav-list">
+                <li class="kw-top-nav-item">
+                    <a href="#" class="kw-top-nav-link">
+                        Applications
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">Apply Now</a></li>
+                        <li><a href="#" class="kw-dropdown-link">Status Check</a></li>
+                    </ul>
+                </li>
+                <li class="kw-top-nav-item">
+                    <a href="#" class="kw-top-nav-link">
+                        Calendar
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">Academic Year</a></li>
+                        <li><a href="#" class="kw-dropdown-link">Events</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="kw-top-nav-link">Students</a></li>
+                <li><a href="#" class="kw-top-nav-link">Staff</a></li>
+                <li><a href="#" class="kw-top-nav-link">Alumni</a></li>
+                <li><a href="#" class="kw-top-nav-link">Contact</a></li>
+            </ul>
+        </div>
+
+        <nav class="kw-main-nav-container">
+            <a href="#" class="kw-logo-container">
+                <svg class="kw-shield-icon" viewBox="0 0 100 120" fill="white">
+                    <path d="M50 5L10 20v30c0 25 15 45 40 60 25-15 40-35 40-60V20L50 5zm0 10l30 12v23c0 20-12 36-30 48-18-12-30-28-30-48V27l30-12z"/>
+                    <text x="50" y="65" font-size="40" text-anchor="middle" fill="white" font-weight="bold">M</text>
+                </svg>
+            </a>
+
+            <button class="kw-mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="kw-nav-list" id="mainNav">
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        About
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">History</a></li>
+                        <li><a href="#" class="kw-dropdown-link">Leadership</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Admissions
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">How to Apply</a></li>
+                        <li><a href="#" class="kw-dropdown-link">Fees</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Academic
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">NATED</a></li>
+                        <li><a href="#" class="kw-dropdown-link">NCV</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Campus Life
+                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown-menu">
+                        <li><a href="#" class="kw-dropdown-link">Sports</a></li>
+                        <li><a href="#" class="kw-dropdown-link">Residence</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Contact</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link" style="background: white; color: black; font-weight: 700;">Apply</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="kw-hero-wrapper">
+        <div class="kw-hero-image-container">
+                        <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=2560" alt="Maluti School Campus" class="kw-hero-img">
+        </div>
+        <div class="kw-hero-overlay"></div>
+
+        <main class="kw-hero-content">
+            <h1 class="kw-hero-headline">Education with<br>Heart & Soul</h1>
+            <a href="#explore" class="kw-cta-button">
+                Explore Campus
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </a>
+        </main>
+    </div>
+
+    <script>
+        // 1. Scroll Effect: Hide Top Bar
+        const header = document.getElementById('mainHeader');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Mobile Menu Logic
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mainNav = document.getElementById('mainNav');
+        const navItems = document.querySelectorAll('.kw-nav-item');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+
+        // 3. Mobile Accordion for Dropdowns
+        if (window.innerWidth <= 900) {
+            navItems.forEach(item => {
+                const link = item.querySelector('.kw-nav-link');
+                const dropdown = item.querySelector('.kw-dropdown-menu');
+                
+                if (dropdown) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        item.classList.toggle('dropdown-active');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+<style>
+  /* --- Unique Namespace: maluti-chat- --- */
+  
+  /* Floating Trigger Button */
+  .maluti-chat-trigger {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: #0091ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0, 145, 255, 0.4);
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .maluti-chat-trigger:hover {
+    transform: scale(1.1);
+  }
+
+  /* Chat Window (Hidden by Default) */
+  .maluti-chat-window {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 380px;
+    height: 550px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    display: none; /* Toggle this with JS */
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9998;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  /* Header */
+  .maluti-chat-header {
+    background-color: #000c2d;
+    padding: 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .maluti-chat-avatar {
+    width: 45px;
+    height: 45px;
+    background: #0091ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+  }
+
+  .maluti-chat-header-info h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .maluti-chat-header-info span {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  /* Chat Body / Messages Area */
+  .maluti-chat-body {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8faff;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .maluti-chat-msg {
+    max-width: 80% ;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .maluti-chat-msg.bot {
+    background: white;
+    color: #000c2d;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  }
+
+  /* WhatsApp Integration Button */
+  .maluti-chat-whatsapp-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #25D366; /* WhatsApp Green */
+    color: white;
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: opacity 0.3s;
+  }
+
+  .maluti-chat-whatsapp-link:hover {
+    opacity: 0.9;
+  }
+
+  /* Input Area */
+  .maluti-chat-footer {
+    padding: 20px;
+    background: white;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+  }
+
+  .maluti-chat-input {
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+    border-radius: 12px;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .maluti-chat-send {
+    background: #0091ff;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Animations */
+  @keyframes malutiSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .maluti-chat-active {
+    display: flex !important;
+    animation: malutiSlideUp 0.3s ease-out forwards;
+  }
+</style>
+</head>
+<body>
+
+  <div class="maluti-chat-trigger" onclick="toggleMalutiChat()">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  </div>
+
+  <div class="maluti-chat-window" id="malutiChatWindow">
+    <div class="maluti-chat-header">
+      <div class="maluti-chat-avatar">M</div>
+      <div class="maluti-chat-header-info">
+        <h4>Maluti Support</h4>
+        <span>Online | 2026 Admissions</span>
+      </div>
+    </div>
+
+    <div class="maluti-chat-body">
+      <div class="maluti-chat-msg bot">
+        Hello! 👋 Welcome to Maluti TVET College. How can I assist you with your 2026 application today?
+      </div>
+      <div class="maluti-chat-msg bot">
+        You can ask about courses, NSFAS, or campus locations.
+      </div>
+    </div>
+
+    <a href="https://wa.me/27123456789" class="maluti-chat-whatsapp-link" target="_blank">
+      <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Chat on WhatsApp
+    </a>
+
+    <div class="maluti-chat-footer">
+      <input type="text" class="maluti-chat-input" placeholder="Type your question...">
+      <button class="maluti-chat-send">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function toggleMalutiChat() {
+      const chatWindow = document.getElementById('malutiChatWindow');
+      chatWindow.classList.toggle('maluti-chat-active');
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+<style>
+  /* --- Unique Namespace: maluti-prosp- --- */
+  
+   * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+
+  .maluti-prosp-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+  }
+
+  .maluti-prosp-container {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    background-color: #020035; /* Deep Midnight Blue for premium feel */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Left Side: Image / Visual */
+  .maluti-prosp-image-area {
+    position: relative;
+    min-height: 450px;
+    background-image: url('https://images.pexels.com/photos/6147369/pexels-photo-6147369.jpeg'); 
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Sophisticated overlay to match the branding */
+  .maluti-prosp-image-area::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(20deg, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  }
+
+  .maluti-prosp-floating-tag {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background-color: #ffffff;
+    color: #020035;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  /* Right Side: Content Area */
+  .maluti-prosp-content {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+  }
+
+  .maluti-prosp-eyebrow {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .maluti-prosp-title {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+  }
+
+  .maluti-prosp-description {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #b0b8d1;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+
+  /* The Button Stack */
+  .maluti-prosp-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .maluti-prosp-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 13px 20px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  .maluti-prosp-download-btn:hover {
+    background: white;
+    color: #020035;
+  }
+
+  .maluti-prosp-btn-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .maluti-prosp-file-info {
+    font-size: 14px;
+    color: #838eb1;
+  }
+
+  /* --- Responsive Settings --- */
+  @media (max-width: 992px) {
+    .maluti-prosp-container {
+      grid-template-columns: 1fr;
+      border-radius: 30px;
+    }
+    .maluti-prosp-image-area {
+      min-height: 350px;
+    }
+    .maluti-prosp-content {
+      padding: 50px 40px;
+      text-align: center;
+      align-items: center;
+    }
+    .maluti-prosp-title {
+      font-size: 36px;
+    }
+    .maluti-prosp-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body class="maluti-prosp-wrapper">
+
+  <section class="maluti-prosp-section">
+    <div class="maluti-prosp-container">
+      
+      <div class="maluti-prosp-image-area">
+        <span class="maluti-prosp-floating-tag">New for 2026</span>
+      </div>
+
+      <div class="maluti-prosp-content">
+        <span class="maluti-prosp-eyebrow">Academic Excellence</span>
+        <h2 class="maluti-prosp-title">2026 Academic Prospectus</h2>
+        <p class="maluti-prosp-description">
+          Our 2026 Prospectus offers an in-depth look at our specialized faculties, modern campuses in the Free State, and the vibrant student life that awaits you.
+        </p>
+        
+        <div class="maluti-prosp-actions">
+          <a href="#" class="maluti-prosp-download-btn" download>
+            Download 2026 Prospectus
+          </a>
+          <span class="maluti-prosp-file-info">Updated Jan 2026</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Campuses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS Isolation: Prefix 'cp-' (Campuses)
+           ========================================= */
+
+        :root {
+            --cp-font-family: 'Bricolage Grotesque', sans-serif;
+            --cp-color-bg: #fff;
+            --cp-color-card-bg: #e9e9f5;
+            --cp-color-text-dark: #111111;
+            --cp-color-text-light: #666666;
+            --cp-color-accent: #020035; /* Matching the Navy from previous section */
+            --cp-spacing: 24px;
+            --cp-radius: 16px;
+        }
+
+        .cp-component-wrapper {
+            font-family: var(--cp-font-family);
+            background-color: var(--cp-color-bg);
+            color: var(--cp-color-text-dark);
+            padding: 100px 20px;
+            box-sizing: border-box;
+        }
+
+        
+        .cp-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Header --- */
+        .cp-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cp-title {
+            font-size: 56px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            color: var(--cp-color-accent);
+        }
+
+        .cp-subtitle {
+            font-size: 18px;
+            color: var(--cp-color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* --- Grid --- */
+        .cp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 4 Columns for Desktop */
+            gap: 20px;
+        }
+
+        /* --- Card Styling --- */
+        .cp-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+
+        .cp-image-wrapper {
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cp-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .cp-content {
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .cp-campus-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--cp-color-accent);
+            line-height: 1.2;
+        }
+
+        .cp-campus-loc {
+            font-size: 16px;
+            color: var(--cp-color-text-light);
+            margin-bottom: 24px;
+        }
+
+        .cp-link-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto; /* Pushes link to bottom */
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--cp-color-bg);
+            background: var(--cp-color-accent);
+            border: 2px solid var(--cp-color-accent);
+            border-radius: 50px;
+            width: fit-content;
+            padding: 8px 17px;
+        }
+
+        .cp-arrow {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .cp-card:hover .cp-arrow {
+            transform: translateX(4px);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 1100px) {
+            .cp-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .cp-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .cp-title {
+                font-size: 42px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cp-grid {
+                grid-template-columns: 1fr;
+            }
+            .cp-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cp-component-wrapper">
+    <div class="cp-container">
+        
+        <header class="cp-header">
+            <h2 class="cp-title">Our Campuses</h2>
+            <p class="cp-subtitle">Discover our diverse learning environments spread across eight distinct locations, each offering unique facilities and academic excellence.</p>
+        </header>
+
+        <div class="cp-grid">
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=600&auto=format&fit=crop" alt="Main Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Main Campus</h3>
+                        <p class="cp-campus-loc">Central Administration & Arts</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.pexels.com/photos/7972347/pexels-photo-7972347.jpeg" alt="Lere La Tshepe Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Lere La Tshepe</h3>
+                        <p class="cp-campus-loc">Information Technology, Hospitality & Business Studies</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1525921429624-479b6a26d84d?q=80&w=600&auto=format&fit=crop" alt="Harrismith Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Harrismith</h3>
+                        <p class="cp-campus-loc">Business & Agrigultural Studies</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=600&auto=format&fit=crop" alt="Bethlehem Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Bethlehem</h3>
+                        <p class="cp-campus-loc">Health Sciences</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.pexels.com/photos/5553713/pexels-photo-5553713.jpeg" alt="Kwetlisong Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Kwetlisong</h3>
+                        <p class="cp-campus-loc">Vocational Training</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1510531704581-5b2870972060?q=80&w=600&auto=format&fit=crop" alt="Bonamelo Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Bonamelo</h3>
+                        <p class="cp-campus-loc">Information Technology</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.pexels.com/photos/7972960/pexels-photo-7972960.jpeg" alt="Sefikeng Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Sefikeng</h3>
+                        <p class="cp-campus-loc">Agricultural Studies</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="cp-card">
+                <div class="cp-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?q=80&w=600&auto=format&fit=crop" alt="Itemoheleng Campus" class="cp-image">
+                </div>
+                <div class="cp-content">
+                    <div>
+                        <h3 class="cp-campus-name">Itemoheleng</h3>
+                        <p class="cp-campus-loc">Community & Skills Development</p>
+                    </div>
+                    <div class="cp-link-group">
+                        <span>Learn more</span>
+                        <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kentwood Academy Design Recreation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<style>
+  /* --- Unique Namespace Styling (kw-special-) --- */
+  .kw-special-container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+
+  .kw-special-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 150px 20px;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+  }
+
+  /* --- General Card Styling --- */
+  .kw-special-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .kw-special-dark-bg {
+    background-color: #0a0a3c;
+    color: white;
+  }
+
+  .kw-special-light-bg {
+    background-color: #e9e9f5;
+    color: #0a0a3c;
+  }
+
+  .kw-special-card-content {
+    padding: 40px;
+  }
+
+  /* --- Typography --- */
+  .kw-special-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .kw-special-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  /* --- Buttons --- */
+  .kw-special-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #0a0a3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .kw-special-btn.kw-special-btn-outline {
+    background-color: transparent;
+    border: 2px solid white;
+  }
+
+  .kw-special-btn:hover {
+    background-color: #1a1a5c;
+  }
+  .kw-special-btn.kw-special-btn-outline:hover {
+    background-color: white;
+    color: #0a0a3c;
+  }
+
+  /* --- Grid Cell Specifics --- */
+
+  /* 1. Welcome from Headteacher (Top Left) */
+  .kw-special-welcome-card {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 600px;
+  }
+
+  .kw-special-welcome-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .kw-special-welcome-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+    color: white;
+  }
+
+  /* 2. Arrange a Personal Visit (Top Right, Wide) */
+  .kw-special-visit-card {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+  }
+
+  /* 3. Crest (Middle Right, Square) */
+  .kw-special-crest-card {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .kw-special-crest-img {
+      width: 140px;
+      height: auto;
+  }
+
+  /* 4. Admissions (Middle Right, Square) */
+  .kw-special-admissions-card {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+  }
+
+  /* 5. The Ethos and Environment (Bottom Left, Wide) */
+  .kw-special-ethos-card {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+  }
+
+  /* 6. Children Image (Bottom Right, Square) */
+  .kw-special-children-card {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    position: relative;
+    min-height: 300px;
+  }
+
+  .kw-special-children-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- Responsive Design for smaller screens --- */
+  @media (max-width: 900px) {
+    .kw-special-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .kw-special-welcome-card, .kw-special-visit-card, .kw-special-crest-card, .kw-special-admissions-card, .kw-special-ethos-card, .kw-special-children-card {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+    .kw-special-welcome-card, .kw-special-children-card {
+        min-height: 400px;
+    }
+    .kw-special-crest-card {
+        padding: 40px 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="kw-special-container">
+
+  <div class="kw-special-card kw-special-welcome-card">
+    <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg" alt="Headteacher" class="kw-special-welcome-bg">
+    <div class="kw-special-welcome-content">
+      <h2 class="kw-special-title">Welcome from the Headteacher</h2>
+      <p class="kw-special-text">At Kentwood Academy, our guiding principle is 'Aim High, Be Kind, and Dare to be Different'. This motto, deeply rooted at our core, combined with exceptional teaching sets us apart.</p>
+      <a href="#" class="kw-special-btn" style="width: fit-content;">Read More</a>
+    </div>
+  </div>
+
+  <div class="kw-special-card kw-special-dark-bg kw-special-visit-card">
+    <div class="kw-special-card-content">
+      <h2 class="kw-special-title">Arrange a Personal Visit</h2>
+      <p class="kw-special-text">Experience Kentwood Academy firsthand. Tailored to your child's interests and admission stage, we offer visits year-round, from Nursery to Prep School.</p>
+      <a href="#" class="kw-special-btn kw-special-btn-outline">Arrange a Visit</a>
+    </div>
+  </div>
+
+  <div class="kw-special-card kw-special-dark-bg kw-special-crest-card">
+      <img src="images/logo.png" alt="Kentwood Academy Crest" class="kw-special-crest-img">
+  </div>
+
+  <div class="kw-special-card kw-special-light-bg kw-special-admissions-card">
+    <div class="kw-special-card-content">
+      <h2 class="kw-special-title">Admissions</h2>
+      <p class="kw-special-text">Selecting the ideal educational environment for your child is a significant and profound choice.</p>
+      <a href="#" class="kw-special-btn">Read More</a>
+    </div>
+  </div>
+
+  <div class="kw-special-card kw-special-light-bg kw-special-ethos-card">
+    <div class="kw-special-card-content">
+      <h2 class="kw-special-title">The Ethos and the Environment</h2>
+      <p class="kw-special-text">At Kentwood Academy, our ethos goes beyond academia. We believe in nurturing the whole child, promoting resilience, creativity, and global awareness. Set against the backdrop of Kent's natural beauty, our campus offers an environment where students are inspired daily, both by the lessons in the classroom and the serenity outside.</p>
+      <a href="#" class="kw-special-btn">Read More</a>
+    </div>
+  </div>
+
+  <div class="kw-special-card kw-special-children-card">
+    <img src="https://images.pexels.com/photos/7972347/pexels-photo-7972347.jpeg" alt="Children Waving" class="kw-special-children-bg">
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS Isolation: Prefix 'ft-' (Feature) used
+           to prevent conflicts.
+           ========================================= */
+
+        :root {
+            --ft-font-family: 'Bricolage Grotesque', sans-serif;
+            --ft-color-bg: #020035; /* Deep Navy Blue matching the screenshot */
+            --ft-color-text: #ffffff;
+            --ft-color-border: #ffffff;
+            --ft-spacing-col: 80px;
+            --ft-spacing-row: 100px;
+        }
+
+        /* Component Reset */
+        .ft-component-wrapper {
+            font-family: var(--ft-font-family);
+            background-color: var(--ft-color-bg);
+            color: var(--ft-color-text);
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+
+        .ft-component-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ft-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--ft-spacing-row);
+        }
+
+        /* --- Row Layout --- */
+        .ft-row {
+            display: flex;
+            align-items: center;
+            gap: var(--ft-spacing-col);
+        }
+
+        /* Alternating Layout: Even rows flip the order */
+        .ft-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* --- Image Side --- */
+        .ft-image-col {
+            flex: 1;
+            width: 100%;
+        }
+
+        .ft-image-wrapper {
+            width: 100%;
+            height: 400px; /* Fixed height for consistency */
+            overflow: hidden;
+            /* No border radius shown in this specific screenshot, keeping sharp edges */
+        }
+
+        .ft-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .ft-image-wrapper:hover .ft-image {
+            transform: scale(1.05); /* Subtle zoom effect */
+        }
+
+        /* --- Text Side --- */
+        .ft-text-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Left align content */
+            gap: 24px;
+        }
+
+        .ft-heading {
+            font-size: 42px;
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        .ft-description {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 90%;
+            font-weight: 400;
+        }
+
+        /* --- Button Styling --- */
+        .ft-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border: 1px solid var(--ft-color-border);
+            border-radius: 100px; /* Pill shape */
+            color: var(--ft-color-text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            background: transparent;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .ft-btn:hover {
+            background-color: #ffffff;
+            color: var(--ft-color-bg);
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 900px) {
+            .ft-row {
+                flex-direction: column !important; /* Stack everything vertically */
+                gap: 40px;
+            }
+            
+            .ft-heading {
+                font-size: 32px;
+            }
+
+            .ft-description {
+                max-width: 100%;
+            }
+
+            .ft-image-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ft-component-wrapper">
+    <div class="ft-container">
+
+        <div class="ft-row">
+            <div class="ft-image-col">
+                <div class="ft-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1594750852517-f37738fa2384?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Statue in a classic library setting" class="ft-image">
+                </div>
+            </div>
+            
+            <div class="ft-text-col">
+                <h2 class="ft-heading">Academic Excellence</h2>
+                <p class="ft-description">
+                    85% A*-B Grades at A Level. Dynamic instruction fosters intellectual curiosity, autonomy, and self-assurance. At Roedean, we inspire girls and boys to cultivate distinctiveness in character and innovative thought.
+                </p>
+                <a href="#" class="ft-btn">Read More</a>
+            </div>
+        </div>
+
+        <div class="ft-row">
+            <div class="ft-image-col">
+                <div class="ft-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1000&auto=format&fit=crop" alt="Students running on athletic track" class="ft-image">
+                </div>
+            </div>
+
+            <div class="ft-text-col">
+                <h2 class="ft-heading">A Happy Learning Environment</h2>
+                <p class="ft-description">
+                    Our mission is to ignite a lifelong passion for learning. By challenging the advanced and uplifting the less assured, we ensure each pupil realizes their unique academic potential.
+                </p>
+                <a href="#" class="ft-btn">Read More</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Related Articles Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="ra-component-wrapper">
+        
+        <header class="ra-header">
+            <h2 class="ra-main-title">Resources & Guides</h2>
+            <a href="#" class="ra-browse-btn">Browse all</a>
+        </header>
+
+        <div class="ra-articles-grid">
+
+            <article class="ra-card">
+                <div class="ra-card-image-wrapper">
+                    <img src="https://images.pexels.com/photos/31728399/pexels-photo-31728399.jpeg" alt="Beige bedroom interior" class="ra-card-image">
+                </div>
+                <div class="ra-card-content">
+                    <div class="ra-card-meta">
+                        <span class="ra-tag">Remodeling</span>
+                        <span class="ra-date">Dec 3, 2025</span>
+                    </div>
+                    <h3 class="ra-card-title">12 design tricks for picking the perfect home color palette</h3>
+                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                </div>
+            </article>
+
+            <article class="ra-card">
+                <div class="ra-card-image-wrapper">
+                    <img src="https://images.pexels.com/photos/6474450/pexels-photo-6474450.jpeg" alt="Color palette swatches on wooden table" class="ra-card-image">
+                </div>
+                <div class="ra-card-content">
+                    <div class="ra-card-meta">
+                        <span class="ra-tag">Design</span>
+                        <span class="ra-date">Dec 3, 2025</span>
+                    </div>
+                    <h3 class="ra-card-title">25 color trends designers can't wait to see in 2026</h3>
+                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                </div>
+            </article>
+
+            <article class="ra-card">
+                <div class="ra-card-image-wrapper">
+                    <img src="https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg" alt="Paint roller on a beige wall" class="ra-card-image">
+                </div>
+                <div class="ra-card-content">
+                    <div class="ra-card-meta">
+                        <span class="ra-tag">Construction</span>
+                        <span class="ra-date">Dec 3, 2025</span>
+                    </div>
+                    <h3 class="ra-card-title">Clever DIY home improvements you can easily do anytime</h3>
+                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+<style>
+    /* CSS Isolation Strategy:
+           All classes are prefixed with 'ra-' (Related Articles) to prevent 
+           conflicts with existing codebases.
+        */
+
+        :root {
+            --ra-font-family: 'Bricolage Grotesque', sans-serif;
+            --ra-color-text-main: #111111;
+            --ra-color-text-secondary: #666666;
+            --ra-color-bg-tag: #F3F4F6;
+            --ra-color-border-btn: #111111;
+            --ra-spacing-unit: 8px;
+        }
+
+        /* Reset for component isolation */
+        .ra-component-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ra-component-wrapper {
+            font-family: var(--ra-font-family);
+            color: var(--ra-color-text-main);
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 90px 20px;
+            background-color: #fff; /* Ensure white background as per image */
+        }
+
+        /* Header Section */
+        .ra-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: calc(var(--ra-spacing-unit) * 5); /* approx 40px */
+        }
+
+        .ra-main-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1;
+        }
+
+        .ra-browse-btn {
+            font-family: var(--ra-font-family);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--ra-color-text-main);
+            background: transparent;
+            border: 1px solid var(--ra-color-border-btn);
+            padding: 12px 24px;
+            border-radius: 999px; /* Pill shape */
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .ra-browse-btn:hover {
+            background-color: var(--ra-color-bg-tag);
+        }
+
+        /* Grid Section */
+        .ra-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* Responsive Switch for smaller screens, though desktop is priority */
+        @media (max-width: 900px) {
+            .ra-articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .ra-articles-grid {
+                grid-template-columns: 1fr;
+            }
+            .ra-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+        }
+
+        /* Article Card */
+        .ra-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ra-card-image-wrapper {
+            width: 100%;
+            aspect-ratio: 4 / 3; /* Matches the visual aspect ratio */
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .ra-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ra-card-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ra-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .ra-tag {
+            background-color: var(--ra-color-bg-tag);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .ra-date {
+            color: var(--ra-color-text-secondary);
+        }
+
+        .ra-card-title {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .ra-excerpt {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ra-color-text-secondary);
+        }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kentwood Academy Footer Recreation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<style>
+    /* --- Unique Namespace Styling (kw-footer-) --- */
+
+    /* Footer Container & Reset */
+    .kw-footer-container {
+        background-color: #050533; /* Deep Blue sampled from image */
+        color: #ffffff;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        width: 100%;
+    }
+
+    /* Reset inside the footer namespace */
+    .kw-footer-container * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .kw-footer-content-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .kw-footer-container a {
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    .kw-footer-container ul {
+        list-style: none;
+    }
+
+    /* --- Top Bar Section --- */
+    .kw-footer-top-bar {
+        padding: 35px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .kw-footer-top-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .kw-footer-cta-text {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+    }
+
+    .kw-footer-cta-buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    /* Outline Button Style */
+    .kw-footer-btn-outline {
+        display: inline-block;
+        padding: 12px 32px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 15px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .kw-footer-btn-outline:hover {
+         background-color: #ffffff;
+         color: #050533;
+    }
+
+    /* --- Main Footer Content --- */
+    .kw-footer-main {
+        padding: 70px 0 30px;
+    }
+
+    .kw-footer-grid {
+        display: grid;
+        /* Column ratios adjusted to match image: wider first column */
+        grid-template-columns: 2.5fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+        align-items: start;
+    }
+
+    /* Column 1: Logo & Info */
+    .kw-footer-logo-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .kw-footer-crest {
+        width: 55px;
+        height: auto;
+        margin-bottom: 15px;
+        /* Ensure crest is white */
+        filter: brightness(0) invert(1);
+    }
+
+    .kw-footer-logo-text {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .kw-footer-address {
+        font-style: normal;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+
+    .kw-footer-directions-btn {
+        /* Overriding standard size for this specific button */
+        padding: 12px 40px;
+        margin-bottom: 35px;
+    }
+
+    .kw-footer-socials {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .kw-footer-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .kw-footer-social-icon svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+
+    .kw-footer-social-icon:hover {
+        opacity: 0.7;
+    }
+
+    /* Columns 2, 3, 4: Link Lists */
+    .kw-footer-link-list li {
+        margin-bottom: 18px;
+    }
+
+    .kw-footer-link-list a {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .kw-footer-link-list a:hover {
+        opacity: 0.7;
+    }
+
+    /* --- Bottom Section --- */
+    .kw-footer-bottom {
+        text-align: right;
+    }
+
+    .kw-footer-designer {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+
+    /* --- Responsive Design --- */
+    @media (max-width: 1024px) {
+        .kw-footer-grid {
+            grid-template-columns: 1fr 1fr;
+             gap: 50px 30px;
+        }
+        .kw-footer-col-info {
+             grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .kw-footer-top-flex {
+            flex-direction: column;
+            text-align: center;
+            gap: 25px;
+        }
+        .kw-footer-cta-text {
+            font-size: 22px;
+        }
+        .kw-footer-bottom {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .kw-footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 40px;
+        }
+        .kw-footer-logo-block {
+            align-items: center;
+        }
+        .kw-footer-socials {
+            justify-content: center;
+        }
+        .kw-footer-cta-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        .kw-footer-btn-outline {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<footer class="kw-footer-container">
+    <div class="kw-footer-top-bar">
+        <div class="kw-footer-content-wrapper kw-footer-top-flex">
+            <h2 class="kw-footer-cta-text">We look forward to welcoming you to Kentwood.</h2>
+            <div class="kw-footer-cta-buttons">
+                <a href="#" class="kw-footer-btn-outline">Visit</a>
+                <a href="#" class="kw-footer-btn-outline">Enquire</a>
+                <a href="#" class="kw-footer-btn-outline">Apply</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="kw-footer-main">
+        <div class="kw-footer-content-wrapper kw-footer-grid">
+            <div class="kw-footer-col-info">
+                <div class="kw-footer-logo-block">
+                    <img src="images/logo.png" alt="Kentwood Crest" class="kw-footer-crest">
+                    <span class="kw-footer-logo-text">Maluti TVET College</span>
+                </div>
+                <address class="kw-footer-address">
+                    Greenwood Lane, Hawthorn Hill, Kent, CT12 4YZ<br>
+                    01234567890
+                </address>
+                <a href="#" class="kw-footer-btn-outline kw-footer-directions-btn">Get Directions</a>
+                
+                <div class="kw-footer-socials">
+                    <a href="#" class="kw-footer-social-icon" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.15 5.96C15.21 5.96 16.12 6.04 16.12 6.04V8.51H15.01C13.77 8.51 13.38 9.28 13.38 10.07V12.06H16.15L15.71 14.96H13.38V21.96C18.16 21.21 21.82 17.06 21.82 12.06C21.82 6.53 17.32 2.04 12 2.04Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="Instagram">
+                         <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24"><path d="M12.5,2C12.5,2 12.5,4.46 12.5,5.73C14.32,6.03 15.94,7.18 16.79,8.9H19.68C18.64,6.14 16.1,4 13.04,3.5V2H12.5M16.33,11.04C16.33,11.04 16.33,11.04 16.33,11.04C15.12,11.04 13.96,10.53 13.1,9.68C13.39,10.74 13.54,11.86 13.54,13C13.54,17.42 9.96,21 5.54,21C3.41,21 1.5,20.17 0.05,18.76L2.17,16.64C3.06,17.47 4.24,18 5.54,18C8.3,18 10.54,15.76 10.54,13C10.54,11.26 9.65,9.7 8.26,8.82L10.38,6.7C12.35,8.06 13.54,10.38 13.54,13H16.33V11.04Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="Tumblr">
+                        <svg viewBox="0 0 24 24"><path d="M14.84,15.87C14.06,16.09 13.5,16.57 13.24,17.42C13.13,18.16 13.36,21.97 13.36,21.97H9.34V16.59C9.34,15.84 9.36,13.58 9.36,13.58H6.93V10.4H8.94C8.94,10.4 8.83,7.97 9,6.4C9.38,3.93 11.74,2 14.57,2V5.33C14.57,5.33 13.36,5.38 13.05,5.8C12.74,6.22 12.77,7.5 12.77,8.36V10.38H15.63V13.56H12.82C12.82,13.56 12.82,14.62 12.88,14.93C12.94,15.24 13.24,15.45 13.5,15.38C13.77,15.32 14.84,14.93 14.84,14.93L16.07,17.76L14.84,15.87Z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Policies</a></li>
+                </ul>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Parent Portal</a></li>
+                    <li><a href="#">Pupil Portal</a></li>
+                    <li><a href="#">Stuff Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Term Dates</a></li>
+                    <li><a href="#">School Calendar</a></li>
+                    <li><a href="#">Admissions</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="kw-footer-content-wrapper kw-footer-bottom">
+            <span class="kw-footer-designer">Copyright &copy; 2024 Maluti TVET College. All rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

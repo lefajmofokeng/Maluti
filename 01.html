@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kentwood Hero Section Replication</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS Isolation: Prefix 'kw-' used
+           ========================================= */
+
+           * { margin: 0; padding: 0; }
+        /* Reset for component wrapper */
+        .kw-component-wrapper {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            /* Ensure the background image covers the whole area */
+            background-image: url('images/Gemini_Generated_Image_ap7ly1ap7ly1ap7l.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative;
+            color: #ffffff;
+        }
+
+        .kw-component-wrapper *, .kw-component-wrapper *::before, .kw-component-wrapper *::after {
+            box-sizing: inherit;
+        }
+
+        /* Add a subtle gradient overlay at the top so nav is readable, mimicking the image */
+        .kw-overlay-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%; /* Fade out halfway down */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.858) 0%, rgba(0, 0, 0, 0) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Header Section --- */
+        .kw-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            padding-top: 20px;
+        }
+
+        /* Top Bar (Secondary Nav) */
+        .kw-top-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 50px;
+            margin-bottom: 25px;
+        }
+
+        .kw-top-nav-list {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .kw-top-nav-link {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: opacity 0.3s ease;
+        }
+
+        .kw-top-nav-link:hover {
+            opacity: 1;
+        }
+
+        /* Main Navigation Area */
+        .kw-main-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* Align to top to handle logo height */
+            padding: 0 50px;
+        }
+
+        .kw-nav-group {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 15px 0 0 0; /* Offset to align with logo text roughly */
+            flex: 1; /* Take up available space */
+        }
+
+        .kw-nav-group.kw-right {
+            justify-content: flex-end;
+        }
+
+        /* Navigation Links & Dropdowns */
+        .kw-nav-item {
+            position: relative;
+        }
+
+        .kw-nav-link {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 10px; /* Spacing for dropdown trigger zone */
+        }
+
+        .kw-caret-icon {
+            width: 25px;
+            height: 25px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .kw-nav-item:hover .kw-caret-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu Styling */
+        .kw-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(30, 30, 30, 0.95); /* Dark semi-transparent background */
+            min-width: 200px;
+            list-style: none;
+            padding: 15px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .kw-nav-item:hover .kw-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .kw-dropdown-link {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #cccccc;
+            font-size: 16px;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .kw-dropdown-link:hover {
+            color: #ffffff;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+
+        /* Center Logo Section */
+        .kw-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 0 0 auto; /* Do not stretch */
+            margin: 0 40px; /* Spacing from navs */
+            transform: translateY(-10px); /* Slight upward nudge based on image */
+        }
+
+        .kw-shield-icon {
+            width: 50px;
+            height: auto;
+            margin-bottom: 12px;
+            fill: #ffffff;
+        }
+
+        .kw-school-name {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+
+        /* --- Hero Content Section --- */
+        .kw-hero-content {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 150px; /* Offset for header */
+        }
+
+        .kw-hero-headline {
+            font-size: 100px;
+            font-weight: 500; /* Bricolage Grotesque weight for bold appearance */
+            line-height: 1.1;
+            max-width: 1200px;
+            margin: 0 0 60px 0;
+            /* Subtle text shadow to lift it off the background */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .kw-explore-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .kw-explore-cta:hover {
+            transform: translateY(5px);
+        }
+
+        .kw-explore-text {
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .kw-arrow-down-icon {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            animation: kw-bounce 2s infinite;
+        }
+
+        @keyframes kw-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments for smaller screens (basic scaling) */
+        @media (max-width: 1200px) {
+            .kw-top-bar, .kw-main-nav-container { padding: 0 20px; }
+            .kw-nav-link { font-size: 16px; gap: 15px; }
+            .kw-hero-headline { font-size: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="kw-component-wrapper">
+        <div class="kw-overlay-gradient"></div>
+
+        <header class="kw-header">
+            <div class="kw-top-bar">
+                <ul class="kw-top-nav-list">
+                    <li><a href="#" class="kw-top-nav-link">Applications</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Calendar</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Students</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Staff</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Alumni</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Noticeboard</a></li>
+                    <li><a href="#" class="kw-top-nav-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <nav class="kw-main-nav-container">
+                <ul class="kw-nav-group kw-left">
+                    <li class="kw-nav-item">
+                        <a href="#" class="kw-nav-link">
+                            About
+                            <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </a>
+                        <ul class="kw-dropdown-menu">
+                            <li><a href="#" class="kw-dropdown-link">Our History</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Philosophy</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Executive Leadership</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Corporate Affairs</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Awards & Achievements</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Official Maluti Merchandise</a></li>
+                        </ul>
+                    </li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Admissions</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Events</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Enquire</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Visit</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Apply</a></li>
+                </ul>
+
+                <div class="kw-logo-container">
+                    <img src="images/logo.png" class="kw-shield-icon" alt="Maluti School Shield Logo">
+                </div>
+
+                <ul class="kw-nav-group kw-right">
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Campus Life</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Junior</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">Study at Maluti</a></li>
+                    <li class="kw-nav-item"><a href="#" class="kw-nav-link">News</a></li>
+                    <li class="kw-nav-item">
+                        <a href="#" class="kw-nav-link">
+                            Academic
+                            <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </a>
+                        <ul class="kw-dropdown-menu">
+                            <li><a href="#" class="kw-dropdown-link">NCV</a></li>
+                            <li><a href="#" class="kw-dropdown-link">NATED</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Internships</a></li>
+                            <li><a href="#" class="kw-dropdown-link">Learnerships</a></li>
+                        </ul>
+                    </li>
+                    <li class="kw-nav-item"><a href="careers.html" class="kw-nav-link">Careers</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="kw-hero-content">
+            <h1 class="kw-hero-headline">Education with<br>Heart & Soul</h1>
+            
+            <div class="kw-explore-cta">
+                <span class="kw-explore-text">Explore</span>
+                <svg class="kw-arrow-down-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L12 18L17 13" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 6L12 17" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>
+
+
+
