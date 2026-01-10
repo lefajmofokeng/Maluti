@@ -3,211 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maluti School - Education with Heart & Soul</title>
+    <title>Maluti School | Excellence in Learning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-dark: #141414;
-            --text-light: #ffffff;
-            --accent: rgba(255, 255, 255, 0.1);
-            --header-bg: rgba(0, 0, 0, 0.9);
-            --header-blur: 15px;
-        }
-
+        /* --- RESET & BASICS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Bricolage Grotesque', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: #ffffff;
+            color: #ffffff;
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        /* --- Header Structure --- */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER CONTAINER --- */
         .kw-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: var(--header-bg);
-            backdrop-filter: blur(var(--header-blur));
+            background: rgb(5, 13, 56);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* --- Top Bar (Hides on Scroll) --- */
+        /* --- TOP BAR --- */
         .kw-top-bar {
-            background-color: rgba(0,0,0,0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            max-height: 50px; /* Explicit height for transition */
-            opacity: 1;
-            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1001;
+            /* Removed overflow:hidden to allow dropdowns to be seen */
+            transition: transform 0.4s, opacity 0.3s, height 0.4s;
+            height: 45px;
         }
 
-        /* State when scrolled */
         .kw-header.scrolled .kw-top-bar {
-            max-height: 0;
+            transform: translateY(-100%);
             opacity: 0;
-            border-bottom: none;
+            height: 0;
+            pointer-events: none;
         }
 
         .kw-top-nav-list {
-            list-style: none;
             display: flex;
             justify-content: flex-end;
             gap: 25px;
-            padding: 10px 50px;
-            margin: 0;
+            padding: 0 50px;
+            height: 100%;
+            align-items: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .kw-top-nav-link {
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .kw-top-link-wrapper {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .kw-top-link {
+            color: rgba(255, 255, 255, 0.934);
             display: flex;
             align-items: center;
             gap: 4px;
-            transition: color 0.3s ease;
-            position: relative; /* Context for dropdown */
+            letter-spacing: 0.05em;
+            cursor: pointer;
         }
 
-        .kw-top-nav-link:hover { color: #ffffff; }
+        .kw-top-link:hover { color: #fff; }
 
-        /* --- Main Navigation --- */
-        .kw-main-nav-container {
+        /* --- MAIN NAV --- */
+        .kw-main-nav {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Logo left, Nav right */
+            justify-content: space-between;
             padding: 15px 50px;
             position: relative;
-            transition: padding 0.3s ease;
-        }
-        
-        .kw-header.scrolled .kw-main-nav-container {
-            padding: 10px 50px; /* Slightly compact on scroll */
         }
 
-        /* Logo */
-        .kw-logo-container {
-            flex-shrink: 0;
-            margin-right: 40px;
-            z-index: 1002;
+        .kw-header.scrolled .kw-main-nav {
+            padding: 10px 50px;
         }
 
-        .kw-shield-icon {
-            width: 40px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-        
-        .kw-header.scrolled .kw-shield-icon {
-            width: 35px;
+        .kw-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
         }
 
-        /* Combined Nav List */
-        .kw-nav-list {
-            list-style: none;
+        .kw-nav-links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px; /* Minimized gap */
-            margin: 0;
-            padding: 0;
+            gap: 5px;
             align-items: center;
         }
 
-        .kw-nav-item {
-            position: relative;
-        }
+        .kw-nav-item { position: relative; }
 
         .kw-nav-link {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 4px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background 0.3s ease;
+            gap: 5px;
+            padding: 8px 15px;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            border-radius: 6px;
+            white-space: nowrap;
         }
 
         .kw-nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.08);
+            color: #bfb9cb;
         }
 
-        .kw-caret-icon {
-            width: 14px;
-            height: 14px;
+        .kw-caret {
+            width: 17px;
+            height: 17px;
             fill: currentColor;
-            opacity: 0.7;
-            transition: transform 0.3s ease;
+            opacity: 1;
+            transition: transform 0.3s;
         }
 
-        .kw-nav-item:hover .kw-caret-icon,
-        .kw-top-nav-item:hover .kw-caret-icon {
-            transform: rotate(180deg);
-        }
-
-        /* --- Dropdowns (Z-Index Fix) --- */
-        .kw-dropdown-menu {
+        /* --- DROPDOWNS (Universal Styling) --- */
+        .kw-dropdown {
             position: absolute;
-            top: 100%;
+            top: 95%;
             left: 0;
-            background-color: #1a1a1a;
-            min-width: 200px;
-            list-style: none;
-            padding: 8px 0;
-            margin-top: 5px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+            min-width: 220px;
+            background: #020035;
+            
+            border-radius: 1px;
+            padding: 10px 0;
+            
+            
+            /* Animation States */
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
-            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-            z-index: 9999; /* Ensure it overlays everything */
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
         }
-        
-        /* Align dropdowns for items on the far right so they don't go offscreen */
-        .kw-nav-list .kw-nav-item:last-child .kw-dropdown-menu,
-        .kw-nav-list .kw-nav-item:nth-last-child(2) .kw-dropdown-menu {
+
+        /* Desktop Hover logic */
+        @media (min-width: 1101px) {
+            .kw-nav-item:hover .kw-dropdown,
+            .kw-top-link-wrapper:hover .kw-dropdown {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .kw-nav-item:hover .kw-caret,
+            .kw-top-link-wrapper:hover .kw-caret {
+                transform: rotate(180deg);
+            }
+        }
+
+        .kw-nav-item:last-child .kw-dropdown {
             left: auto;
             right: 0;
         }
 
-        .kw-nav-item:hover .kw-dropdown-menu,
-        .kw-top-nav-item:hover .kw-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .kw-dropdown-link {
+        .kw-drop-link {
             display: block;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
-            transition: all 0.2s ease;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ccc;
+            text-transform: none;
         }
 
-        .kw-dropdown-link:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding-left: 25px;
+        .kw-drop-link:hover {
+            color: #fff;
+            background: rgba(70, 69, 143, 0.385);
         }
 
-        /* --- Hero Section with Image --- */
-        .kw-hero-wrapper {
+        /* --- HERO SECTION --- */
+        .kw-hero {
             position: relative;
             height: 100vh;
             width: 100%;
@@ -215,276 +198,269 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: #ffffff;
         }
 
-        .kw-hero-image-container {
+        .kw-hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            object-fit: cover;
+            opacity: 0.7;
+            animation: slowZoom 20s infinite alternate;
         }
 
-        .kw-hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Subtly scale the image on load */
-            animation: zoomIn 20s infinite alternate;
-        }
-        
-        @keyframes zoomIn {
+        @keyframes slowZoom {
             from { transform: scale(1); }
             to { transform: scale(1.1); }
         }
 
-        /* Overlay gradient */
         .kw-hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.6) 0%,
-                rgba(0,0,0,0.3) 50%,
-                rgba(0,0,0,0.8) 100%
-            );
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0a0a0a);
             z-index: 2;
         }
 
         .kw-hero-content {
             position: relative;
-            z-index: 10;
+            z-index: 3;
             text-align: center;
             padding: 0 20px;
-            margin-top: 60px; /* Offset for header */
+            max-width: 900px;
         }
 
-        .kw-hero-headline {
-            font-size: clamp(40px, 8vw, 90px);
-            font-weight: 700;
+        .kw-hero-title {
+            font-size: clamp(32px, 7vw, 72px);
             line-height: 1.1;
-            margin-bottom: 40px;
-            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            font-weight: 500;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
         }
 
-        .kw-cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 40px;
-            background-color: #ffffff;
-            color: #000000;
-            text-decoration: none;
+        .kw-cta {
+            display: inline-block;
+            padding: 14px 30px;
+            border: 1px solid #fff;
+            color: #ffffff;
+            border-radius: 1px;
             font-weight: 600;
-            text-transform: uppercase;
-            border-radius: 50px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .kw-cta-button:hover {
-            transform: translateY(-5px);
+            font-size: 16px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* --- Mobile Responsive --- */
+        .kw-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* --- MOBILE TOGGLE --- */
         .kw-mobile-toggle {
             display: none;
-            flex-direction: column;
-            gap: 6px;
-            background: none;
+            
             border: none;
+            color: white;
+            padding: 8px;
+            background-color: transparent;
             cursor: pointer;
-            z-index: 1002;
         }
 
-        .kw-mobile-toggle span {
-            width: 30px;
-            height: 2px;
-            background-color: #ffffff;
-            transition: 0.3s ease;
-        }
-
-        .kw-mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-        .kw-mobile-toggle.active span:nth-child(2) { opacity: 0; }
-        .kw-mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
-
-        @media (max-width: 1024px) {
-            .kw-main-nav-container { padding: 15px 30px; }
-            .kw-nav-link { font-size: 14px; padding: 8px; }
-            .kw-top-nav-list { justify-content: center; }
-        }
-
-        @media (max-width: 900px) {
-            .kw-mobile-toggle { display: flex; }
-            
-            /* Hide top bar on mobile to save space */
+        /* --- RESPONSIVE BREAKPOINT (TABLET & MOBILE) --- */
+        @media (max-width: 1100px) {
             .kw-top-bar { display: none; }
+            .kw-mobile-toggle { display: block; }
 
-            .kw-nav-list {
+            .kw-nav-links {
                 position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 400px;
-                height: 100vh;
-                background-color: #141414;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #050d38;
                 flex-direction: column;
-                align-items: flex-start;
-                padding: 100px 30px 40px;
-                transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+                padding: 20px 0;
+                gap: 0;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 overflow-y: auto;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             }
 
-            .kw-nav-list.active { right: 0; }
-            
+            .kw-nav-links.active { transform: translateX(0); }
+
             .kw-nav-item { width: 100%; }
-            
+
             .kw-nav-link {
-                padding: 15px 0;
-                font-size: 20px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 15px 30px;
+                font-size: 18px;
+                border-radius: 0;
                 justify-content: space-between;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
             }
 
-            .kw-dropdown-menu {
+            .kw-dropdown {
                 position: static;
-                transform: none;
+                width: 100%;
                 opacity: 1;
                 visibility: visible;
-                background: transparent;
-                box-shadow: none;
+                transform: none;
+                background: rgba(0,0,0,0.2);
+                display: none; /* Controlled by JS toggle */
                 border: none;
-                padding-left: 20px;
-                display: none; /* JS toggle */
-                min-width: unset;
-                transition: none;
+                box-shadow: none;
+                padding: 5px 0 15px 20px;
             }
 
-            .kw-nav-item.dropdown-active .kw-dropdown-menu { display: block; }
-            .kw-nav-item.dropdown-active .kw-caret-icon { transform: rotate(180deg); }
+            .kw-nav-item.open .kw-dropdown { display: block; }
+            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+            
+            .kw-main-nav { padding: 15px 25px; }
+            .kw-header.scrolled .kw-main-nav { padding: 12px 25px; }
+        }
+
+        @media (max-width: 480px) {
+            .kw-hero-title { font-size: 34px; }
+            .kw-cta { width: 100%; padding: 15px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <header class="kw-header" id="mainHeader">
+    <header class="kw-header" id="header">
         <div class="kw-top-bar">
             <ul class="kw-top-nav-list">
-                <li class="kw-top-nav-item">
-                    <a href="#" class="kw-top-nav-link">
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
                         Applications
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">Apply Now</a></li>
-                        <li><a href="#" class="kw-dropdown-link">Status Check</a></li>
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Online Application</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Deadlines</a></li>
+                        <li><a href="#" class="kw-drop-link">Internation Students</a></li>
                     </ul>
                 </li>
-                <li class="kw-top-nav-item">
-                    <a href="#" class="kw-top-nav-link">
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
                         Calendar
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">Academic Year</a></li>
-                        <li><a href="#" class="kw-dropdown-link">Events</a></li>
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Academic Year</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports Calendar</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Events</a></li>
+                        <li><a href="#" class="kw-drop-link">Exam Timetable</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="kw-top-nav-link">Students</a></li>
-                <li><a href="#" class="kw-top-nav-link">Staff</a></li>
-                <li><a href="#" class="kw-top-nav-link">Alumni</a></li>
-                <li><a href="#" class="kw-top-nav-link">Contact</a></li>
+                <li><a href="#" class="kw-top-link">Staff</a></li>
+                <li><a href="#" class="kw-top-link">Students</a></li>
+                <li><a href="#" class="kw-top-link">Alumni & Friends</a></li>
+                <li><a href="#" class="kw-top-link">Noticeboard</a></li>
+                <li><a href="#" class="kw-top-link">Contact</a></li>
             </ul>
         </div>
 
-        <nav class="kw-main-nav-container">
-            <a href="#" class="kw-logo-container">
-                <svg class="kw-shield-icon" viewBox="0 0 100 120" fill="white">
-                    <path d="M50 5L10 20v30c0 25 15 45 40 60 25-15 40-35 40-60V20L50 5zm0 10l30 12v23c0 20-12 36-30 48-18-12-30-28-30-48V27l30-12z"/>
-                    <text x="50" y="65" font-size="40" text-anchor="middle" fill="white" font-weight="bold">M</text>
-                </svg>
+        <div class="kw-main-nav">
+            <a href="#" class="kw-logo">
+                <img src="images/logo.png" alt="Maluti School">
             </a>
 
-            <button class="kw-mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="kw-mobile-toggle" id="menuBtn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" id="line1"></line>
+                    <line x1="3" y1="6" x2="21" y2="6" id="line2"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" id="line3"></line>
+                </svg>
             </button>
 
-            <ul class="kw-nav-list" id="mainNav">
+            <ul class="kw-nav-links" id="navLinks">
                 <li class="kw-nav-item">
                     <a href="#" class="kw-nav-link">
                         About
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">History</a></li>
-                        <li><a href="#" class="kw-dropdown-link">Leadership</a></li>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Our History</a></li>
+                        <li><a href="#" class="kw-drop-link">Philosophy</a></li>
+                        <li><a href="#" class="kw-drop-link">Executive Leadership</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty & Staff Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Office & Department Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Corporate Affairs</a></li>
+                        <li><a href="#" class="kw-drop-link">Awards & Achievements</a></li>
+                        <li><a href="#" class="kw-drop-link">Official Maluti Merchandise</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Admissions & Aid
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">How to Apply</a></li>
+                        <li><a href="#" class="kw-drop-link">Admission Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Tuition, Fees & Payments</a></li>
+                        <li><a href="#" class="kw-drop-link">Registration</a></li>
+                        <li><a href="#" class="kw-drop-link">Assessments</a></li>
+                        <li><a href="#" class="kw-drop-link">Financial Aid</a></li>
+                        <li><a href="#" class="kw-drop-link">Late Enquires</a></li>
+                        <li><a href="#" class="kw-drop-link">Check Your Status</a></li>
+                        <li><a href="#" class="kw-drop-link">Timetables</a></li>
                     </ul>
                 </li>
                 <li class="kw-nav-item">
                     <a href="#" class="kw-nav-link">
-                        Admissions
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        Study @ Maluti
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">How to Apply</a></li>
-                        <li><a href="#" class="kw-dropdown-link">Fees</a></li>
-                    </ul>
-                </li>
-                <li class="kw-nav-item">
-                    <a href="#" class="kw-nav-link">
-                        Academic
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">NATED</a></li>
-                        <li><a href="#" class="kw-dropdown-link">NCV</a></li>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Programs & Courses</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Academic Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Library Resources</a></li>
                     </ul>
                 </li>
                 <li class="kw-nav-item">
                     <a href="#" class="kw-nav-link">
                         Campus Life
-                        <svg class="kw-caret-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </a>
-                    <ul class="kw-dropdown-menu">
-                        <li><a href="#" class="kw-dropdown-link">Sports</a></li>
-                        <li><a href="#" class="kw-dropdown-link">Residence</a></li>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Student Activities</a></li>
+                        <li><a href="#" class="kw-drop-link">Clubs & Socities</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports & Recreation</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Facilities</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Residence Life</a></li>
                     </ul>
                 </li>
-                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News</a></li>
-                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Contact</a></li>
-                <li class="kw-nav-item"><a href="#" class="kw-nav-link" style="background: white; color: black; font-weight: 700;">Apply</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News & Events</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Maluti Innovations</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Visit</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Careers</a></li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link" style="background: #fff; color: #050d38; font-weight: 600; border-radius: 1px;">Enroll Now</a>
+                </li>
             </ul>
-        </nav>
+        </div>
     </header>
 
-    <div class="kw-hero-wrapper">
-        <div class="kw-hero-image-container">
-                        <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=2560" alt="Maluti School Campus" class="kw-hero-img">
-        </div>
+    <section class="kw-hero">
+        <img src="https://images.pexels.com/photos/16938594/pexels-photo-16938594.jpeg" alt="School Architecture" class="kw-hero-bg">
         <div class="kw-hero-overlay"></div>
-
-        <main class="kw-hero-content">
-            <h1 class="kw-hero-headline">Education with<br>Heart & Soul</h1>
-            <a href="#explore" class="kw-cta-button">
-                Explore Campus
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-            </a>
-        </main>
-    </div>
+        <div class="kw-hero-content">
+            <h1 class="kw-hero-title">Great Choice, Great Place<br>For Lifelong Learning</h1>
+            <a href="#" class="kw-cta">Explore Campus</a>
+        </div>
+    </section>
 
     <script>
-        // 1. Scroll Effect: Hide Top Bar
-        const header = document.getElementById('mainHeader');
-        
+        // 1. Scroll Handler
+        const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
+            if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
@@ -492,49 +468,47 @@
         });
 
         // 2. Mobile Menu Logic
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mainNav = document.getElementById('mainNav');
-        const navItems = document.querySelectorAll('.kw-nav-item');
-
-        mobileToggle.addEventListener('click', () => {
-            mobileToggle.classList.toggle('active');
-            mainNav.classList.toggle('active');
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', () => {
+            const isActive = navLinks.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            
+            // Hamburger to X animation
+            if(isActive) {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+            }
         });
 
-        // 3. Mobile Accordion for Dropdowns
-        if (window.innerWidth <= 900) {
-            navItems.forEach(item => {
-                const link = item.querySelector('.kw-nav-link');
-                const dropdown = item.querySelector('.kw-dropdown-menu');
-                
-                if (dropdown) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        item.classList.toggle('dropdown-active');
-                    });
+        // 3. Mobile Accordion Logic
+        const navItems = document.querySelectorAll('.kw-nav-item');
+        navItems.forEach(item => {
+            const link = item.querySelector('.kw-nav-link');
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1100 && item.querySelector('.kw-dropdown')) {
+                    e.preventDefault();
+                    // Close others
+                    navItems.forEach(other => { if(other !== item) other.classList.remove('open'); });
+                    // Toggle current
+                    item.classList.toggle('open');
                 }
             });
-        }
-    </script>
+        });
 
+        // Close menu on resize if moving to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1100) {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+                navItems.forEach(item => item.classList.remove('open'));
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -562,238 +536,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
 
-<style>
-  /* --- Unique Namespace: maluti-chat- --- */
-  
-  /* Floating Trigger Button */
-  .maluti-chat-trigger {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 65px;
-    height: 65px;
-    background-color: #0091ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    box-shadow: 0 10px 25px rgba(0, 145, 255, 0.4);
-    cursor: pointer;
-    z-index: 9999;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
+    <style>
+        :root {
+            --bot-navy: #000c2d;
+            --bot-blue: #0091ff;
+            --bot-radius: 1px;
+        }
 
-  .maluti-chat-trigger:hover {
-    transform: scale(1.1);
-  }
+        /* --- Chat Window Setup --- */
+        .maluti-chat-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--bot-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 145, 255, 0.4);
+            cursor: pointer;
+            z-index: 9999;
+        }
 
-  /* Chat Window (Hidden by Default) */
-  .maluti-chat-window {
-    position: fixed;
-    bottom: 110px;
-    right: 30px;
-    width: 380px;
-    height: 550px;
-    background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-    display: none; /* Toggle this with JS */
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9998;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
+        .maluti-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            background: #ffffff;
+            border-radius: var(--bot-radius);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9998;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            border: 1px solid var(--bot-navy);
+        }
 
-  /* Header */
-  .maluti-chat-header {
-    background-color: #000c2d;
-    padding: 25px;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
+        .maluti-chat-header {
+            background-color: var(--bot-navy);
+            padding: 20px;
+            color: white;
+        }
 
-  .maluti-chat-avatar {
-    width: 45px;
-    height: 45px;
-    background: #0091ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-  }
+        .maluti-chat-header h4 { margin: 0; font-size: 18px; }
+        .maluti-chat-header span { font-size: 12px; opacity: 0.8; }
 
-  .maluti-chat-header-info h4 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-  }
+        .maluti-bot-disclaimer {
+            background: #fff3cd;
+            color: #856404;
+            font-size: 11px;
+            padding: 8px 20px;
+            border-bottom: 1px solid #ffeeba;
+            text-align: center;
+        }
 
-  .maluti-chat-header-info span {
-    font-size: 12px;
-    opacity: 0.8;
-  }
+        .maluti-chat-body {
+            flex: 1;
+            padding: 20px;
+            background-color: #f4f7f9;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-  /* Chat Body / Messages Area */
-  .maluti-chat-body {
-    flex: 1;
-    padding: 20px;
-    background-color: #f8faff;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+        /* --- Message Bubbles --- */
+        .maluti-chat-msg {
+            max-width: 85%;
+            padding: 12px 15px;
+            border-radius: var(--bot-radius);
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px solid transparent;
+        }
 
-  .maluti-chat-msg {
-    max-width: 80% ;
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+        .maluti-chat-msg.bot {
+            background: white;
+            color: var(--bot-navy);
+            align-self: flex-start;
+            border-color: #e0e0e0;
+        }
 
-  .maluti-chat-msg.bot {
-    background: white;
-    color: #000c2d;
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-  }
+        .maluti-chat-msg.user {
+            background: var(--bot-blue);
+            color: white;
+            align-self: flex-end;
+        }
 
-  /* WhatsApp Integration Button */
-  .maluti-chat-whatsapp-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: #25D366; /* WhatsApp Green */
-    color: white;
-    padding: 10px;
-    margin: 10px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    transition: opacity 0.3s;
-  }
+        /* --- Loading Indicator --- */
+        .maluti-typing {
+            font-style: italic;
+            font-size: 12px;
+            color: #777;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            display: none; /* Hidden by default */
+        }
 
-  .maluti-chat-whatsapp-link:hover {
-    opacity: 0.9;
-  }
+        .maluti-chat-footer {
+            padding: 15px;
+            background: white;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #eee;
+        }
 
-  /* Input Area */
-  .maluti-chat-footer {
-    padding: 20px;
-    background: white;
-    display: flex;
-    gap: 10px;
-    border-top: 1px solid #eee;
-  }
+        .maluti-chat-input {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: var(--bot-radius);
+            outline: none;
+        }
 
-  .maluti-chat-input {
-    flex: 1;
-    border: 1px solid #e0e0e0;
-    padding: 12px 15px;
-    border-radius: 12px;
-    outline: none;
-    font-family: inherit;
-  }
+        .maluti-chat-send {
+            background: var(--bot-navy);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: var(--bot-radius);
+            cursor: pointer;
+        }
 
-  .maluti-chat-send {
-    background: #0091ff;
-    color: white;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Animations */
-  @keyframes malutiSlideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .maluti-chat-active {
-    display: flex !important;
-    animation: malutiSlideUp 0.3s ease-out forwards;
-  }
-</style>
+        .maluti-chat-active { display: flex !important; }
+    </style>
 </head>
 <body>
 
-  <div class="maluti-chat-trigger" onclick="toggleMalutiChat()">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-  </div>
-
-  <div class="maluti-chat-window" id="malutiChatWindow">
-    <div class="maluti-chat-header">
-      <div class="maluti-chat-avatar">M</div>
-      <div class="maluti-chat-header-info">
-        <h4>Maluti Support</h4>
-        <span>Online | 2026 Admissions</span>
-      </div>
+    <div class="maluti-chat-trigger" onclick="toggleMalutiChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </div>
 
-    <div class="maluti-chat-body">
-      <div class="maluti-chat-msg bot">
-        Hello! 👋 Welcome to Maluti TVET College. How can I assist you with your 2026 application today?
-      </div>
-      <div class="maluti-chat-msg bot">
-        You can ask about courses, NSFAS, or campus locations.
-      </div>
+    <div class="maluti-chat-window" id="malutiChatWindow">
+        <div class="maluti-chat-header">
+            <h4>Maluti TVET Academic Support</h4>
+            <span>Automated Information System | 2026</span>
+        </div>
+        
+        <div class="maluti-bot-disclaimer">
+            NOTE: Automated responses may not always be accurate. Please verify critical info with the campus.
+        </div>
+
+        <div class="maluti-chat-body" id="chatBody">
+            <div class="maluti-chat-msg bot">
+                Welcome to the Maluti TVET College digital assistant. Please state your inquiry regarding admissions, courses, or financial aid.
+            </div>
+            <div id="typingIndicator" class="maluti-typing">System is processing request...</div>
+        </div>
+
+        <div class="maluti-chat-footer">
+            <input type="text" id="userInput" class="maluti-chat-input" placeholder="Enter your query here..." onkeypress="handleKeyPress(event)">
+            <button class="maluti-chat-send" onclick="sendMessage()">SEND</button>
+        </div>
     </div>
 
-    <a href="https://wa.me/27123456789" class="maluti-chat-whatsapp-link" target="_blank">
-      <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      Chat on WhatsApp
-    </a>
+    <script>
+        const knowledgeBase = {
+            "admission": "Admissions for the 2026 academic year are facilitated through the official Maluti TVET online application portal. Required documentation includes certified identification, recent academic transcripts, and valid proof of residential address. Applicants must ensure they meet the specific NQF criteria for their intended programme of study.",
+            "it": "The Information Technology NCV programme at Lere La Tshepe Campus covers Level 2 through Level 4. The curriculum focuses on Systems Development, Electronics, and Network Infrastructure. Successful graduates are eligible for roles in junior programming and technical support.",
+            "business": "Business Studies is a NATED programme encompassing N4 to N6 certificates. Key focus areas include Financial Accounting, Entrepreneurship, and Management Communication. A National Diploma is awarded upon completion of 18 months of theoretical study and 18 months of relevant practical work experience.",
+            "hospitality": "The Hospitality Management department provides training in Professional Cookery, Nutrition, and Applied Management. We offer both NCV and NATED tracks. Practical training is mandatory and occurs within our campus-based industrial kitchen facilities.",
+            "nsfas": "Financial assistance is available via the National Student Financial Aid Scheme (NSFAS). Eligibility is restricted to South African citizens who meet the designated household income threshold. Applications should be submitted directly via the NSFAS student portal.",
+            "requirement": "Entry into NCV Level 2 requires a minimum of a Grade 9 pass. Admission to NATED N4 programmes requires a National Senior Certificate (Grade 12) or an NCV Level 4 qualification. Specialized courses may have additional subject-specific requirements.",
+            "location": "Maluti TVET College operates across various campuses including Lere La Tshepe, Kwetlisong, and Bonamelo. It is important to confirm which campus hosts your specific faculty before completing your application.",
+            "contact": "For official administrative inquiries, please contact the central office at +27 58 713 6100. For faculty-specific guidance, visit the administration block at the relevant campus during official business hours."
+        };
 
-    <div class="maluti-chat-footer">
-      <input type="text" class="maluti-chat-input" placeholder="Type your question...">
-      <button class="maluti-chat-send">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-      </button>
-    </div>
-  </div>
+        function toggleMalutiChat() {
+            document.getElementById('malutiChatWindow').classList.toggle('maluti-chat-active');
+        }
 
-  <script>
-    function toggleMalutiChat() {
-      const chatWindow = document.getElementById('malutiChatWindow');
-      chatWindow.classList.toggle('maluti-chat-active');
-    }
-  </script>
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
 
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const chatBody = document.getElementById('chatBody');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const userText = inputField.value.trim().toLowerCase();
+
+            if (userText === "") return;
+
+            // 1. Add User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'maluti-chat-msg user';
+            userDiv.innerText = inputField.value;
+            chatBody.insertBefore(userDiv, typingIndicator);
+
+            inputField.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // 2. Show Loading State
+            typingIndicator.style.display = "block";
+
+            // 3. Process Response after delay
+            setTimeout(() => {
+                typingIndicator.style.display = "none";
+                
+                const botDiv = document.createElement('div');
+                botDiv.className = 'maluti-chat-msg bot';
+                
+                let response = "I do not have specific data regarding that query. Please refine your question or inquire about 'Admissions', 'Courses', 'NSFAS', or 'Requirements'.";
+
+                for (let key in knowledgeBase) {
+                    if (userText.includes(key)) {
+                        response = knowledgeBase[key];
+                        break;
+                    }
+                }
+
+                botDiv.innerText = response;
+                chatBody.insertBefore(botDiv, typingIndicator);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1500); // 1.5 second delay for a realistic "thinking" feel
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1074,6 +1044,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1188,6 +1161,7 @@
 
         .cp-campus-loc {
             font-size: 16px;
+            font-weight: 600;
             color: var(--cp-color-text-light);
             margin-bottom: 24px;
         }
@@ -1265,8 +1239,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Main Campus</h3>
-                        <p class="cp-campus-loc">Central Administration & Arts</p>
+                        <h3 class="cp-campus-name">Main Campus &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are closed for all courses.]</span></h3>
+                        <p class="cp-campus-loc">Educare, Administration and Business Studies</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1281,10 +1255,10 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Lere La Tshepe</h3>
+                        <h3 class="cp-campus-name">Lere La Tshepe &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are closed for IT, space for hospitality is limited, Business Studies' applications remain open.]</span></h3>
                         <p class="cp-campus-loc">Information Technology, Hospitality & Business Studies</p>
                     </div>
-                    <div class="cp-link-group">
+                    <div class="cp-link-group" onclick="window.location.href='lerelatshepe.html'">
                         <span>Learn more</span>
                         <svg class="cp-arrow" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
@@ -1297,8 +1271,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Harrismith</h3>
-                        <p class="cp-campus-loc">Business & Agrigultural Studies</p>
+                        <h3 class="cp-campus-name">Harrismith &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are open, both NCV & NATED, all courses]</h3>
+                        <p class="cp-campus-loc">Business & Agrigultural Studies.</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1313,8 +1287,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Bethlehem</h3>
-                        <p class="cp-campus-loc">Health Sciences</p>
+                        <h3 class="cp-campus-name">Bethlehem &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are open, space is limited to 45 applicants only]</span></h3>
+                        <p class="cp-campus-loc">Health Sciences, Arts & Culture.</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1329,8 +1303,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Kwetlisong</h3>
-                        <p class="cp-campus-loc">Vocational Training</p>
+                        <h3 class="cp-campus-name">Kwetlisong &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are open for NCV, skills program full]</span></h3>
+                        <p class="cp-campus-loc">Vocational Training, Skills Development & Information Technology.</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1345,8 +1319,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Bonamelo</h3>
-                        <p class="cp-campus-loc">Information Technology</p>
+                        <h3 class="cp-campus-name">Bonamelo &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications open on Jan 14, 2026 - Jan 23, 2026]</span></h3>
+                        <p class="cp-campus-loc">Public Relations, Management and Business Studies.</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1361,8 +1335,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Sefikeng</h3>
-                        <p class="cp-campus-loc">Agricultural Studies</p>
+                        <h3 class="cp-campus-name">Sefikeng &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications are open, both NATED & NCV, all courses.]</span></h3>
+                        <p class="cp-campus-loc">Information Technology &Agricultural Studies</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1377,8 +1351,8 @@
                 </div>
                 <div class="cp-content">
                     <div>
-                        <h3 class="cp-campus-name">Itemoheleng</h3>
-                        <p class="cp-campus-loc">Community & Skills Development</p>
+                        <h3 class="cp-campus-name">Itemoheleng &#8213; <span style="color: #2e2e2e; font-size: 16px; font-weight: 500;">[Applications for Electrical is full, Mechanical & Civil remain open.]</span></h3>
+                        <p class="cp-campus-loc">Engineering Studies: Electrical, Mechanical and Civil.</p>
                     </div>
                     <div class="cp-link-group">
                         <span>Learn more</span>
@@ -1652,7 +1626,7 @@
     <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg" alt="Headteacher" class="kw-special-welcome-bg">
     <div class="kw-special-welcome-content">
       <h2 class="kw-special-title">Welcome from the Headteacher</h2>
-      <p class="kw-special-text">At Kentwood Academy, our guiding principle is 'Aim High, Be Kind, and Dare to be Different'. This motto, deeply rooted at our core, combined with exceptional teaching sets us apart.</p>
+      <p class="kw-special-text">At Maluti, our guiding principle is 'Aim High, Be Kind, and Dare to be Different'. This motto, deeply rooted at our core, combined with exceptional teaching sets us apart.</p>
       <a href="#" class="kw-special-btn" style="width: fit-content;">Read More</a>
     </div>
   </div>
@@ -1660,7 +1634,7 @@
   <div class="kw-special-card kw-special-dark-bg kw-special-visit-card">
     <div class="kw-special-card-content">
       <h2 class="kw-special-title">Arrange a Personal Visit</h2>
-      <p class="kw-special-text">Experience Kentwood Academy firsthand. Tailored to your child's interests and admission stage, we offer visits year-round, from Nursery to Prep School.</p>
+      <p class="kw-special-text">Experience Maluti TVET College firsthand. Tailored to your child's interests and admission stage, we offer visits year-round, from Nursery to Prep School.</p>
       <a href="#" class="kw-special-btn kw-special-btn-outline">Arrange a Visit</a>
     </div>
   </div>
@@ -1680,7 +1654,7 @@
   <div class="kw-special-card kw-special-light-bg kw-special-ethos-card">
     <div class="kw-special-card-content">
       <h2 class="kw-special-title">The Ethos and the Environment</h2>
-      <p class="kw-special-text">At Kentwood Academy, our ethos goes beyond academia. We believe in nurturing the whole child, promoting resilience, creativity, and global awareness. Set against the backdrop of Kent's natural beauty, our campus offers an environment where students are inspired daily, both by the lessons in the classroom and the serenity outside.</p>
+      <p class="kw-special-text">At Maluti, our ethos goes beyond academia. We believe in nurturing the whole child, promoting resilience, creativity, and global awareness. Set against the backdrop of Kent's natural beauty, our campus offers an environment where students are inspired daily, both by the lessons in the classroom and the serenity outside.</p>
       <a href="#" class="kw-special-btn">Read More</a>
     </div>
   </div>
@@ -2473,7 +2447,7 @@
 <footer class="kw-footer-container">
     <div class="kw-footer-top-bar">
         <div class="kw-footer-content-wrapper kw-footer-top-flex">
-            <h2 class="kw-footer-cta-text">We look forward to welcoming you to Kentwood.</h2>
+            <h2 class="kw-footer-cta-text">We look forward to welcoming you to Maluti College.</h2>
             <div class="kw-footer-cta-buttons">
                 <a href="#" class="kw-footer-btn-outline">Visit</a>
                 <a href="#" class="kw-footer-btn-outline">Enquire</a>
@@ -2490,8 +2464,8 @@
                     <span class="kw-footer-logo-text">Maluti TVET College</span>
                 </div>
                 <address class="kw-footer-address">
-                    Greenwood Lane, Hawthorn Hill, Kent, CT12 4YZ<br>
-                    01234567890
+                    Corporate Office, Bethlehem, Wessels Street, CT12 4YZ<br>
+                    (058) 085 1234<br>
                 </address>
                 <a href="#" class="kw-footer-btn-outline kw-footer-directions-btn">Get Directions</a>
                 
@@ -2521,9 +2495,11 @@
 
             <div class="kw-footer-col-links">
                 <ul class="kw-footer-link-list">
-                    <li><a href="#">Parent Portal</a></li>
-                    <li><a href="#">Pupil Portal</a></li>
+                    <li><a href="#">Academic Year</a></li>
+                    <li><a href="#">Staff</a></li>
+                    <li><a href="#">Students</a></li>
                     <li><a href="#">Stuff Portal</a></li>
+                    <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
 
@@ -2532,6 +2508,9 @@
                     <li><a href="#">Term Dates</a></li>
                     <li><a href="#">School Calendar</a></li>
                     <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Support Services</a></li>
+
                 </ul>
             </div>
         </div>

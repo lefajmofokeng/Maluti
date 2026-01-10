@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maluti School</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: #ffffff;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER CONTAINER --- */
+        .kw-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 13, 56, 0.85); /* Semi-transparent background */
+            backdrop-filter: blur(12px); /* Blur effect */
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: background 0.4s ease;
+        }
+
+        /* --- TOP BAR (The part that hides) --- */
+        .kw-top-bar {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            /* Transition properties for smooth hiding */
+            max-height: 50px;
+            opacity: 1;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        /* The hidden state triggered by JS */
+        .kw-header.scrolled .kw-top-bar {
+            max-height: 0;
+            opacity: 0;
+            border: none;
+        }
+
+        .kw-top-nav-list {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            padding: 12px 50px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .kw-top-link {
+            color: rgba(255, 255, 255, 0.956);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+        }
+
+        .kw-top-link:hover { color: #fff; }
+
+        /* --- TOP BAR DROPDOWN FIX --- */
+        .kw-top-link-wrapper {
+            position: relative;
+        }
+
+        .kw-top-link-wrapper .kw-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: #151515;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            
+            /* Hidden State */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1002; /* Higher than header's z-index: 1000 */
+        }
+
+        .kw-top-link-wrapper:hover .kw-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        /* --- MAIN NAV --- */
+        .kw-main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 50px;
+            transition: padding 0.4s ease;
+        }
+
+        .kw-header.scrolled .kw-main-nav {
+            padding: 10px 50px; /* Shrink slightly on scroll */
+        }
+
+        /* LOGO */
+        .kw-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+        }
+        
+        .kw-logo svg {
+            width: 40px;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .kw-logo:hover svg { transform: scale(1.05); }
+
+        /* COMBINED MENU LINKS */
+        .kw-nav-links {
+            display: flex;
+            gap: 2px; /* Close proximity as requested */
+            align-items: center;
+        }
+
+        .kw-nav-item {
+            position: relative; /* Anchor for dropdown */
+        }
+
+        .kw-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            border-radius: 6px;
+        }
+
+        .kw-nav-link:hover {
+            background-color: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+
+        .kw-caret {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+            opacity: 0.6;
+            transition: transform 0.3s;
+        }
+
+        .kw-nav-item:hover .kw-caret { transform: rotate(180deg); }
+
+        /* --- DROPDOWNS --- */
+        .kw-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: #151515;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            
+            /* Hidden State */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1002; /* Same as top dropdowns */
+        }
+
+        /* Special alignment for right-most items so they don't go off screen */
+        .kw-nav-item:last-child .kw-dropdown,
+        .kw-nav-item:nth-last-child(2) .kw-dropdown {
+            left: auto;
+            right: 0;
+        }
+
+        .kw-nav-item:hover .kw-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .kw-drop-link {
+            display: block;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .kw-drop-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            padding-left: 25px; /* Slide effect */
+        }
+
+        /* --- HERO SECTION --- */
+        .kw-hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1; /* Lower than header */
+        }
+
+        /* Image styling */
+        .kw-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            /* Subtle zoom animation */
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Gradient Overlay */
+        .kw-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, #0a0a0a 100%);
+            z-index: 2;
+        }
+
+        .kw-hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            margin-top: 60px; /* Offset for header */
+            padding: 20px;
+        }
+
+        .kw-hero-title {
+            font-size: clamp(48px, 8vw, 60px);
+            line-height: 1;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .kw-cta {
+            display: inline-block;
+            padding: 10px 30px;
+            background: white;
+            color: black;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.05em;
+            transform: translateY(0);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        /* --- MOBILE TOGGLE --- */
+        .kw-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 1002;
+        }
+        
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1100px) {
+            .kw-top-bar { display: none; } /* Hide top bar on smaller screens to save space */
+            
+            .kw-mobile-toggle { display: block; }
+            
+            .kw-nav-links {
+                position: fixed;
+                top: 70px; /* Height of header */
+                left: 0;
+                width: 100%;
+                background: #111;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                padding: 0;
+                max-height: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                transition: max-height 0.4s ease;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .kw-nav-links.active {
+                max-height: 80vh; /* Allow scrolling within menu */
+            }
+
+            .kw-nav-item { width: 100%; }
+            
+            .kw-nav-link {
+                width: 100%;
+                padding: 20px 30px;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                font-size: 18px;
+            }
+
+            /* Mobile Dropdown Behavior */
+            .kw-dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: #0a0a0a;
+                min-width: 100%;
+                border: none;
+                display: none; /* Hidden by default */
+                padding-left: 20px;
+            }
+
+            .kw-nav-item.open .kw-dropdown { display: block; }
+            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+        }
+
+        /* --- IMPROVED MOBILE RESPONSIVENESS --- */
+        @media (max-width: 1100px) {
+            /* Adjust header padding for mobile */
+            .kw-main-nav {
+                padding: 15px 25px;
+            }
+            
+            .kw-header.scrolled .kw-main-nav {
+                padding: 10px 25px;
+            }
+            
+            /* Adjust hero content for mobile */
+            .kw-hero-title {
+                font-size: clamp(36px, 6vw, 48px);
+                margin-bottom: 20px;
+            }
+            
+            .kw-cta {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            
+            /* Better mobile menu positioning */
+            .kw-nav-links {
+                top: 70px;
+            }
+        }
+
+        /* --- TABLET RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .kw-nav-links {
+                gap: 1px;
+            }
+            
+            .kw-nav-link {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            
+            .kw-hero-title {
+                font-size: clamp(42px, 7vw, 52px);
+            }
+            
+            .kw-main-nav {
+                padding: 15px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Further adjustments for smaller screens */
+            .kw-hero-content {
+                margin-top: 40px;
+                padding: 15px;
+            }
+            
+            .kw-hero-title {
+                font-size: clamp(28px, 5vw, 36px);
+                line-height: 1.2;
+            }
+            
+            /* Ensure mobile menu doesn't exceed screen height */
+            .kw-nav-links.active {
+                max-height: calc(100vh - 70px);
+            }
+            
+            /* Better touch targets for mobile */
+            .kw-nav-link {
+                padding: 18px 25px;
+                min-height: 56px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .kw-drop-link {
+                padding: 14px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Adjustments for very small screens */
+            .kw-main-nav {
+                padding: 12px 20px;
+            }
+            
+            .kw-hero-content {
+                margin-top: 30px;
+            }
+            
+            .kw-hero-title {
+                font-size: 26px;
+            }
+            
+            .kw-logo img {
+                height: 35px; /* Slightly smaller logo on very small screens */
+            }
+            
+            .kw-cta {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* --- IMPROVE SCROLL BEHAVIOR FOR MOBILE --- */
+        /* Prevent body scrolling when mobile menu is open */
+        @media (max-width: 1100px) {
+            body.menu-open {
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="kw-header" id="header">
+        <div class="kw-top-bar">
+            <ul class="kw-top-nav-list">
+                <li class="kw-top-link-wrapper">
+                    <a href="#" class="kw-top-link">
+                        Applications
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Online Application</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Deadlines</a></li>
+                        <li><a href="#" class="kw-drop-link">International Students</a></li>
+                    </ul>
+                </li>
+                <li class="kw-top-link-wrapper">
+                    <a href="#" class="kw-top-link">
+                        Calendar
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Academic Year</a></li>
+                        <li><a href="#" class="kw-drop-link">School Events</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports Calendar</a></li>
+                        <li><a href="#" class="kw-drop-link">Holday Schedule</a></li>
+                        <li><a href="#" class="kw-drop-link">Exam Timetable</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="kw-top-link">Students</a></li>
+                <li><a href="#" class="kw-top-link">Staff</a></li>
+                <li><a href="#" class="kw-top-link">Alumni & Friends</a></li>
+                <li><a href="#" class="kw-top-link">Noticeboard</a></li>
+                <li><a href="#" class="kw-top-link">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="kw-main-nav">
+            <a href="#" class="kw-logo">
+                <img src="images/logo.png" style="height: 45px; width: auto;">
+            </a>
+
+            <button class="kw-mobile-toggle" id="menuBtn">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <ul class="kw-nav-links" id="navLinks">
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        About
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Our History</a></li>
+                        <li><a href="#" class="kw-drop-link">Philosophy</a></li>
+                        <li><a href="#" class="kw-drop-link">Executive Leadership</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty & Staff Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Department & Office Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Corporate Affairs</a></li>
+                        <li><a href="#" class="kw-drop-link">Awards & Achievements</a></li>
+                        <li><a href="#" class="kw-drop-link">Official Maluti Merchandise</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Admissions & Aid
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">How to Apply</a></li>
+                        <li><a href="#" class="kw-drop-link">Admission Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Tuition, Fees & Payments</a></li>
+                        <li><a href="#" class="kw-drop-link">Registration</a></li>
+                        <li><a href="#" class="kw-drop-link">Financial Aid</a></li>
+                        <li><a href="#" class="kw-drop-link">Assessments</a></li>
+                        <li><a href="#" class="kw-drop-link">Late Enquires</a></li>
+                        <li><a href="#" class="kw-drop-link">Check Your Status</a></li>
+                        <li><a href="#" class="kw-drop-link">Timetables</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Campus Life
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Student Activities</a></li>
+                        <li><a href="#" class="kw-drop-link">Clubs & Societies</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports & Recreation</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Facilities</a></li>
+                        <li><a href="#" class="kw-drop-link">Residence Life</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Study at Maluti
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Programs & Courses</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Academic Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Library Resources</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News & Events</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Enquire</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Visit</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Careers</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link" style="background: white; color: black; font-weight: bold; border-radius: 50px; margin-left: 10px;">Enroll Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="kw-hero">
+        <img src="https://images.pexels.com/photos/16938594/pexels-photo-16938594.jpeg" alt="School Architecture" class="kw-hero-bg">
+        
+        <div class="kw-hero-overlay"></div>
+        
+        <div class="kw-hero-content">
+            <h1 class="kw-hero-title">Greate Choice, Great Place<br>For Lifelong Learning</h1>
+            <a href="#" class="kw-cta">Explore Campus</a>
+        </div>
+    </section>
+
+    <script>
+        // 1. Scroll Handler for Header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            
+            // Toggle icon shape (Simple swap)
+            const isOpen = navLinks.classList.contains('active');
+            if(isOpen) {
+                menuBtn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                menuBtn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+            }
+        });
+
+        // 3. Mobile Dropdowns (Accordion Style)
+        const itemsWithDropdowns = document.querySelectorAll('.kw-nav-item');
+        
+        itemsWithDropdowns.forEach(item => {
+            const link = item.querySelector('.kw-nav-link');
+            const dropdown = item.querySelector('.kw-dropdown');
+            
+            if (dropdown && window.innerWidth <= 1100) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    item.classList.toggle('open');
+                });
+            }
+        });
+
+        // 4. Close mobile menu when clicking on a dropdown link (for better UX)
+        const dropLinks = document.querySelectorAll('.kw-drop-link');
+        dropLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1100) {
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    menuBtn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+                    
+                    // Also close any open dropdown items
+                    itemsWithDropdowns.forEach(item => {
+                        item.classList.remove('open');
+                    });
+                }
+            });
+        });
+
+        // 5. Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1100 && 
+                navLinks.classList.contains('active') &&
+                !e.target.closest('.kw-nav-links') &&
+                !e.target.closest('.kw-mobile-toggle')) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                menuBtn.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+                
+                // Close any open dropdown items
+                itemsWithDropdowns.forEach(item => {
+                    item.classList.remove('open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maluti School | Excellence in Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: #ffffff;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER CONTAINER --- */
+        .kw-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgb(5, 13, 56);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- TOP BAR --- */
+        .kw-top-bar {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1001;
+            /* Removed overflow:hidden to allow dropdowns to be seen */
+            transition: transform 0.4s, opacity 0.3s, height 0.4s;
+            height: 45px;
+        }
+
+        .kw-header.scrolled .kw-top-bar {
+            transform: translateY(-100%);
+            opacity: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .kw-top-nav-list {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            padding: 0 50px;
+            height: 100%;
+            align-items: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .kw-top-link-wrapper {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .kw-top-link {
+            color: rgba(255, 255, 255, 0.934);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+
+        .kw-top-link:hover { color: #fff; }
+
+        /* --- MAIN NAV --- */
+        .kw-main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 50px;
+            position: relative;
+        }
+
+        .kw-header.scrolled .kw-main-nav {
+            padding: 10px 50px;
+        }
+
+        .kw-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .kw-nav-links {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .kw-nav-item { position: relative; }
+
+        .kw-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .kw-nav-link:hover {
+            color: #bfb9cb;
+        }
+
+        .kw-caret {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            opacity: 1;
+            transition: transform 0.3s;
+        }
+
+        /* --- DROPDOWNS (Universal Styling) --- */
+        .kw-dropdown {
+            position: absolute;
+            top: 95%;
+            left: 0;
+            min-width: 220px;
+            background: #020035;
+            
+            border-radius: 1px;
+            padding: 10px 0;
+            
+            
+            /* Animation States */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+        }
+
+        /* Desktop Hover logic */
+        @media (min-width: 1101px) {
+            .kw-nav-item:hover .kw-dropdown,
+            .kw-top-link-wrapper:hover .kw-dropdown {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .kw-nav-item:hover .kw-caret,
+            .kw-top-link-wrapper:hover .kw-caret {
+                transform: rotate(180deg);
+            }
+        }
+
+        .kw-nav-item:last-child .kw-dropdown {
+            left: auto;
+            right: 0;
+        }
+
+        .kw-drop-link {
+            display: block;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ccc;
+            text-transform: none;
+        }
+
+        .kw-drop-link:hover {
+            color: #fff;
+            background: rgba(70, 69, 143, 0.385);
+        }
+
+        /* --- HERO SECTION --- */
+        .kw-hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .kw-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .kw-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0a0a0a);
+            z-index: 2;
+        }
+
+        .kw-hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 900px;
+        }
+
+        .kw-hero-title {
+            font-size: clamp(32px, 7vw, 72px);
+            line-height: 1.1;
+            font-weight: 500;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .kw-cta {
+            display: inline-block;
+            padding: 14px 30px;
+            border: 1px solid #fff;
+            color: #ffffff;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .kw-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* --- MOBILE TOGGLE --- */
+        .kw-mobile-toggle {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* --- RESPONSIVE BREAKPOINT (TABLET & MOBILE) --- */
+        @media (max-width: 1100px) {
+            .kw-top-bar { display: none; }
+            .kw-mobile-toggle { display: block; }
+
+            .kw-nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #050d38;
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow-y: auto;
+            }
+
+            .kw-nav-links.active { transform: translateX(0); }
+
+            .kw-nav-item { width: 100%; }
+
+            .kw-nav-link {
+                padding: 15px 30px;
+                font-size: 18px;
+                border-radius: 0;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .kw-dropdown {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(0,0,0,0.2);
+                display: none; /* Controlled by JS toggle */
+                border: none;
+                box-shadow: none;
+                padding: 5px 0 15px 20px;
+            }
+
+            .kw-nav-item.open .kw-dropdown { display: block; }
+            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+            
+            .kw-main-nav { padding: 15px 25px; }
+            .kw-header.scrolled .kw-main-nav { padding: 12px 25px; }
+        }
+
+        @media (max-width: 480px) {
+            .kw-hero-title { font-size: 34px; }
+            .kw-cta { width: 100%; padding: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="kw-header" id="header">
+        <div class="kw-top-bar">
+            <ul class="kw-top-nav-list">
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
+                        Applications
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Online Application</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Deadlines</a></li>
+                        <li><a href="#" class="kw-drop-link">Internation Students</a></li>
+                    </ul>
+                </li>
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
+                        Calendar
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Academic Year</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports Calendar</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Events</a></li>
+                        <li><a href="#" class="kw-drop-link">Exam Timetable</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="kw-top-link">Staff</a></li>
+                <li><a href="#" class="kw-top-link">Students</a></li>
+                <li><a href="#" class="kw-top-link">Alumni & Friends</a></li>
+                <li><a href="#" class="kw-top-link">Noticeboard</a></li>
+                <li><a href="#" class="kw-top-link">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="kw-main-nav">
+            <a href="#" class="kw-logo">
+                <img src="images/logo.png" alt="Maluti School">
+            </a>
+
+            <button class="kw-mobile-toggle" id="menuBtn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" id="line1"></line>
+                    <line x1="3" y1="6" x2="21" y2="6" id="line2"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" id="line3"></line>
+                </svg>
+            </button>
+
+            <ul class="kw-nav-links" id="navLinks">
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        About
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Our History</a></li>
+                        <li><a href="#" class="kw-drop-link">Philosophy</a></li>
+                        <li><a href="#" class="kw-drop-link">Executive Leadership</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty & Staff Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Office & Department Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Corporate Affairs</a></li>
+                        <li><a href="#" class="kw-drop-link">Awards & Achievements</a></li>
+                        <li><a href="#" class="kw-drop-link">Official Maluti Merchandise</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Admissions & Aid
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">How to Apply</a></li>
+                        <li><a href="#" class="kw-drop-link">Admission Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Tuition, Fees & Payments</a></li>
+                        <li><a href="#" class="kw-drop-link">Registration</a></li>
+                        <li><a href="#" class="kw-drop-link">Assessments</a></li>
+                        <li><a href="#" class="kw-drop-link">Financial Aid</a></li>
+                        <li><a href="#" class="kw-drop-link">Late Enquires</a></li>
+                        <li><a href="#" class="kw-drop-link">Check Your Status</a></li>
+                        <li><a href="#" class="kw-drop-link">Timetables</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Study @ Maluti
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Programs & Courses</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Academic Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Library Resources</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link">
+                        Campus Life
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </a>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Student Activities</a></li>
+                        <li><a href="#" class="kw-drop-link">Clubs & Socities</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports & Recreation</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Facilities</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Residence Life</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News & Events</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Maluti Innovations</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Visit</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Careers</a></li>
+                <li class="kw-nav-item">
+                    <a href="#" class="kw-nav-link" style="background: #fff; color: #050d38; font-weight: 800; border-radius: 50px;">Enroll Now</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <script>
+        // 1. Scroll Handler
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Mobile Menu Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', () => {
+            const isActive = navLinks.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            
+            // Hamburger to X animation
+            if(isActive) {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+            }
+        });
+
+        // 3. Mobile Accordion Logic
+        const navItems = document.querySelectorAll('.kw-nav-item');
+        navItems.forEach(item => {
+            const link = item.querySelector('.kw-nav-link');
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1100 && item.querySelector('.kw-dropdown')) {
+                    e.preventDefault();
+                    // Close others
+                    navItems.forEach(other => { if(other !== item) other.classList.remove('open'); });
+                    // Toggle current
+                    item.classList.toggle('open');
+                }
+            });
+        });
+
+        // Close menu on resize if moving to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1100) {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+                navItems.forEach(item => item.classList.remove('open'));
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lere La Tshepe Campus - 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS Isolation: Prefix 'llt-'
+           ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }   
+
+        :root {
+            --llt-font: 'Bricolage Grotesque', sans-serif;
+            --llt-navy: #020035;
+            --llt-orange: #F06449;
+            --llt-bg-light: #F4F6F9;
+            --llt-white: #ffffff;
+            --llt-text: #444444;
+            --llt-border-color: #e2e8f0;
+            --llt-radius: 1px; /* STRICT 1PX RADIUS AS REQUESTED */
+        }
+
+        .llt-page-wrapper {
+            font-family: var(--llt-font);
+            color: var(--llt-navy);
+            background-color: var(--llt-white);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .llt-page-wrapper * {
+            box-sizing: border-box;
+        }
+
+        .llt-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .llt-section {
+            padding: 80px 0;
+        }
+
+        /* --- Hero Section --- */
+        .llt-hero {
+            background-image: linear-gradient(rgba(2, 0, 53, 0.85), rgba(2, 0, 53, 0.75)), url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            color: var(--llt-white);
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .llt-hero h1 {
+            font-size: clamp(40px, 5vw, 72px);
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .llt-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- About / Current State --- */
+        .llt-state-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .llt-tag {
+            color: var(--llt-orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .llt-headline {
+            font-size: 42px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .llt-text {
+            color: var(--llt-text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .llt-img-responsive {
+            width: 100%;
+            border-radius: var(--llt-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- Courses Section (Redesigned with Tables) --- */
+        .llt-courses-bg {
+            background-color: var(--llt-bg-light);
+        }
+
+        .llt-program-block {
+            background: var(--llt-white);
+            border: 1px solid var(--llt-border-color);
+            border-radius: var(--llt-radius);
+            margin-bottom: 60px;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        .llt-program-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--llt-navy);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .llt-program-title h3 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--llt-navy);
+        }
+
+        .llt-program-type {
+            background: var(--llt-navy);
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--llt-radius);
+            text-transform: uppercase;
+        }
+
+        .llt-program-desc {
+            font-size: 18px;
+            color: var(--llt-text);
+            margin-bottom: 30px;
+            max-width: 900px;
+        }
+
+        /* Table Styling */
+        .llt-table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border: 1px solid var(--llt-border-color);
+            border-radius: var(--llt-radius);
+        }
+
+        .llt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            min-width: 700px;
+        }
+
+        .llt-table th {
+            background-color: #f8fafc;
+            text-align: left;
+            padding: 18px;
+            font-weight: 700;
+            color: var(--llt-navy);
+            border-bottom: 2px solid var(--llt-border-color);
+        }
+
+        .llt-table td {
+            padding: 18px;
+            border-bottom: 1px solid var(--llt-border-color);
+            vertical-align: top;
+            color: var(--llt-text);
+        }
+
+        .llt-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .llt-subject-list {
+            margin: 0;
+            padding-left: 18px;
+        }
+        
+        .llt-subject-list li {
+            margin-bottom: 4px;
+        }
+
+        /* Career & Requirements Section */
+        .llt-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: #fdfdfd;
+            padding: 30px;
+            border: 1px solid var(--llt-border-color);
+            border-radius: var(--llt-radius);
+        }
+
+        .llt-info-box h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--llt-orange);
+            text-transform: uppercase;
+        }
+
+        .llt-info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .llt-info-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--llt-text);
+            font-size: 15px;
+        }
+
+        .llt-info-list li::before {
+            content: "•";
+            color: var(--llt-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .llt-btn-apply {
+            display: inline-block;
+            background-color: var(--llt-orange);
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--llt-radius);
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .llt-btn-apply:hover {
+            background-color: #d85a42;
+        }
+
+        /* --- Download Section --- */
+        .llt-download-bar {
+            background: var(--llt-navy);
+            color: var(--llt-white);
+            padding: 40px;
+            border-radius: var(--llt-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .llt-btn-download {
+            background: var(--llt-orange);
+            color: var(--llt-white);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: var(--llt-radius);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        /* --- Contacts & Map --- */
+        .llt-contact-split {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+        }
+
+        .llt-faculty-card {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid var(--llt-border-color);
+            border-radius: var(--llt-radius);
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .llt-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--llt-radius);
+            background-color: #eee;
+            object-fit: cover;
+        }
+
+        .llt-map-frame {
+            width: 100%;
+            height: 280px; 
+            background: #eee;
+            border-radius: var(--llt-radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Articles --- */
+        .llt-article-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .llt-article-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .llt-article-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: var(--llt-radius);
+            margin-bottom: 16px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .llt-state-grid, .llt-contact-split, .llt-article-grid, .llt-info-grid {
+                grid-template-columns: 1fr;
+            }
+            .llt-download-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="llt-page-wrapper">
+
+    <header class="llt-hero">
+        <div class="llt-container">
+            <h1>Lere La Tshepe Campus</h1>
+            <p>A center of excellence for Information Technology, Business Studies, and Hospitality Management. We are dedicated to equipping students with practical skills for the modern workforce.</p>
+        </div>
+    </header>
+
+    <section class="llt-section">
+        <div class="llt-container llt-state-grid">
+            <div>
+                <span class="llt-tag">Current State</span>
+                <h2 class="llt-headline">Modernizing for the future of skills training.</h2>
+                <p class="llt-text">Lere La Tshepe is currently undergoing an exciting phase of digital and infrastructural transformation. We have recently upgraded our three main computer laboratories with high-spec machines to support our NCV IT curriculum.</p>
+                <br>
+                <p class="llt-text">Our hospitality wing has received new industrial-grade kitchen equipment to ensure our NATED and NCV students train in environments that mirror top-tier hotels. The campus grounds are fully operational, safe, and vibrant with student life.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?q=80&w=800" alt="Students in IT Lab" class="llt-img-responsive">
+            </div>
+        </div>
+    </section>
+
+    <section class="llt-section llt-courses-bg">
+        <div class="llt-container">
+            <h2 class="llt-headline" style="text-align: center; margin-bottom: 60px;">Academic Programmes (2026)</h2>
+            
+            <div class="llt-program-block">
+                <div class="llt-program-header">
+                    <div class="llt-program-title">
+                        <h3>Information Technology</h3>
+                        <span class="llt-program-type">NCV Programme (National Certificate Vocational)</span>
+                    </div>
+                </div>
+                
+                <p class="llt-program-desc">
+                    This vocational programme is designed to provide students with a solid foundation in the IT industry. Students will learn the building blocks of software development, how computers communicate in a network, and the intricacies of hardware maintenance. It combines theory with practical lab work to prepare students for technical roles immediately upon completion.
+                </p>
+
+                <div class="llt-table-wrapper">
+                    <table class="llt-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Level</th>
+                                <th width="15%">Duration</th>
+                                <th>Curriculum Subjects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Level 2</strong></td>
+                                <td>1 Year</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Introduction to Systems Development</li>
+                                        <li>Electronics & Digital Concepts</li>
+                                        <li>Introduction to Information Systems</li>
+                                        <li>Mathematics / Mathematical Literacy</li>
+                                        <li>English First Additional Language</li>
+                                        <li>Life Orientation</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Level 3</strong></td>
+                                <td>1 Year</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Systems Analysis and Design</li>
+                                        <li>Computer Hardware and Software</li>
+                                        <li>Principles of Computer Programming</li>
+                                        <li>Mathematics</li>
+                                        <li>Life Orientation</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Level 4</strong></td>
+                                <td>1 Year</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Systems Development (Advanced Programming)</li>
+                                        <li>Data Communication and Networking</li>
+                                        <li>IT Project Management</li>
+                                        <li>Mathematics</li>
+                                        <li>Life Orientation</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="llt-info-grid">
+                    <div class="llt-info-box">
+                        <h4>Admission Requirements</h4>
+                        <ul class="llt-info-list">
+                            <li>Grade 9 Pass (minimum)</li>
+                            <li>Preference given to students with Mathematics aptitude</li>
+                            <li>Placement test may be required</li>
+                        </ul>
+                    </div>
+                    <div class="llt-info-box">
+                        <h4>Career Opportunities</h4>
+                        <ul class="llt-info-list">
+                            <li>Junior Software Developer</li>
+                            <li>IT Technician / Support Specialist</li>
+                            <li>Network Administrator</li>
+                            <li>Systems Analyst Assistant</li>
+                            <li>Database Administrator</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <a href="#apply" class="llt-btn-apply">Apply for IT Programme</a>
+                </div>
+            </div>
+
+            <div class="llt-program-block">
+                <div class="llt-program-header">
+                    <div class="llt-program-title">
+                        <h3>Business Studies</h3>
+                        <span class="llt-program-type">NATED Programme (Report 191)</span>
+                    </div>
+                </div>
+                
+                <p class="llt-program-desc">
+                    The Business Studies NATED programme focuses on the administrative, financial, and managerial aspects of the modern business world. This course moves at a fast pace (semester based) and is ideal for students who want to enter the corporate world with a strong understanding of entrepreneurship, sales, and personnel management.
+                </p>
+
+                <div class="llt-table-wrapper">
+                    <table class="llt-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Certificate</th>
+                                <th width="15%">Duration</th>
+                                <th>Curriculum Subjects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>N4</strong></td>
+                                <td>1 Semester</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Entrepreneurship and Business Management N4</li>
+                                        <li>Management Communication N4</li>
+                                        <li>Computer Practice N4</li>
+                                        <li>Financial Accounting N4</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>N5</strong></td>
+                                <td>1 Semester</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Sales Management N5</li>
+                                        <li>Labour Relations N5</li>
+                                        <li>Entrepreneurship and Business Management N5</li>
+                                        <li>Computer Practice N5</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>N6</strong></td>
+                                <td>1 Semester</td>
+                                <td>
+                                    <ul class="llt-subject-list">
+                                        <li>Marketing Management N6</li>
+                                        <li>Personnel Management N6</li>
+                                        <li>Entrepreneurship and Business Management N6</li>
+                                        <li>Computer Practice N6</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="llt-info-grid">
+                    <div class="llt-info-box">
+                        <h4>Admission Requirements</h4>
+                        <ul class="llt-info-list">
+                            <li>Grade 12 (NSC) or Senior Certificate</li>
+                            <li>Or NCV Level 4 Certificate</li>
+                        </ul>
+                    </div>
+                    <div class="llt-info-box">
+                        <h4>Career Opportunities</h4>
+                        <ul class="llt-info-list">
+                            <li>Business Administrator</li>
+                            <li>Sales Consultant / Manager</li>
+                            <li>Human Resources Assistant</li>
+                            <li>Entrepreneur / Small Business Owner</li>
+                            <li>Marketing Assistant</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <a href="#apply" class="llt-btn-apply">Apply for Business Studies</a>
+                </div>
+            </div>
+
+            <div class="llt-program-block">
+                <div class="llt-program-header">
+                    <div class="llt-program-title">
+                        <h3>Hospitality Management</h3>
+                        <span class="llt-program-type">Combined NCV & NATED Offerings</span>
+                    </div>
+                </div>
+                
+                <p class="llt-program-desc">
+                    Hospitality Management at Lere La Tshepe covers everything from professional cookery and food preparation to front-of-house services and hotel management. Students train in industrial kitchens and learn the high standards of service required by the international tourism and hospitality sector.
+                </p>
+
+                <div class="llt-table-wrapper">
+                    <table class="llt-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">Stream</th>
+                                <th width="15%">Level/Cert</th>
+                                <th>Curriculum Subjects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3"><strong>NCV<br>(Vocational)</strong><br><small>1 Year per level</small></td>
+                                <td><strong>Level 2</strong></td>
+                                <td>Food Preparation, Hospitality Services, Client Services & Human Relations, Life Orientation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Level 3</strong></td>
+                                <td>Food Preparation, Hospitality Generics, Client Services, Math Literacy.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Level 4</strong></td>
+                                <td>Advanced Food Preparation, Hospitality Services, Professional Cookery, Math Literacy.</td>
+                            </tr>
+                            
+                            <tr style="border-top: 2px solid #e2e8f0;">
+                                <td rowspan="3"><strong>NATED<br>(Report 191)</strong><br><small>1 Semester per cert</small></td>
+                                <td><strong>N4</strong></td>
+                                <td>Applied Management N4, Catering Theory & Practical N4, Sanitation & Safety N4, Nutrition & Menu Planning N4.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>N5</strong></td>
+                                <td>Applied Management N5, Catering Theory & Practical N5, Food & Beverage Service N5, Entrepreneurship N5.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>N6</strong></td>
+                                <td>Applied Management N6, Catering Theory & Practical N6, Communication N6, Computer Practice N6.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="llt-info-grid">
+                    <div class="llt-info-box">
+                        <h4>Admission Requirements</h4>
+                        <ul class="llt-info-list">
+                            <li><strong>NCV:</strong> Grade 9 Pass (min)</li>
+                            <li><strong>NATED:</strong> Grade 12 with Tourism/Consumer Studies preferred</li>
+                        </ul>
+                    </div>
+                    <div class="llt-info-box">
+                        <h4>Career Opportunities</h4>
+                        <ul class="llt-info-list">
+                            <li>Professional Chef / Sous Chef</li>
+                            <li>Hotel Receptionist / Front Office Manager</li>
+                            <li>Event & Catering Coordinator</li>
+                            <li>Restaurant Manager</li>
+                            <li>Guest House Manager</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <a href="#apply" class="llt-btn-apply">Apply for Hospitality</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="llt-container">
+        <div class="llt-download-bar">
+            <div>
+                <h3 style="font-size: 24px; margin-bottom: 8px;">2026 Academic Timetable</h3>
+                <p style="opacity: 0.9;">Download the official class and exam schedules for Lere La Tshepe Campus.</p>
+            </div>
+            <a href="#" class="llt-btn-download">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+            </a>
+        </div>
+    </section>
+
+    <section class="llt-section">
+        <div class="llt-container llt-contact-split">
+            
+            <div>
+                <h2 class="llt-headline" style="margin-bottom: 30px;">Key Contacts</h2>
+                
+                <div class="llt-faculty-card">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Manager" class="llt-avatar">
+                    <div class="llt-faculty-info">
+                        <span>Campus Manager</span>
+                        <h4>Ms. P. Zungu</h4>
+                        <a href="mailto:zungu.p@college.edu" class="llt-contact-detail">zungu.p@college.edu</a>
+                        <a href="tel:+27587130002" class="llt-contact-detail">+27 58 713 0002</a>
+                    </div>
+                </div>
+
+                <div class="llt-faculty-card">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="IT HoD" class="llt-avatar">
+                    <div class="llt-faculty-info">
+                        <span>HOD: Information Technology</span>
+                        <h4>Mr. T. Moloi</h4>
+                        <a href="mailto:moloi.t@college.edu" class="llt-contact-detail">moloi.t@college.edu</a>
+                    </div>
+                </div>
+
+                <div class="llt-faculty-card">
+                    <img src="https://i.pravatar.cc/150?u=a04258114e29026704d" alt="Business HoD" class="llt-avatar">
+                    <div class="llt-faculty-info">
+                        <span>HOD: Business Studies</span>
+                        <h4>Mrs. S. Khumalo</h4>
+                        <a href="mailto:khumalo.s@college.edu" class="llt-contact-detail">khumalo.s@college.edu</a>
+                    </div>
+                </div>
+
+                <div class="llt-faculty-card">
+                    <img src="https://i.pravatar.cc/150?u=a048581f4e29026704d" alt="Hospitality HoD" class="llt-avatar">
+                    <div class="llt-faculty-info">
+                        <span>HOD: Hospitality</span>
+                        <h4>Chef R. Van Der Merwe</h4>
+                        <a href="mailto:rvdm@college.edu" class="llt-contact-detail">rvdm@college.edu</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <h2 class="llt-headline" style="margin-bottom: 30px;">Find Us</h2>
+                <div class="llt-map-frame">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3488.9482782806256!2d28.8166!3d-28.5333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDMyJzAwLjAiUyAyOMKwNDknMDAuMCJF!5e0!3m2!1sen!2sza!4v1600000000000!5m2!1sen!2sza" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; position:absolute; top:0; left:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <p style="margin-top: 20px; color: var(--llt-text);">
+                    <strong>Physical Address:</strong><br>
+                    142 University Road, Phuthaditjhaba, 9866
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="llt-section">
+        <div class="llt-container">
+            <h2 class="llt-headline">Campus News</h2>
+            <div class="llt-article-grid">
+                
+                <a href="#" class="llt-article-card">
+                    <img src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg" alt="Hospitality Event" class="llt-article-img">
+                    <span class="llt-date">Jan 05, 2026</span>
+                    <h3 class="llt-article-title">Hospitality students host charity gala dinner</h3>
+                    <p class="llt-text" style="font-size: 15px;">Level 4 students showcased their skills by preparing a 3-course meal for local charities.</p>
+                </a>
+
+                <a href="#" class="llt-article-card">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" alt="IT Hackathon" class="llt-article-img">
+                    <span class="llt-date">Dec 12, 2025</span>
+                    <h3 class="llt-article-title">IT Department wins regional coding hackathon</h3>
+                    <p class="llt-text" style="font-size: 15px;">Our Lere La Tshepe coding team took first prize in the Free State TVET Challenge.</p>
+                </a>
+
+                <a href="#" class="llt-article-card">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600" alt="Graduation" class="llt-article-img">
+                    <span class="llt-date">Nov 28, 2025</span>
+                    <h3 class="llt-article-title">NATED Business Studies exam results released</h3>
+                    <p class="llt-text" style="font-size: 15px;">Record-breaking pass rates for N6 Financial Management students this semester.</p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kentwood Academy Footer Recreation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<style>
+    /* --- Unique Namespace Styling (kw-footer-) --- */
+
+    /* Footer Container & Reset */
+    .kw-footer-container {
+        background-color: #050533; /* Deep Blue sampled from image */
+        color: #ffffff;
+        font-family: 'Bricolage Grotesque', sans-serif;
+        width: 100%;
+    }
+
+    /* Reset inside the footer namespace */
+    .kw-footer-container * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .kw-footer-content-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .kw-footer-container a {
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    .kw-footer-container ul {
+        list-style: none;
+    }
+
+    /* --- Top Bar Section --- */
+    .kw-footer-top-bar {
+        padding: 35px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .kw-footer-top-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .kw-footer-cta-text {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+    }
+
+    .kw-footer-cta-buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    /* Outline Button Style */
+    .kw-footer-btn-outline {
+        display: inline-block;
+        padding: 12px 32px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 15px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .kw-footer-btn-outline:hover {
+         background-color: #ffffff;
+         color: #050533;
+    }
+
+    /* --- Main Footer Content --- */
+    .kw-footer-main {
+        padding: 70px 0 30px;
+    }
+
+    .kw-footer-grid {
+        display: grid;
+        /* Column ratios adjusted to match image: wider first column */
+        grid-template-columns: 2.5fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+        align-items: start;
+    }
+
+    /* Column 1: Logo & Info */
+    .kw-footer-logo-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .kw-footer-crest {
+        width: 55px;
+        height: auto;
+        margin-bottom: 15px;
+        /* Ensure crest is white */
+        filter: brightness(0) invert(1);
+    }
+
+    .kw-footer-logo-text {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .kw-footer-address {
+        font-style: normal;
+        line-height: 1.5;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+
+    .kw-footer-directions-btn {
+        /* Overriding standard size for this specific button */
+        padding: 12px 40px;
+        margin-bottom: 35px;
+    }
+
+    .kw-footer-socials {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .kw-footer-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .kw-footer-social-icon svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+
+    .kw-footer-social-icon:hover {
+        opacity: 0.7;
+    }
+
+    /* Columns 2, 3, 4: Link Lists */
+    .kw-footer-link-list li {
+        margin-bottom: 18px;
+    }
+
+    .kw-footer-link-list a {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .kw-footer-link-list a:hover {
+        opacity: 0.7;
+    }
+
+    /* --- Bottom Section --- */
+    .kw-footer-bottom {
+        text-align: right;
+    }
+
+    .kw-footer-designer {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+
+    /* --- Responsive Design --- */
+    @media (max-width: 1024px) {
+        .kw-footer-grid {
+            grid-template-columns: 1fr 1fr;
+             gap: 50px 30px;
+        }
+        .kw-footer-col-info {
+             grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .kw-footer-top-flex {
+            flex-direction: column;
+            text-align: center;
+            gap: 25px;
+        }
+        .kw-footer-cta-text {
+            font-size: 22px;
+        }
+        .kw-footer-bottom {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .kw-footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 40px;
+        }
+        .kw-footer-logo-block {
+            align-items: center;
+        }
+        .kw-footer-socials {
+            justify-content: center;
+        }
+        .kw-footer-cta-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        .kw-footer-btn-outline {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<footer class="kw-footer-container">
+    <div class="kw-footer-top-bar">
+        <div class="kw-footer-content-wrapper kw-footer-top-flex">
+            <h2 class="kw-footer-cta-text">We look forward to welcoming you to Maluti College.</h2>
+            <div class="kw-footer-cta-buttons">
+                <a href="#" class="kw-footer-btn-outline">Visit</a>
+                <a href="#" class="kw-footer-btn-outline">Enquire</a>
+                <a href="#" class="kw-footer-btn-outline">Apply</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="kw-footer-main">
+        <div class="kw-footer-content-wrapper kw-footer-grid">
+            <div class="kw-footer-col-info">
+                <div class="kw-footer-logo-block">
+                    <img src="images/logo.png" alt="Kentwood Crest" class="kw-footer-crest">
+                    <span class="kw-footer-logo-text">Maluti TVET College</span>
+                </div>
+                <address class="kw-footer-address">
+                    Corporate Office, Bethlehem, Wessels Street, CT12 4YZ<br>
+                    (058) 085 1234<br>
+                </address>
+                <a href="#" class="kw-footer-btn-outline kw-footer-directions-btn">Get Directions</a>
+                
+                <div class="kw-footer-socials">
+                    <a href="#" class="kw-footer-social-icon" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.15 5.96C15.21 5.96 16.12 6.04 16.12 6.04V8.51H15.01C13.77 8.51 13.38 9.28 13.38 10.07V12.06H16.15L15.71 14.96H13.38V21.96C18.16 21.21 21.82 17.06 21.82 12.06C21.82 6.53 17.32 2.04 12 2.04Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="Instagram">
+                         <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24"><path d="M12.5,2C12.5,2 12.5,4.46 12.5,5.73C14.32,6.03 15.94,7.18 16.79,8.9H19.68C18.64,6.14 16.1,4 13.04,3.5V2H12.5M16.33,11.04C16.33,11.04 16.33,11.04 16.33,11.04C15.12,11.04 13.96,10.53 13.1,9.68C13.39,10.74 13.54,11.86 13.54,13C13.54,17.42 9.96,21 5.54,21C3.41,21 1.5,20.17 0.05,18.76L2.17,16.64C3.06,17.47 4.24,18 5.54,18C8.3,18 10.54,15.76 10.54,13C10.54,11.26 9.65,9.7 8.26,8.82L10.38,6.7C12.35,8.06 13.54,10.38 13.54,13H16.33V11.04Z"/></svg>
+                    </a>
+                    <a href="#" class="kw-footer-social-icon" aria-label="Tumblr">
+                        <svg viewBox="0 0 24 24"><path d="M14.84,15.87C14.06,16.09 13.5,16.57 13.24,17.42C13.13,18.16 13.36,21.97 13.36,21.97H9.34V16.59C9.34,15.84 9.36,13.58 9.36,13.58H6.93V10.4H8.94C8.94,10.4 8.83,7.97 9,6.4C9.38,3.93 11.74,2 14.57,2V5.33C14.57,5.33 13.36,5.38 13.05,5.8C12.74,6.22 12.77,7.5 12.77,8.36V10.38H15.63V13.56H12.82C12.82,13.56 12.82,14.62 12.88,14.93C12.94,15.24 13.24,15.45 13.5,15.38C13.77,15.32 14.84,14.93 14.84,14.93L16.07,17.76L14.84,15.87Z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Policies</a></li>
+                </ul>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Academic Year</a></li>
+                    <li><a href="#">Staff</a></li>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Stuff Portal</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div class="kw-footer-col-links">
+                <ul class="kw-footer-link-list">
+                    <li><a href="#">Term Dates</a></li>
+                    <li><a href="#">School Calendar</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Support Services</a></li>
+
+                </ul>
+            </div>
+        </div>
+        
+        <div class="kw-footer-content-wrapper kw-footer-bottom">
+            <span class="kw-footer-designer">Copyright &copy; 2024 Maluti TVET College. All rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
