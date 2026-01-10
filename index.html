@@ -447,14 +447,7 @@
         </div>
     </header>
 
-    <section class="kw-hero">
-        <img src="https://images.pexels.com/photos/16938594/pexels-photo-16938594.jpeg" alt="School Architecture" class="kw-hero-bg">
-        <div class="kw-hero-overlay"></div>
-        <div class="kw-hero-content">
-            <h1 class="kw-hero-title">Great Choice, Great Place<br>For Lifelong Learning</h1>
-            <a href="#campus" class="kw-cta">Explore Campus</a>
-        </div>
-    </section>
+    
 
     <script>
         // 1. Scroll Handler
@@ -509,6 +502,569 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  /* DEFCON HERO SLIDER - CUSTOM STYLES */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  
+  .defcon-hero-container {
+    font-family: 'Times New Roman', sans-serif;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+    background-color: #e5e5e5;
+  }
+  
+  .defcon-hero-slides {
+    width: 300%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  
+  .defcon-hero-slide {
+    width: 33.333%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .defcon-hero-slide-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .defcon-hero-slide-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 39, 62, 0.5);
+    z-index: 2;
+  }
+  
+  .defcon-hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    color: #ffffff;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    transition-delay: 0.3s;
+  }
+  
+  .defcon-hero-slide.active .defcon-hero-content {
+    opacity: 1;
+    transform: translateY(10%);
+  }
+  
+  .defcon-hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  }
+  
+  .defcon-hero-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .defcon-hero-button {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: #ffffff;
+    color: #020035;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 60px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .defcon-hero-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+  }
+  
+  .defcon-hero-button:hover::after {
+    transform: translateX(100%);
+  }
+  
+  .defcon-hero-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .defcon-hero-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+  }
+
+  .defcon-hero-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    fill: var(--defcon-light);}
+  
+  .defcon-hero-arrow:hover {
+    background-color: #0091ff;
+    transform: scale(1.1);
+  }
+  
+  .defcon-hero-pause {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    margin: 0 15px;
+  }
+  
+  .defcon-hero-pause:hover {
+    background-color: #0091ff;
+    transform: scale(1.1);
+  }
+  
+  .defcon-hero-pagination {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .defcon-hero-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .defcon-hero-dot.active {
+    background-color: #0091ff;
+    transform: scale(1.2);
+  }
+  
+  /* Slide-specific content variations */
+  .defcon-hero-slide-1 .defcon-hero-title {
+    color: #ffffff;
+  }
+  
+  .defcon-hero-slide-2 .defcon-hero-title {
+    color: #ffffff;
+  }
+  
+  .defcon-hero-slide-3 .defcon-hero-title {
+    color: #ffffff;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .defcon-hero-title {
+      font-size: 2.8rem;
+    }
+    
+    .defcon-hero-description {
+      font-size: 1.1rem;
+      max-width: 500px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .defcon-hero-container {
+      min-height: 500px;
+    }
+    
+    .defcon-hero-title {
+      font-size: 2.2rem;
+    }
+    
+    .defcon-hero-description {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+    
+    .defcon-hero-content {
+      padding: 0 20px;
+    }
+    
+    .defcon-hero-button {
+      padding: 12px 25px;
+    }
+    
+    .defcon-hero-controls {
+      bottom: 20px;
+    }
+    
+    .defcon-hero-arrow {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+    
+    .defcon-hero-pause {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .defcon-hero-title {
+      font-size: 1.8rem;
+    }
+    
+    .defcon-hero-description {
+      font-size: 0.9rem;
+    }
+    
+    .defcon-hero-controls {
+      gap: 10px;
+    }
+    
+    .defcon-hero-arrow {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .defcon-hero-pause {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+    }
+    
+    .defcon-hero-dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+</style>
+
+<div class="defcon-hero-container">
+  <div class="defcon-hero-slides">
+    <!-- Slide 1: Web Design & Development -->
+    <div class="defcon-hero-slide defcon-hero-slide-1 active">
+      <img src="https://images.pexels.com/photos/33674899/pexels-photo-33674899.jpeg" alt="Web Design" class="defcon-hero-slide-bg">
+      <div class="defcon-hero-slide-overlay"></div>
+      <div class="defcon-hero-content">
+        <h1 class="defcon-hero-title">Academic Year</h1>
+        <p class="defcon-hero-description">Learn about 2026 academics and planning.</p>
+        <button class="defcon-hero-button">Learn more</button>
+      </div>
+    </div>
+    
+    <!-- Slide 2: IT Consulting -->
+    <div class="defcon-hero-slide defcon-hero-slide-2">
+      <img src="https://images.pexels.com/photos/30623368/pexels-photo-30623368.jpeg" alt="IT Consulting" class="defcon-hero-slide-bg">
+      <div class="defcon-hero-slide-overlay"></div>
+      <div class="defcon-hero-content">
+        <h1 class="defcon-hero-title">2025/2026 Graduations</h1>
+        <p class="defcon-hero-description">Maluti College of Excellence.</p>
+        <button class="defcon-hero-button">Learn more</button>
+      </div>
+    </div>
+    
+    <!-- Slide 3: Digital Marketing -->
+    <div class="defcon-hero-slide defcon-hero-slide-3">
+      <img src="https://images.pexels.com/photos/2982449/pexels-photo-2982449.jpeg" alt="Digital Marketing" class="defcon-hero-slide-bg">
+      <div class="defcon-hero-slide-overlay"></div>
+      <div class="defcon-hero-content">
+        <h1 class="defcon-hero-title">Colleges in Pictures</h1>
+        <p class="defcon-hero-description">Browse all our campus galleries.</p>
+        <button class="defcon-hero-button">Explore</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="defcon-hero-controls">
+    <button class="defcon-hero-arrow defcon-hero-prev">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+      </svg>
+    </button>
+    
+    <div class="defcon-hero-pagination">
+      <div class="defcon-hero-dot active" data-slide="0"></div>
+      <div class="defcon-hero-dot" data-slide="1"></div>
+      <div class="defcon-hero-dot" data-slide="2"></div>
+    </div>
+    
+    <button class="defcon-hero-pause">❚❚</button>
+    
+    <button class="defcon-hero-arrow defcon-hero-next">
+      <svg viewBox="0 0 24 24" color="#fff">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+      </svg>
+
+    </button>
+  </div>
+</div>
+
+<script>
+  // DEFCON HERO SLIDER - INTERACTIVITY
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.defcon-hero-slides');
+    const slides = document.querySelectorAll('.defcon-hero-slide');
+    const dots = document.querySelectorAll('.defcon-hero-dot');
+    const prevBtn = document.querySelector('.defcon-hero-prev');
+    const nextBtn = document.querySelector('.defcon-hero-next');
+    const pauseBtn = document.querySelector('.defcon-hero-pause');
+    
+    let currentSlide = 0;
+    let slideCount = slides.length;
+    let autoSlide = true;
+    let slideInterval;
+    const slideDuration = 6000; // 6 seconds
+    
+    // Initialize slider
+    function initSlider() {
+      updateSlider();
+      startAutoSlide();
+      
+      // Set initial active states
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+          // Trigger content animation
+          setTimeout(() => {
+            slide.querySelector('.defcon-hero-content').style.opacity = '1';
+            slide.querySelector('.defcon-hero-content').style.transform = 'translateY(0)';
+          }, 100);
+        } else {
+          slide.classList.remove('active');
+          slide.querySelector('.defcon-hero-content').style.opacity = '0';
+          slide.querySelector('.defcon-hero-content').style.transform = 'translateY(30px)';
+        }
+      });
+    }
+    
+    // Update slider position
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+      
+      // Update slide active states with animation
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+          // Animate content in
+          setTimeout(() => {
+            slide.querySelector('.defcon-hero-content').style.opacity = '1';
+            slide.querySelector('.defcon-hero-content').style.transform = 'translateY(0)';
+          }, 100);
+        } else {
+          slide.classList.remove('active');
+          // Reset content animation
+          slide.querySelector('.defcon-hero-content').style.opacity = '0';
+          slide.querySelector('.defcon-hero-content').style.transform = 'translateY(30px)';
+        }
+      });
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+      currentSlide = (index + slideCount) % slideCount;
+      updateSlider();
+      resetAutoSlide();
+    }
+    
+    // Next slide
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slideCount;
+      updateSlider();
+      resetAutoSlide();
+    }
+    
+    // Previous slide
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+      updateSlider();
+      resetAutoSlide();
+    }
+    
+    // Auto slide functionality
+    function startAutoSlide() {
+      if (autoSlide) {
+        slideInterval = setInterval(nextSlide, slideDuration);
+      }
+    }
+    
+    function resetAutoSlide() {
+      clearInterval(slideInterval);
+      if (autoSlide) {
+        startAutoSlide();
+      }
+    }
+    
+    function toggleAutoSlide() {
+      autoSlide = !autoSlide;
+      if (autoSlide) {
+        pauseBtn.innerHTML = '❚❚';
+        startAutoSlide();
+      } else {
+        pauseBtn.innerHTML = '►';
+        clearInterval(slideInterval);
+      }
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    pauseBtn.addEventListener('click', toggleAutoSlide);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        goToSlide(parseInt(this.getAttribute('data-slide')));
+      });
+    });
+    
+    // Touch events for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    slider.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+    
+    slider.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, {passive: true});
+    
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide(); // Swipe left
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide(); // Swipe right
+      }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === ' ') {
+        toggleAutoSlide();
+      }
+    });
+    
+    // Initialize
+    initSlider();
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
