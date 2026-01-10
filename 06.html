@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bot-navy: #000c2d;
+            --bot-blue: #0091ff;
+            --bot-radius: 1px;
+        }
+
+        /* --- Chat Window Setup --- */
+        .maluti-chat-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--bot-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 145, 255, 0.4);
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        .maluti-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            background: #ffffff;
+            border-radius: var(--bot-radius);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9998;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            border: 1px solid var(--bot-navy);
+        }
+
+        .maluti-chat-header {
+            background-color: var(--bot-navy);
+            padding: 20px;
+            color: white;
+        }
+
+        .maluti-chat-header h4 { margin: 0; font-size: 18px; }
+        .maluti-chat-header span { font-size: 12px; opacity: 0.8; }
+
+        .maluti-bot-disclaimer {
+            background: #fff3cd;
+            color: #856404;
+            font-size: 11px;
+            padding: 8px 20px;
+            border-bottom: 1px solid #ffeeba;
+            text-align: center;
+        }
+
+        .maluti-chat-body {
+            flex: 1;
+            padding: 20px;
+            background-color: #f4f7f9;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- Message Bubbles --- */
+        .maluti-chat-msg {
+            max-width: 85%;
+            padding: 12px 15px;
+            border-radius: var(--bot-radius);
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px solid transparent;
+        }
+
+        .maluti-chat-msg.bot {
+            background: white;
+            color: var(--bot-navy);
+            align-self: flex-start;
+            border-color: #e0e0e0;
+        }
+
+        .maluti-chat-msg.user {
+            background: var(--bot-blue);
+            color: white;
+            align-self: flex-end;
+        }
+
+        /* --- Loading Indicator --- */
+        .maluti-typing {
+            font-style: italic;
+            font-size: 12px;
+            color: #777;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        .maluti-chat-footer {
+            padding: 15px;
+            background: white;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #eee;
+        }
+
+        .maluti-chat-input {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: var(--bot-radius);
+            outline: none;
+        }
+
+        .maluti-chat-send {
+            background: var(--bot-navy);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: var(--bot-radius);
+            cursor: pointer;
+        }
+
+        .maluti-chat-active { display: flex !important; }
+    </style>
+</head>
+<body>
+
+    <div class="maluti-chat-trigger" onclick="toggleMalutiChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </div>
+
+    <div class="maluti-chat-window" id="malutiChatWindow">
+        <div class="maluti-chat-header">
+            <h4>Maluti TVET Academic Support</h4>
+            <span>Automated Information System | 2026</span>
+        </div>
+        
+        <div class="maluti-bot-disclaimer">
+            NOTE: Automated responses may not always be accurate. Please verify critical info with the campus.
+        </div>
+
+        <div class="maluti-chat-body" id="chatBody">
+            <div class="maluti-chat-msg bot">
+                Welcome to the Maluti TVET College digital assistant. Please state your inquiry regarding admissions, courses, or financial aid.
+            </div>
+            <div id="typingIndicator" class="maluti-typing">System is processing request...</div>
+        </div>
+
+        <div class="maluti-chat-footer">
+            <input type="text" id="userInput" class="maluti-chat-input" placeholder="Enter your query here..." onkeypress="handleKeyPress(event)">
+            <button class="maluti-chat-send" onclick="sendMessage()">SEND</button>
+        </div>
+    </div>
+
+    <script>
+        const knowledgeBase = {
+            "admission": "Admissions for the 2026 academic year are facilitated through the official Maluti TVET online application portal. Required documentation includes certified identification, recent academic transcripts, and valid proof of residential address. Applicants must ensure they meet the specific NQF criteria for their intended programme of study.",
+            "it": "The Information Technology NCV programme at Lere La Tshepe Campus covers Level 2 through Level 4. The curriculum focuses on Systems Development, Electronics, and Network Infrastructure. Successful graduates are eligible for roles in junior programming and technical support.",
+            "business": "Business Studies is a NATED programme encompassing N4 to N6 certificates. Key focus areas include Financial Accounting, Entrepreneurship, and Management Communication. A National Diploma is awarded upon completion of 18 months of theoretical study and 18 months of relevant practical work experience.",
+            "hospitality": "The Hospitality Management department provides training in Professional Cookery, Nutrition, and Applied Management. We offer both NCV and NATED tracks. Practical training is mandatory and occurs within our campus-based industrial kitchen facilities.",
+            "nsfas": "Financial assistance is available via the National Student Financial Aid Scheme (NSFAS). Eligibility is restricted to South African citizens who meet the designated household income threshold. Applications should be submitted directly via the NSFAS student portal.",
+            "requirement": "Entry into NCV Level 2 requires a minimum of a Grade 9 pass. Admission to NATED N4 programmes requires a National Senior Certificate (Grade 12) or an NCV Level 4 qualification. Specialized courses may have additional subject-specific requirements.",
+            "location": "Maluti TVET College operates across various campuses including Lere La Tshepe, Kwetlisong, and Bonamelo. It is important to confirm which campus hosts your specific faculty before completing your application.",
+            "contact": "For official administrative inquiries, please contact the central office at +27 58 713 6100. For faculty-specific guidance, visit the administration block at the relevant campus during official business hours."
+        };
+
+        function toggleMalutiChat() {
+            document.getElementById('malutiChatWindow').classList.toggle('maluti-chat-active');
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const chatBody = document.getElementById('chatBody');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const userText = inputField.value.trim().toLowerCase();
+
+            if (userText === "") return;
+
+            // 1. Add User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'maluti-chat-msg user';
+            userDiv.innerText = inputField.value;
+            chatBody.insertBefore(userDiv, typingIndicator);
+
+            inputField.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // 2. Show Loading State
+            typingIndicator.style.display = "block";
+
+            // 3. Process Response after delay
+            setTimeout(() => {
+                typingIndicator.style.display = "none";
+                
+                const botDiv = document.createElement('div');
+                botDiv.className = 'maluti-chat-msg bot';
+                
+                let response = "I do not have specific data regarding that query. Please refine your question or inquire about 'Admissions', 'Courses', 'NSFAS', or 'Requirements'.";
+
+                for (let key in knowledgeBase) {
+                    if (userText.includes(key)) {
+                        response = knowledgeBase[key];
+                        break;
+                    }
+                }
+
+                botDiv.innerText = response;
+                chatBody.insertBefore(botDiv, typingIndicator);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1500); // 1.5 second delay for a realistic "thinking" feel
+        }
+    </script>
+</body>
+</html>
+
+
