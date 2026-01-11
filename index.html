@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maluti School | Excellence in Learning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
-
     <style>
         /* --- RESET & BASICS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,10 +17,11 @@
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
         ul { list-style: none; }
+        button { outline: none; }
 
         /* --- HEADER CONTAINER --- */
         .kw-header {
@@ -30,31 +30,29 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgb(5, 13, 56);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(5, 13, 56, 0.95);
             border-bottom: 1px solid rgba(255,255,255,0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
         }
-
+        
         /* --- TOP BAR --- */
         .kw-top-bar {
             background-color: rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 1001;
-            /* Removed overflow:hidden to allow dropdowns to be seen */
             transition: transform 0.4s, opacity 0.3s, height 0.4s;
             height: 45px;
         }
-
         .kw-header.scrolled .kw-top-bar {
             transform: translateY(-100%);
             opacity: 0;
             height: 0;
             pointer-events: none;
         }
-
         .kw-top-nav-list {
             display: flex;
             justify-content: flex-end;
@@ -66,14 +64,12 @@
             text-transform: uppercase;
             font-weight: 600;
         }
-
         .kw-top-link-wrapper {
             position: relative;
             height: 100%;
             display: flex;
             align-items: center;
         }
-
         .kw-top-link {
             color: rgba(255, 255, 255, 0.934);
             display: flex;
@@ -81,252 +77,410 @@
             gap: 4px;
             letter-spacing: 0.05em;
             cursor: pointer;
+            height: 100%;
+            padding: 0 10px;
         }
-
-        .kw-top-link:hover { color: #fff; }
+        .kw-top-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
 
         /* --- MAIN NAV --- */
         .kw-main-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 50px;
+            padding: 0 45px;
+            height: 70px;
             position: relative;
+            transition: height 0.3s ease;
         }
-
-        .kw-header.scrolled .kw-main-nav {
-            padding: 10px 50px;
-        }
-
+        .kw-header.scrolled .kw-main-nav { height: 60px; }
+        
         .kw-logo img {
             height: 40px;
             width: auto;
             display: block;
         }
+        .kw-header.scrolled .kw-logo img { height: 35px; }
 
         .kw-nav-links {
             display: flex;
-            gap: 25px;
+            
+            align-items: center;
+            height: 100%;
+        }
+        .kw-nav-item { 
+            position: relative; 
+            height: 100%;
+            display: flex;
             align-items: center;
         }
-
-        .kw-nav-item { position: relative; }
-
         .kw-nav-link {
             display: flex;
             align-items: center;
             gap: 5px;
-            padding: 8px 0;
+            padding: 0 15px;
+            height: 100%;
             font-size: 15px;
             font-weight: 500;
             color: rgba(255,255,255,0.9);
-            border-radius: 6px;
             white-space: nowrap;
+            cursor: pointer;
         }
-
-        .kw-nav-link:hover {
-            color: #bfb9cb;
+        .kw-nav-link:hover, .kw-nav-item:hover .kw-nav-link {
+            color: #ffffff;
+            background: rgba(255,255,255,0.05);
         }
-
         .kw-caret {
             width: 17px;
             height: 17px;
             fill: currentColor;
-            opacity: 1;
             transition: transform 0.3s;
         }
 
-        /* --- DROPDOWNS (Universal Styling) --- */
+        /* --- STANDARD DROPDOWNS --- */
         .kw-dropdown {
             position: absolute;
-            top: 95%;
+            top: 100%;
             left: 0;
-            min-width: 220px;
-            background: #020035;
+            min-width: 240px;
+            background: rgb(5, 13, 56);
             
-            border-radius: 1px;
+            border-radius: 0 0 4px 4px;
             padding: 10px 0;
-            
-            
-            /* Animation States */
             opacity: 0;
             visibility: hidden;
+            
             transform: translateY(10px);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 2000;
         }
+        .kw-nav-item:last-child .kw-dropdown { left: auto; right: 0; }
+        .kw-drop-link {
+            display: block;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #d1d5db;
+            text-transform: none;
+            border-left: 3px solid transparent;
+        }
+        .kw-drop-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #6366f1;
+        }
 
-        /* Desktop Hover logic */
+        /* --- MEGA MENU (DESKTOP) --- */
+        .kw-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 10px);
+            width: 900px;
+            background: rgb(5, 13, 56);
+            display: flex;
+            opacity: 1;
+            visibility: hidden;
+            z-index: 2000;
+            overflow: hidden;
+        }
+        .kw-mega-sidebar {
+            width: 250px;
+            background: rgba(0,0,0,0.2);
+            padding: 20px 0;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .kw-cat-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 25px;
+            color: #a1a1aa;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .kw-cat-link:hover, .kw-cat-link.active {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .kw-cat-link.active {
+            border-left: 3px solid #6366f1;
+            padding-left: 22px;
+        }
+        .kw-mega-content {
+            flex-grow: 1;
+            padding: 30px;
+            background: rgb(5, 13, 56);
+            min-height: 300px;
+        }
+        .kw-course-group {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .kw-course-group.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .kw-group-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .kw-course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .kw-mega-link {
+            font-size: 14px;
+            color: #d1d5db;
+            line-height: 1.4;
+            display: block;
+            padding: 5px 0;
+        }
+        .kw-mega-link:hover {
+            color: #6366f1;
+            transform: translateX(3px);
+        }
+
+        /* Desktop Hover Logic */
         @media (min-width: 1101px) {
             .kw-nav-item:hover .kw-dropdown,
-            .kw-top-link-wrapper:hover .kw-dropdown {
+            .kw-top-link-wrapper:hover .kw-dropdown,
+            .kw-nav-item:hover .kw-mega-menu {
                 opacity: 1;
                 visibility: visible;
-                transform: translateY(0);
+                transform: translateY(0) translateX(0);
+            }
+            .kw-nav-item:hover .kw-mega-menu {
+                 transform: translate(-50%, 0);
             }
             .kw-nav-item:hover .kw-caret,
             .kw-top-link-wrapper:hover .kw-caret {
                 transform: rotate(180deg);
+                opacity: 1;
             }
-        }
-
-        .kw-nav-item:last-child .kw-dropdown {
-            left: auto;
-            right: 0;
-        }
-
-        .kw-drop-link {
-            display: block;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #ccc;
-            text-transform: none;
-        }
-
-        .kw-drop-link:hover {
-            color: #fff;
-            background: rgba(70, 69, 143, 0.385);
         }
 
         /* --- HERO SECTION --- */
         .kw-hero {
             position: relative;
             height: 100vh;
+            height: 100dvh;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #ffffff;
+            background: #000;
         }
-
         .kw-hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.6;
             animation: slowZoom 20s infinite alternate;
         }
-
         @keyframes slowZoom {
             from { transform: scale(1); }
             to { transform: scale(1.1); }
         }
-
         .kw-hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0a0a0a);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(5, 13, 56, 0.4), #0a0a0a);
             z-index: 2;
         }
-
         .kw-hero-content {
-            position: relative;
-            z-index: 3;
-            text-align: center;
-            padding: 0 20px;
-            max-width: 900px;
+            position: relative; z-index: 3; text-align: center;
+            padding: 0 20px; max-width: 900px;
+            width: 100%;
         }
-
         .kw-hero-title {
-            font-size: clamp(32px, 7vw, 72px);
-            line-height: 1.1;
-            font-weight: 500;
-            margin-bottom: 30px;
-            letter-spacing: -0.02em;
+            font-size: clamp(36px, 8vw, 72px); line-height: 1.1;
+            font-weight: 600; margin-bottom: 25px; letter-spacing: -0.02em;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .kw-cta {
-            display: inline-block;
-            padding: 14px 30px;
-            border: 1px solid #fff;
+            display: inline-block; padding: 16px 36px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4); 
             color: #ffffff;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 16px;
+            border-radius: 60px; font-weight: 600; font-size: 16px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background 0.2s;
         }
-
         .kw-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            background: #fff;
+            color: #050d38;
         }
 
         /* --- MOBILE TOGGLE --- */
         .kw-mobile-toggle {
-            display: none;
-            border: none;
-            color: white;
-            padding: 8px;
-            background-color: transparent;
-            cursor: pointer;
+            display: none; border: none; color: white;
+            padding: 8px 10px; background-color: transparent; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 50px;
+            transition: background 0.2s;
         }
+        .kw-mobile-toggle:active { background: rgba(255,255,255,0.1); }
 
-        /* --- RESPONSIVE BREAKPOINT (TABLET & MOBILE) --- */
+        /* --- RESPONSIVE LOGIC (THE FIX) --- */
         @media (max-width: 1100px) {
             .kw-top-bar { display: none; }
             .kw-mobile-toggle { display: block; }
-
+            .kw-main-nav { height: 60px; padding: 0 20px; }
+            .kw-logo img { height: 32px; }
+            
+            /* Mobile Nav Container */
             .kw-nav-links {
                 position: fixed;
-                top: 100%;
+                top: 100%; /* Positions it directly below the header */
                 left: 0;
                 width: 100%;
-                height: calc(100vh - 70px);
+                /* Use dynamic viewport height - header height (approx 60px) */
+                height: calc(100dvh - 60px); 
                 background: #050d38;
                 flex-direction: column;
-                padding: 20px 0;
+                justify-content: flex-start; /* CRITICAL FIX: Stacks items at top, doesn't stretch them */
+                padding: 0 0 40px 0;
+                /* Add safe area inset for iPhone home bar */
+                padding-bottom: calc(20px + env(safe-area-inset-bottom));
                 gap: 0;
                 transform: translateX(100%);
                 transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                overflow-y: auto;
+                overflow-y: auto; /* Allow scrolling within menu */
+                align-items: stretch;
+                box-shadow: inset 0 10px 20px -10px rgba(0,0,0,0.5);
             }
-
             .kw-nav-links.active { transform: translateX(0); }
-
-            .kw-nav-item { width: 100%; }
-
-            .kw-nav-link {
-                padding: 15px 30px;
-                font-size: 18px;
-                border-radius: 0;
-                justify-content: space-between;
+            
+            .kw-nav-item { 
+                height: auto; /* CRITICAL FIX: Stops the item from trying to be 100% height */
+                min-height: auto;
+                display: block; 
+                flex-grow: 0; /* CRITICAL FIX: Stops item from expanding to fill empty space */
                 border-bottom: 1px solid rgba(255,255,255,0.05);
+                flex-shrink: 0;
             }
-
-
+            
+            /* Mobile Main Links */
+            .kw-nav-link {
+                padding: 18px 25px;
+                height: auto; /* CRITICAL FIX: Resets the 100% height from desktop */
+                font-size: 17px;
+                justify-content: space-between;
+                width: 100%;
+                font-weight: 600;
+            }
+            
+            /* --- MOBILE DROPDOWNS --- */
             .kw-dropdown {
-                position: static;
+                position: static !important; /* CRITICAL FIX: Forces it to take up physical space, pushing siblings down */
                 width: 100%;
                 opacity: 1;
                 visibility: visible;
-                transform: none;
-                background: rgba(0,0,0,0.2);
-                display: none; /* Controlled by JS toggle */
+                transform: none !important;
+                background: rgba(0,0,0,0.3);
+                display: none; 
                 border: none;
                 box-shadow: none;
-                padding: 5px 0 15px 20px;
+                padding: 10px 0;
+                border-top: 1px solid rgba(255,255,255,0.05);
+                animation: slideDown 0.3s ease forwards;
             }
 
-            .kw-nav-item.open .kw-dropdown { display: block; }
-            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+            /* --- MOBILE MEGA MENU --- */
+            .kw-mega-menu {
+                position: static !important; /* CRITICAL FIX: Forces it to take up physical space */
+                width: 100%;
+                transform: none !important;
+                flex-direction: column;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                background: rgba(0,0,0,0.3);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                height: auto;
+                animation: slideDown 0.3s ease forwards;
+            }
             
-            .kw-main-nav { padding: 15px 25px; }
-            .kw-header.scrolled .kw-main-nav { padding: 12px 25px; }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* Top Tabs (Categories) for Mobile */
+            .kw-mega-sidebar {
+                width: 100%;
+                border-right: none;
+                padding: 0;
+                display: flex;
+                flex-direction: column; 
+                background: transparent;
+            }
+            .kw-cat-link {
+                padding: 15px 25px;
+                background: rgba(255,255,255,0.02);
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                font-size: 15px;
+                color: #9ca3af;
+            }
+            .kw-cat-link:hover, .kw-cat-link.active {
+                background: rgba(99, 102, 241, 0.15);
+                border-left: none; 
+                padding-left: 25px; 
+                color: #fff;
+            }
+            
+            /* Content Area Mobile */
+            .kw-mega-content {
+                padding: 20px 25px;
+                min-height: auto;
+            }
+            .kw-group-title {
+                font-size: 15px;
+                color: #818cf8; 
+                border-bottom: none;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .kw-course-grid {
+                grid-template-columns: 1fr; 
+                gap: 12px;
+            }
+            .kw-mega-link {
+                font-size: 15px;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                color: #e5e7eb;
+            }
+            
+            /* Open States */
+            .kw-nav-item.open .kw-dropdown { display: block; }
+            .kw-nav-item.open .kw-mega-menu { display: flex; }
+            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+            .kw-nav-item.open > .kw-nav-link { color: #818cf8; background: rgba(255,255,255,0.05); }
         }
 
+        /* Small Phones */
         @media (max-width: 480px) {
-            .kw-hero-title { font-size: 34px; }
-            .kw-cta { width: 100%; padding: 15px; text-align: center; }
+            .kw-hero-title { font-size: 38px; }
+            .kw-cta { width: 100%; padding: 18px; text-align: center; }
+            .kw-main-nav { padding: 0 15px; }
         }
     </style>
 </head>
 <body>
-
     <header class="kw-header" id="header">
         <div class="kw-top-bar">
             <ul class="kw-top-nav-list">
@@ -339,7 +493,7 @@
                         <li><a href="#" class="kw-drop-link">Online Application</a></li>
                         <li><a href="#" class="kw-drop-link">Application Requirements</a></li>
                         <li><a href="#" class="kw-drop-link">Application Deadlines</a></li>
-                        <li><a href="#" class="kw-drop-link">Internation Students</a></li>
+                        <li><a href="#" class="kw-drop-link">International Students</a></li>
                     </ul>
                 </li>
                 <li class="kw-top-link-wrapper">
@@ -361,12 +515,10 @@
                 <li><a href="#" class="kw-top-link">Contact</a></li>
             </ul>
         </div>
-
         <div class="kw-main-nav">
             <a href="#" class="kw-logo">
                 <img src="images/logo.png" alt="Maluti School">
             </a>
-
             <button class="kw-mobile-toggle" id="menuBtn" aria-label="Toggle Menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="3" y1="12" x2="21" y2="12" id="line1"></line>
@@ -374,13 +526,12 @@
                     <line x1="3" y1="18" x2="21" y2="18" id="line3"></line>
                 </svg>
             </button>
-
             <ul class="kw-nav-links" id="navLinks">
                 <li class="kw-nav-item">
-                    <a href="#" class="kw-nav-link">
-                        About
+                    <div class="kw-nav-link">
+                        Maluti
                         <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
+                    </div>
                     <ul class="kw-dropdown">
                         <li><a href="#" class="kw-drop-link">Our History</a></li>
                         <li><a href="#" class="kw-drop-link">Philosophy</a></li>
@@ -394,10 +545,10 @@
                 </li>
                 <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
                 <li class="kw-nav-item">
-                    <a href="#" class="kw-nav-link">
+                    <div class="kw-nav-link">
                         Admissions & Aid
                         <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
+                    </div>
                     <ul class="kw-dropdown">
                         <li><a href="#" class="kw-drop-link">How to Apply</a></li>
                         <li><a href="#" class="kw-drop-link">Admission Requirements</a></li>
@@ -411,22 +562,109 @@
                     </ul>
                 </li>
                 <li class="kw-nav-item">
-                    <a href="#" class="kw-nav-link">
+                    <div class="kw-nav-link">
                         Study @ Maluti
                         <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
+                    </div>
                     <ul class="kw-dropdown">
-                        <li><a href="#" class="kw-drop-link">Programs & Courses</a></li>
                         <li><a href="#" class="kw-drop-link">Faculty Directory</a></li>
                         <li><a href="#" class="kw-drop-link">Academic Support</a></li>
                         <li><a href="#" class="kw-drop-link">Library Resources</a></li>
                     </ul>
                 </li>
+                
                 <li class="kw-nav-item">
-                    <a href="#" class="kw-nav-link">
+                    <div class="kw-nav-link">
+                        Courses & Programs
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <div class="kw-mega-menu">
+                        <div class="kw-mega-sidebar">
+                            <div class="kw-cat-link active" data-target="engineering">
+                                Engineering <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="it">
+                                Information Technology <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="hospitality">
+                                Hospitality & Tourism <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="business">
+                                Business Studies <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="skills">
+                                Short Courses (Skills Programmes) <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                        </div>
+                        <div class="kw-mega-content">
+                            <div class="kw-course-group active" id="engineering">
+                                <div class="kw-group-title">School of Engineering</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Electrical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Mechanical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Civil Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Electrical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Mechanical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Civil Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Agricultural Sciences</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="it">
+                                <div class="kw-group-title">School of Information Technology</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Information Technology</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Information Technology</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Systems Development</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Network Architecture</a>
+                                    <a href="#" class="kw-mega-link">Short Course: Cybersecurity</a>
+                                    <a href="#" class="kw-mega-link">Short Course: Data Science</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="hospitality">
+                                <div class="kw-group-title">School of Hospitality & Tourism</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Education & Development</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Health & Social Care</a>
+                                    <a href="#" class="kw-mega-link">Food & Beverage Service</a>
+                                    <a href="#" class="kw-mega-link">Tourism Management</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="business">
+                                <div class="kw-group-title">School of Business & Economics</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Business Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Financial Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Management Assistant</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Public Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Educare</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Marketing Management</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert in Office Administration</a>
+                                    <a href="#" class="kw-mega-link">Food & Beverage Service</a>
+                                    <a href="#" class="kw-mega-link">Tourism Management</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="skills">
+                                <div class="kw-group-title">Skills Programmes</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Brick Laying</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Boiler Making</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Motor Mechanic</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Panel Beating</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Motor Mechanic</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Welding</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
                         Campus Life
                         <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                    </a>
+                    </div>
                     <ul class="kw-dropdown">
                         <li><a href="#" class="kw-drop-link">Student Activities</a></li>
                         <li><a href="#" class="kw-drop-link">Clubs & Socities</a></li>
@@ -438,13 +676,11 @@
                 </li>
                 <li class="kw-nav-item"><a href="#" class="kw-nav-link">News & Events</a></li>
                 <li class="kw-nav-item"><a href="#" class="kw-nav-link">Maluti Innovations</a></li>
-                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Visit</a></li>
-                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Careers</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vacancies</a></li>
             </ul>
         </div>
     </header>
-
-
+   
     <script>
         // 1. Scroll Handler
         const header = document.getElementById('header');
@@ -456,15 +692,16 @@
             }
         });
 
-        // 2. Mobile Menu Logic
+        // 2. Mobile Menu Toggle
         const menuBtn = document.getElementById('menuBtn');
         const navLinks = document.getElementById('navLinks');
         
         menuBtn.addEventListener('click', () => {
             const isActive = navLinks.classList.toggle('active');
+            // Toggle body scroll
             document.body.style.overflow = isActive ? 'hidden' : '';
             
-            // Hamburger to X animation
+            // Hamburger Animation
             if(isActive) {
                 menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
             } else {
@@ -472,32 +709,174 @@
             }
         });
 
-        // 3. Mobile Accordion Logic
-        const navItems = document.querySelectorAll('.kw-nav-item');
-        navItems.forEach(item => {
-            const link = item.querySelector('.kw-nav-link');
+        // 3. Mobile Accordion Logic (For Main Menu Items)
+        const accordionHandler = (e) => {
+            if (window.innerWidth <= 1100) {
+                e.preventDefault();
+                e.stopPropagation();
+                const item = e.currentTarget.closest('.kw-nav-item');
+                const isOpen = item.classList.contains('open');
+                
+                // Close others
+                document.querySelectorAll('.kw-nav-item').forEach(other => {
+                    if(other !== item) other.classList.remove('open');
+                });
+                
+                // Toggle current
+                item.classList.toggle('open');
+            }
+        };
+
+        function attachAccordionListeners() {
+            document.querySelectorAll('.kw-nav-item .kw-nav-link').forEach(link => {
+                const item = link.closest('.kw-nav-item');
+                if (item.querySelector('.kw-dropdown, .kw-mega-menu')) {
+                    link.removeEventListener('click', accordionHandler);
+                    link.addEventListener('click', accordionHandler);
+                }
+            });
+        }
+
+        // 4. MEGA MENU LOGIC (Handling Desktop Hover AND Mobile Click)
+        const catLinks = document.querySelectorAll('.kw-cat-link');
+        const courseGroups = document.querySelectorAll('.kw-course-group');
+
+        function activateCategory(link) {
+            // Remove active class from all sidebar links
+            catLinks.forEach(l => l.classList.remove('active'));
+            // Add active class to clicked/hovered link
+            link.classList.add('active');
+            
+            // Get target ID
+            const targetId = link.getAttribute('data-target');
+            
+            // Hide all groups, show target
+            courseGroups.forEach(group => {
+                group.classList.remove('active');
+                if(group.id === targetId) {
+                    group.classList.add('active');
+                }
+            });
+        }
+
+        catLinks.forEach(link => {
+            // Desktop: Hover behavior
+            link.addEventListener('mouseenter', () => {
+                if(window.innerWidth > 1100) {
+                    activateCategory(link);
+                }
+            });
+            
+            // Mobile: Click behavior
             link.addEventListener('click', (e) => {
-                if (window.innerWidth <= 1100 && item.querySelector('.kw-dropdown')) {
+                if(window.innerWidth <= 1100) {
                     e.preventDefault();
-                    // Close others
-                    navItems.forEach(other => { if(other !== item) other.classList.remove('open'); });
-                    // Toggle current
-                    item.classList.toggle('open');
+                    e.stopPropagation();
+                    activateCategory(link);
                 }
             });
         });
 
-        // Close menu on resize if moving to desktop
+        // 5. Responsive Handler for Top Links
+        let mobileTopLinks = [];
+
+        function handleResponsive() {
+            const topBar = document.querySelector('.kw-top-bar');
+            
+            if (window.innerWidth <= 1100) {
+                topBar.style.display = 'none';
+                
+                if (mobileTopLinks.length === 0) {
+                    const topItems = document.querySelectorAll('.kw-top-nav-list > li');
+                    topItems.forEach(originalLi => {
+                        const li = originalLi.cloneNode(true);
+                        
+                        // Convert classes for mobile styling
+                        if (li.classList.contains('kw-top-link-wrapper')) {
+                            li.classList.remove('kw-top-link-wrapper');
+                            li.classList.add('kw-nav-item');
+                            
+                            const topLink = li.querySelector('.kw-top-link');
+                            if (topLink) {
+                                topLink.classList.remove('kw-top-link');
+                                topLink.classList.add('kw-nav-link');
+                            }
+                        } else {
+                            li.classList.add('kw-nav-item');
+                            const a = li.querySelector('.kw-top-link');
+                            if (a) {
+                                a.classList.remove('kw-top-link');
+                                a.classList.add('kw-nav-link');
+                            }
+                        }
+                        
+                        navLinks.appendChild(li);
+                        mobileTopLinks.push(li);
+                    });
+                    
+                    // Re-attach listeners to the newly added nodes
+                    attachAccordionListeners();
+                }
+            } else {
+                topBar.style.display = '';
+                if (mobileTopLinks.length > 0) {
+                    mobileTopLinks.forEach(li => li.remove());
+                    mobileTopLinks = [];
+                }
+            }
+            
+            // Re-run this always to ensure logic is bound correctly
+            attachAccordionListeners();
+        }
+
+        // Initial Setup and Resize
+        handleResponsive();
+        
         window.addEventListener('resize', () => {
+            handleResponsive();
+            
+            // Reset mobile states if going back to desktop
             if (window.innerWidth > 1100) {
                 navLinks.classList.remove('active');
                 document.body.style.overflow = '';
-                navItems.forEach(item => item.classList.remove('open'));
+                document.querySelectorAll('.kw-nav-item').forEach(item => item.classList.remove('open'));
             }
         });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -555,7 +934,7 @@
         <p class="pw2-subtext">Maluti is a TVET college dedicated to providing quality education and training in various technical and vocational fields.</p>
         
         <div class="pw2-buttons">
-            <button class="pw2-btn pw2-btn-dark">Explore Programs</button>
+            <button class="pw2-btn pw2-btn-dark"><a href="#campus">Explore Campuses</a></button>
             <button class="pw2-btn pw2-btn-light">Contact Us</button>
         </div>
 
@@ -614,7 +993,7 @@
             --pw2-font-sans: 'Bricolage Grotesque', sans-serif;
             --pw2-color-dark: #020035;
             --pw2-color-light: #FFFFFF;
-            --pw2-color-bg: #FFFCF8;
+            --pw2-color-bg: #FFF;
             --pw2-color-gray: #555555;
             --pw2-card-height: 580px; /* Strict height for equality */
         }
@@ -654,7 +1033,7 @@
         .pw2-headline {
             font-family: var(--pw2-font-serif);
             font-size: 64px;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1;
             margin: 0 0 24px 0;
             color: var(--pw2-color-dark);
@@ -746,7 +1125,7 @@
 
         .pw2-card {
             position: relative;
-            border-radius: 8px;
+            border-radius: 20px;
             overflow: hidden;
             /* Strict fixed height ensures equality */
             height: var(--pw2-card-height); 
@@ -863,6 +1242,7 @@
             .pw2-quote { font-size: 18px; }
             .pw2-stat-number { font-size: 110px; }
             .pw2-container { padding: 120px 20px;}
+            .pw2-btn { font-size: 12px;}
         }
 
         @media (max-width: 768px) {
@@ -995,13 +1375,13 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background-color: var(--bot-blue);
+            background-color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0, 145, 255, 0.4);
+            color: #020035;
+            box-shadow: 0 10px 25px rgba(8, 0, 97, 0.593);
             cursor: pointer;
             z-index: 10001; /* Ensure it stays on top of everything */
             transition: transform 0.2s ease, background-color 0.2s;
@@ -1009,7 +1389,8 @@
 
         .maluti-chat-trigger:hover {
             transform: scale(1.05);
-            background-color: #007acc;
+            background-color: #020035;
+            color: #fff;
         }
 
         /* --- Chat Window --- */
@@ -1216,7 +1597,7 @@
 <body>
 
     <div class="maluti-chat-trigger" id="chatTrigger" onclick="toggleChat()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> 
     </div>
 
     <div class="maluti-chat-window" id="malutiChatWindow">
@@ -2526,7 +2907,7 @@
     <div class="ra-component-wrapper">
         
         <header class="ra-header">
-            <h2 class="ra-main-title">Resources & Guides</h2>
+            <h2 class="ra-main-title">News</h2>
             <a href="#" class="ra-browse-btn">Browse all</a>
         </header>
 
@@ -2534,43 +2915,43 @@
 
             <article class="ra-card">
                 <div class="ra-card-image-wrapper">
-                    <img src="https://images.pexels.com/photos/31728399/pexels-photo-31728399.jpeg" alt="Beige bedroom interior" class="ra-card-image">
+                    <img src="https://images.unsplash.com/photo-1563968743333-044cef800494?q=80&w=1058&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Beige bedroom interior" class="ra-card-image">
                 </div>
                 <div class="ra-card-content">
                     <div class="ra-card-meta">
-                        <span class="ra-tag">Remodeling</span>
-                        <span class="ra-date">Dec 3, 2025</span>
+                        <span class="ra-tag">Maluti Innovations</span>
+                        <span class="ra-date">Jan 11, 2026</span>
                     </div>
-                    <h3 class="ra-card-title">12 design tricks for picking the perfect home color palette</h3>
-                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                    <h3 class="ra-card-title"><a href="#">Maluti TVET College Launches New Robotics Lab for Engineering Students</a></h3>
+                    <p class="ra-excerpt">In a bid to enhance hands-on learning, Maluti TVET College has unveiled a state-of-the-art robotics lab equipped with advanced tools and software.</p>
                 </div>
             </article>
 
             <article class="ra-card">
                 <div class="ra-card-image-wrapper">
-                    <img src="https://images.pexels.com/photos/6474450/pexels-photo-6474450.jpeg" alt="Color palette swatches on wooden table" class="ra-card-image">
+                    <img src="images/79e40f5f-c98b-4f73-9742-ac6b0a96fe2e.jpg" alt="Color palette swatches on wooden table" class="ra-card-image">
                 </div>
                 <div class="ra-card-content">
                     <div class="ra-card-meta">
-                        <span class="ra-tag">Design</span>
-                        <span class="ra-date">Dec 3, 2025</span>
+                        <span class="ra-tag">Events</span>
+                        <span class="ra-date">Jan 11, 2026</span>
                     </div>
-                    <h3 class="ra-card-title">25 color trends designers can't wait to see in 2026</h3>
-                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                    <h3 class="ra-card-title"><a href="#">Open Day: Explore Campus Life at Maluti</a></h3>
+                    <p class="ra-excerpt">Join us on March 15, 2026, for our annual Open Day event!</p>
                 </div>
             </article>
 
             <article class="ra-card">
                 <div class="ra-card-image-wrapper">
-                    <img src="https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg" alt="Paint roller on a beige wall" class="ra-card-image">
+                    <img src="https://images.pexels.com/photos/35573072/pexels-photo-35573072.jpeg" alt="Paint roller on a beige wall" class="ra-card-image">
                 </div>
                 <div class="ra-card-content">
                     <div class="ra-card-meta">
-                        <span class="ra-tag">Construction</span>
-                        <span class="ra-date">Dec 3, 2025</span>
+                        <span class="ra-tag">Campus Life</span>
+                        <span class="ra-date">Jan 11, 2026</span>
                     </div>
-                    <h3 class="ra-card-title">Clever DIY home improvements you can easily do anytime</h3>
-                    <p class="ra-excerpt">Lorem ipsum dolor sit amet consectetur dui sit a malesuada habitasse adipiscing cras nec.</p>
+                    <h3 class="ra-card-title"><a href="#">Success Stories: Alumni Spotlight on Hospitality Graduates</a></h3>
+                    <p class="ra-excerpt">Meet three inspiring alumni from our Hospitality Management program who have gone on to manage top hotels in Johannesburg and Cape Town.</p>
                 </div>
             </article>
 
@@ -3078,7 +3459,7 @@
                     <li><a href="#">Academic Year</a></li>
                     <li><a href="#">Staff</a></li>
                     <li><a href="#">Students</a></li>
-                    <li><a href="#">Stuff Portal</a></li>
+                    <li><a href="#">Alumni & Friends</a></li>
                     <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
