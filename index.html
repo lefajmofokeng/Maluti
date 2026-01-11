@@ -165,7 +165,7 @@
         .kw-drop-link:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid #6366f1;
+            border-left: 3px solid #ffffff;
         }
 
         /* --- MEGA MENU (DESKTOP) --- */
@@ -177,7 +177,7 @@
             width: 900px;
             background: rgb(5, 13, 56);
             display: flex;
-            opacity: 1;
+            opacity: 0;
             visibility: hidden;
             z-index: 2000;
             overflow: hidden;
@@ -198,14 +198,13 @@
             font-weight: 600;
             font-size: 15px;
             cursor: pointer;
-            transition: 0.2s;
         }
         .kw-cat-link:hover, .kw-cat-link.active {
             background: rgba(255,255,255,0.05);
             color: #fff;
         }
         .kw-cat-link.active {
-            border-left: 3px solid #6366f1;
+            border-left: 3px solid #ffffff;
             padding-left: 22px;
         }
         .kw-mega-content {
@@ -216,7 +215,7 @@
         }
         .kw-course-group {
             display: none;
-            animation: fadeIn 0.3s ease;
+           
         }
         .kw-course-group.active { display: block; }
         
@@ -246,8 +245,7 @@
             padding: 5px 0;
         }
         .kw-mega-link:hover {
-            color: #6366f1;
-            transform: translateX(3px);
+            color: #ffffff;
         }
 
         /* Desktop Hover Logic */
@@ -1712,7 +1710,7 @@
                 const botDiv = document.createElement('div');
                 botDiv.className = 'maluti-chat-msg bot';
                 
-                let response = "I'm not sure about that. Try asking about 'Admissions', 'Courses', 'NSFAS', or 'Requirements'.";
+                let response = "I'm not sure about that. Try specifically asking about 'Admissions', 'Courses', 'NSFAS', or 'Requirements'.";
                 const lowerInput = userText.toLowerCase();
 
                 for (let key in knowledgeBase) {
