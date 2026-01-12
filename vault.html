@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maluti Vault | Secure Staff Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg-dark: #050d38;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle at top right, #0a196e, #050d38);
+        }
+
+        /* --- LOGIN SECTION --- */
+        #login-section {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .vault-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: linear-gradient(to bottom right, #818cf8, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 { font-size: 28px; margin-bottom: 10px; font-weight: 700; }
+        p.subtitle { color: var(--text-dim); margin-bottom: 30px; font-size: 14px; }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .login-btn:hover { background: #4f46e5; transform: translateY(-2px); }
+        .login-btn:active { transform: translateY(0); }
+
+        #error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* --- VAULT SECTION --- */
+        #vault-section {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            display: none;
+            opacity: 0;
+            overflow-y: auto;
+            padding: 40px 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .vault-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: white;
+            width: 300px;
+            outline: none;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background: var(--glass);
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            border: 1px solid transparent;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* DOCUMENT GRID */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: 0.3s;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .doc-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .doc-icon {
+            font-size: 30px;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .doc-info h4 { font-size: 16px; margin-bottom: 5px; }
+        .doc-info p { font-size: 12px; color: var(--text-dim); }
+
+        .download-btn {
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .vault-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+            .search-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="login-section">
+        <div class="glass-card">
+            <span class="vault-icon">🔒</span>
+            <h2>Maluti Vault</h2>
+            <p class="subtitle">Enter your credentials to access staff documents.</p>
+            
+            <div class="input-group">
+                <input type="password" id="passInput" placeholder="Password" required>
+            </div>
+            
+            <button class="login-btn" onclick="handleLogin()">Unlock Vault</button>
+            <p id="error-msg">Incorrect password. Please try again.</p>
+        </div>
+    </section>
+
+    <section id="vault-section">
+        <div class="container">
+            <div class="vault-header">
+                <div>
+                    <h2>Maluti Staff Vault</h2>
+                    <p style="color: var(--text-dim)">Welcome back, Faculty Member</p>
+                </div>
+                <input type="text" class="search-box" id="searchInput" placeholder="Search documents..." onkeyup="filterDocs()">
+            </div>
+
+            <div class="filter-tabs">
+                <div class="tab active" onclick="filterCategory('all', this)">All Documents</div>
+                <div class="tab" onclick="filterCategory('academic', this)">Academic</div>
+                <div class="tab" onclick="filterCategory('calendar', this)">Calendars</div>
+                <div class="tab" onclick="filterCategory('finance', this)">Finance & HR</div>
+            </div>
+
+            <div class="doc-grid" id="docGrid">
+                </div>
+        </div>
+    </section>
+
+    <script>
+        // DATA MODEL
+        const documents = [
+            { title: "2024 Academic Calendar", category: "calendar", size: "1.2 MB", type: "PDF" },
+            { title: "Student Enrollment Policy", category: "academic", size: "850 KB", type: "PDF" },
+            { title: "Staff Leave Form 2024", category: "finance", size: "400 KB", type: "DOCX" },
+            { title: "Department Budget Template", category: "finance", size: "2.1 MB", type: "XLSX" },
+            { title: "Q3 Examination Timetable", category: "academic", size: "1.5 MB", type: "PDF" },
+            { title: "Campus Safety Protocol", category: "academic", size: "3.2 MB", type: "PDF" },
+            { title: "Winter Graduation Schedule", category: "calendar", size: "900 KB", type: "PDF" },
+            { title: "IQMS Assessment Guidelines", category: "academic", size: "1.1 MB", type: "PDF" }
+        ];
+
+        // AUTHENTICATION LOGIC
+        function handleLogin() {
+            const pass = document.getElementById('passInput').value;
+            const error = document.getElementById('error-msg');
+            const loginSection = document.getElementById('login-section');
+            const vaultSection = document.getElementById('vault-section');
+
+            if (pass === "Lefa@1234") {
+                // Success Transition
+                loginSection.style.transform = "scale(0.9)";
+                loginSection.style.opacity = "0";
+                
+                setTimeout(() => {
+                    loginSection.style.display = "none";
+                    vaultSection.style.display = "block";
+                    renderDocuments(documents); // Initial Load
+                    setTimeout(() => {
+                        vaultSection.style.opacity = "1";
+                    }, 50);
+                }, 400);
+            } else {
+                // Error Shake Effect
+                error.style.display = "block";
+                loginSection.style.animation = "shake 0.4s ease";
+                setTimeout(() => { loginSection.style.animation = ""; }, 400);
+            }
+        }
+
+        // RENDER DOCUMENTS
+        function renderDocuments(items) {
+            const grid = document.getElementById('docGrid');
+            grid.innerHTML = items.map((doc, index) => `
+                <div class="doc-card" data-category="${doc.category}" style="animation-delay: ${index * 0.05}s">
+                    <div class="doc-icon">${getFileIcon(doc.type)}</div>
+                    <div class="doc-info">
+                        <h4>${doc.title}</h4>
+                        <p>${doc.type} • ${doc.size}</p>
+                        <a href="#" class="download-btn">Download File</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getFileIcon(type) {
+            if (type === 'PDF') return '📄';
+            if (type === 'XLSX') return '📊';
+            return '📁';
+        }
+
+        // FILTERING LOGIC
+        function filterCategory(cat, el) {
+            // Update Tab UI
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+
+            if (cat === 'all') {
+                renderDocuments(documents);
+            } else {
+                const filtered = documents.filter(d => d.category === cat);
+                renderDocuments(filtered);
+            }
+        }
+
+        function filterDocs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = documents.filter(d => d.title.toLowerCase().includes(query));
+            renderDocuments(filtered);
+        }
+
+        // Trigger login on Enter key
+        document.getElementById('passInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+    </script>
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</body>
+</html>
