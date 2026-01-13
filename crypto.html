@@ -1,0 +1,1938 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Hero Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tech-hero-wrapper-unique {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .tech-hero-wrapper-unique *,
+        .tech-hero-wrapper-unique *::before,
+        .tech-hero-wrapper-unique *::after {
+            box-sizing: inherit;
+        }
+
+        .tech-hero-container-unique {
+            background: linear-gradient(180deg, #0a0e1a 0%, #141b2d 100%);
+            padding: 80px 40px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tech-hero-heading-unique {
+            color: #ffffff;
+            font-size: 50px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0 0 80px 0;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .tech-hero-heading-unique .tech-hero-highlight-unique {
+            color: #9ca3af;
+            font-weight: 600;
+        }
+
+        .tech-hero-grid-unique {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tech-hero-card-unique {
+            border-top: 1px solid #2d3748;
+            padding-top: 30px;
+        }
+
+        .tech-hero-card-title-unique {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+        }
+
+        .tech-hero-card-subtitle-unique {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .tech-hero-card-description-unique {
+            color: #9ca3af;
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .tech-hero-grid-unique {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .tech-hero-heading-unique {
+                font-size: 48px;
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tech-hero-container-unique {
+                padding: 60px 24px;
+            }
+
+            .tech-hero-heading-unique {
+                font-size: 36px;
+                margin-bottom: 50px;
+            }
+
+            .tech-hero-card-title-unique {
+                font-size: 18px;
+            }
+
+            .tech-hero-card-subtitle-unique,
+            .tech-hero-card-description-unique {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="tech-hero-wrapper-unique">
+    <div class="tech-hero-container-unique">
+        <h1 class="tech-hero-heading-unique">
+            Launched in 2019, <span class="tech-hero-highlight-unique">TechCore leverages<br>25+ years of expertise to enable<br>secure, strategic digital transformation</span>
+        </h1>
+
+        <div class="tech-hero-grid-unique">
+            <div class="tech-hero-card-unique">
+                <h2 class="tech-hero-card-title-unique">Certified by</h2>
+                <p class="tech-hero-card-subtitle-unique">ISO 27001</p>
+                <p class="tech-hero-card-description-unique">
+                    We are the first major IT platform to obtain a full stack of ISO security and quality certifications.
+                </p>
+            </div>
+
+            <div class="tech-hero-card-unique">
+                <h2 class="tech-hero-card-title-unique">Cloud Infrastructure</h2>
+                <p class="tech-hero-card-subtitle-unique">(Multi-Cloud Architecture)</p>
+                <p class="tech-hero-card-description-unique">
+                    Covers deployment across AWS, Azure, and Google Cloud with enterprise-grade security and scalability.
+                </p>
+            </div>
+
+            <div class="tech-hero-card-unique">
+                <h2 class="tech-hero-card-title-unique">DevOps Solutions</h2>
+                <p class="tech-hero-card-subtitle-unique">(Continuous Integration & Deployment)</p>
+                <p class="tech-hero-card-description-unique">
+                    Providing automated pipeline management for our enterprise clients, enabling rapid deployment and continuous delivery.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Unique class prefix to avoid conflicts: tech-dupe- */
+  .tech-dupe-container {
+    position: relative;
+    width: 100%;
+    height: 800px; /* Adjust height as needed */
+    background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .tech-dupe-content {
+    max-width: 800px;
+    z-index: 1;
+  }
+
+  .tech-dupe-title {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .tech-dupe-subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #838eb1;
+    margin-bottom: 32px;
+  }
+
+  .tech-dupe-button {
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .tech-dupe-button:hover {
+    background-color: #007bff;
+  }
+
+  .tech-dupe-person {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 80%;
+    object-fit: contain;
+    opacity: 0.9; /* Slight opacity to blend with background */
+  }
+</style>
+
+<div class="tech-dupe-container">
+  <div class="tech-dupe-content">
+    <h1 class="tech-dupe-title">Unlock the<br>Power of Technology<br>on your Platform</h1>
+    <p class="tech-dupe-subtitle">Take your business into the future of engagement as our partner</p>
+    <button class="tech-dupe-button">Become A Partner →</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Features Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .techfeat-wrapper-x9z {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .techfeat-wrapper-x9z *,
+        .techfeat-wrapper-x9z *::before,
+        .techfeat-wrapper-x9z *::after {
+            box-sizing: inherit;
+        }
+
+        .techfeat-section-x9z {
+            background: linear-gradient(180deg, #1a1f35 0%, #0f1419 100%);
+            padding: 80px 40px 100px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .techfeat-header-x9z {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .techfeat-title-x9z {
+            color: #ffffff;
+            font-size: 45px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin: 0 0 24px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .techfeat-subtitle-x9z {
+            color: #9ea6bc;
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0;
+            max-width: 900px;
+        }
+
+        .techfeat-grid-x9z {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .techfeat-card-x9z {
+            background: rgba(30, 37, 54, 0.5);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            transition: transform 0.3s ease, background 0.3s ease;
+           
+        }
+
+        .techfeat-icon-container-x9z {
+            width: 100%;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .techfeat-icon-x9z {
+            width: 280px;
+            height: 280px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+        }
+
+        .techfeat-content-x9z {
+            padding: 30px;
+        }
+
+        .techfeat-card-title-x9z {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            margin: 0 0 12px 0;
+        }
+
+        .techfeat-card-description-x9z {
+            color: #8b92a7;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 18px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .techfeat-button-x9z {
+            background: #174879c0;
+            color: #9dd2fa;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .techfeat-button-x9z:hover {
+            background: #2563a8;
+            color: #7cc5ff;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 1200px) {
+            .techfeat-grid-x9z {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .techfeat-section-x9z {
+                padding: 60px 24px 80px;
+            }
+
+            .techfeat-title-x9z {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+
+            .techfeat-subtitle-x9z {
+                font-size: 18px;
+            }
+
+            .techfeat-grid-x9z {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .techfeat-icon-container-x9z {
+                height: 260px;
+            }
+
+            .techfeat-icon-x9z {
+                width: 220px;
+                height: 220px;
+            }
+
+            .techfeat-card-title-x9z {
+                font-size: 24px;
+            }
+
+            .techfeat-card-description-x9z {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="techfeat-wrapper-x9z">
+    <section class="techfeat-section-x9z">
+        <div class="techfeat-header-x9z">
+            <h1 class="techfeat-title-x9z">Built for rapid deployment</h1>
+            <p class="techfeat-subtitle-x9z">
+                Achieve faster time-to-market with our proprietary technology,
+                protected by industry-leading security standards.
+            </p>
+        </div>
+
+        <div class="techfeat-grid-x9z">
+            <!-- Security Card -->
+            <div class="techfeat-card-x9z">
+                <div class="techfeat-icon-container-x9z">
+                    <img src="your-security-icon.png" alt="Security" class="techfeat-icon-x9z">
+                </div>
+                <div class="techfeat-content-x9z">
+                    <h2 class="techfeat-card-title-x9z">Security</h2>
+                    <p class="techfeat-card-description-x9z">
+                        Leading the industry in licenses and certifications
+                    </p>
+                    <button class="techfeat-button-x9z">See our security features</button>
+                </div>
+            </div>
+
+            <!-- Components Card -->
+            <div class="techfeat-card-x9z">
+                <div class="techfeat-icon-container-x9z">
+                    <img src="your-components-icon.png" alt="Components" class="techfeat-icon-x9z">
+                </div>
+                <div class="techfeat-content-x9z">
+                    <h2 class="techfeat-card-title-x9z">Components</h2>
+                    <p class="techfeat-card-description-x9z">
+                        Embeddable components for any enterprise application
+                    </p>
+                    <button class="techfeat-button-x9z">Build your component now</button>
+                </div>
+            </div>
+
+            <!-- API Card -->
+            <div class="techfeat-card-x9z">
+                <div class="techfeat-icon-container-x9z">
+                    <img src="your-api-icon.png" alt="API" class="techfeat-icon-x9z">
+                </div>
+                <div class="techfeat-content-x9z">
+                    <h2 class="techfeat-card-title-x9z">API</h2>
+                    <p class="techfeat-card-description-x9z">
+                        Embed turn-key integration modules directly into your platform
+                    </p>
+                    <button class="techfeat-button-x9z">Connect now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Hero Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .videohero-wrapper-k7p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .videohero-wrapper-k7p *,
+        .videohero-wrapper-k7p *::before,
+        .videohero-wrapper-k7p *::after {
+            box-sizing: inherit;
+        }
+
+        .videohero-section-k7p {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 80px;
+        }
+
+        .videohero-video-k7p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        .videohero-overlay-k7p {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .videohero-content-k7p {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .videohero-button-k7p {
+            background: #0577da;
+            color: #ffffff;
+            border: none;
+            border-radius: 60px;
+            padding: 10px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+        }
+
+        .videohero-content-k7p a {
+            border-bottom: none;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .videohero-button-k7p:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .videohero-section-k7p {
+                padding-bottom: 60px;
+                min-height: 500px;
+            }
+
+            .videohero-button-k7p {
+                padding: 10px 30px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body class="videohero-wrapper-k7p">
+    <section class="videohero-section-k7p">
+        <!-- Video Background -->
+        <video class="videohero-video-k7p" autoplay muted loop playsinline>
+            <source src="https://www.pexels.com/download/video/4208325/" type="video/mp4">
+            <source src="your-video.webm" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Dark Overlay -->
+        <div class="videohero-overlay-k7p"></div>
+
+        <!-- Button Content -->
+        <div class="videohero-content-k7p">
+            <button class="videohero-button-k7p"><a href="#">Get Started Now
+            <svg style="vertical-align: middle; align-items: center;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ffffff" d="M4.5 11h11.586l-4.5-4.5L13 5.086L19.914 12L13 18.914L11.586 17.5l4.5-4.5H4.5v-2Z"/></svg>
+            </a></button>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternating Grid Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .altgrid-wrapper-m3r {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .altgrid-wrapper-m3r *,
+        .altgrid-wrapper-m3r *::before,
+        .altgrid-wrapper-m3r *::after {
+            box-sizing: inherit;
+        }
+
+        .altgrid-section-m3r {
+            background: #ffffff;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .altgrid-row-m3r {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            align-items: center;
+        }
+
+        .altgrid-image-container-m3r {
+            width: 100%;
+            height: 100%;
+            min-height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .altgrid-image-m3r {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .altgrid-content-m3r {
+            padding: 80px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .altgrid-heading-m3r {
+            color: #1a1f35;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0 0 24px 0;
+            letter-spacing: -0.04em;
+        }
+
+        .altgrid-description-m3r {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Alternating pattern - image on right */
+        .altgrid-row-reverse-m3r {
+            direction: rtl;
+        }
+
+        .altgrid-row-reverse-m3r .altgrid-content-m3r {
+            direction: ltr;
+        }
+
+        /* Even rows with different background */
+        .altgrid-row-m3r:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        @media (max-width: 968px) {
+            .altgrid-row-m3r,
+            .altgrid-row-reverse-m3r {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+
+            .altgrid-image-container-m3r {
+                min-height: 400px;
+            }
+
+            .altgrid-content-m3r {
+                padding: 60px 40px;
+            }
+
+            .altgrid-heading-m3r {
+                font-size: 36px;
+            }
+
+            .altgrid-description-m3r {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .altgrid-image-container-m3r {
+                min-height: 300px;
+            }
+
+            .altgrid-content-m3r {
+                padding: 40px 24px;
+            }
+
+            .altgrid-heading-m3r {
+                font-size: 28px;
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="altgrid-wrapper-m3r">
+    <section class="altgrid-section-m3r">
+        
+        <!-- Row 1: Image Left, Content Right -->
+        <div class="altgrid-row-m3r">
+            <div class="altgrid-image-container-m3r">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&fit=crop" 
+                     alt="Technology" 
+                     class="altgrid-image-m3r">
+            </div>
+            <div class="altgrid-content-m3r">
+                <h2 class="altgrid-heading-m3r">Cloud Infrastructure Solutions</h2>
+                <p class="altgrid-description-m3r">
+                    Transform your business with scalable cloud infrastructure that grows with your needs. Our enterprise-grade solutions provide the reliability and performance you demand, with 99.99% uptime and global reach across multiple regions.
+                </p>
+            </div>
+        </div>
+
+        <!-- Row 2: Content Left, Image Right -->
+        <div class="altgrid-row-m3r altgrid-row-reverse-m3r">
+            <div class="altgrid-image-container-m3r">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=800&fit=crop" 
+                     alt="Security" 
+                     class="altgrid-image-m3r">
+            </div>
+            <div class="altgrid-content-m3r">
+                <h2 class="altgrid-heading-m3r">Advanced Security Protocols</h2>
+                <p class="altgrid-description-m3r">
+                    Protect your data with military-grade encryption and multi-layered security architecture. Our comprehensive security framework includes real-time threat detection, automated response systems, and continuous monitoring to keep your assets safe.
+                </p>
+            </div>
+        </div>
+
+        <!-- Row 3: Image Left, Content Right -->
+        <div class="altgrid-row-m3r">
+            <div class="altgrid-image-container-m3r">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&h=800&fit=crop" 
+                     alt="Analytics" 
+                     class="altgrid-image-m3r">
+            </div>
+            <div class="altgrid-content-m3r">
+                <h2 class="altgrid-heading-m3r">Data Analytics & Insights</h2>
+                <p class="altgrid-description-m3r">
+                    Unlock the power of your data with advanced analytics and machine learning capabilities. Gain actionable insights in real-time, visualize complex data patterns, and make informed decisions that drive your business forward.
+                </p>
+            </div>
+        </div>
+
+        <!-- Row 4: Content Left, Image Right -->
+        <div class="altgrid-row-m3r altgrid-row-reverse-m3r">
+            <div class="altgrid-image-container-m3r">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop" 
+                     alt="Collaboration" 
+                     class="altgrid-image-m3r">
+            </div>
+            <div class="altgrid-content-m3r">
+                <h2 class="altgrid-heading-m3r">Seamless Team Collaboration</h2>
+                <p class="altgrid-description-m3r">
+                    Enable your teams to work together effortlessly from anywhere in the world. Our collaboration platform integrates communication, project management, and file sharing in one unified workspace designed for modern teams.
+                </p>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    /* Scoped Container to prevent global style leakage */
+    .it-hero-wrapper {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 800px;
+        width: 100%;
+        background: linear-gradient(to right, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.1) 100%), 
+                    url('https://images.unsplash.com/photo-1678203699291-253ab7a4d6d2?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        padding-left: 10%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .it-hero-content {
+        max-width: 700px;
+        z-index: 2;
+    }
+
+    .it-hero-category {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        opacity: 0.95;
+    }
+
+    .it-hero-headline {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+    }
+
+    .it-hero-sub-headline {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #f1f1f1;
+    }
+
+    .it-hero-footer-note {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #b0b8d1;
+        margin-top: 1rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .it-hero-headline { font-size: 2.5rem; }
+        .it-hero-category { font-size: 1.5rem; }
+        .it-hero-wrapper { padding-left: 5%; }
+    }
+</style>
+
+<section class="it-hero-wrapper">
+    <div class="it-hero-content">
+        <div class="it-hero-category">INFRASTRUCTURE</div>
+        
+        <h1 class="it-hero-headline">
+            Innovate your future.<br>
+            Build it when you're right.
+        </h1>
+
+        <p class="it-hero-sub-headline">Available throughout the US.</p>
+        
+        <p class="it-hero-footer-note">
+            Currently only available in the United States.
+        </p>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --it-tech-bg: #030308;
+        --it-tech-text-white: #f7F9FA;
+        --it-tech-text-dim: #A0A9BE;
+        --it-tech-radius: 8px;
+    }
+
+    .it-tech-container {
+        background-color: var(--it-tech-bg);
+        color: var(--it-tech-text-white);
+        font-family: 'Inter', sans-serif;
+        padding: 60px 5%;
+    }
+
+    .it-tech-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto 100px auto;
+        gap: 8%;
+    }
+
+    /* Alternating logic */
+    .it-tech-row:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    /* Reduced Image Size (40% width instead of 50/50 split) */
+    .it-tech-image-box {
+        flex: 0 0 40%;
+    }
+
+    .it-tech-image-box img {
+        width: 100%;
+        height: 320px; /* Controlled height for consistency */
+        border-radius: var(--it-tech-radius);
+        object-fit: cover;
+        display: block;
+    }
+
+    .it-tech-text-box {
+        flex: 0 0 52%;
+    }
+
+    .it-tech-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+    }
+
+    .it-tech-desc {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--it-tech-text-dim);
+        font-weight: 400;
+    }
+
+    @media (max-width: 768px) {
+        .it-tech-row, .it-tech-row:nth-child(even) {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .it-tech-image-box, .it-tech-text-box {
+            flex: 0 0 100%;
+        }
+        .it-tech-image-box img { height: 250px; }
+    }
+</style>
+
+<div class="it-tech-container">
+    <div class="it-tech-row">
+        <div class="it-tech-text-box">
+            <h2 class="it-tech-title">Cloud Native Infrastructure</h2>
+            <p class="it-tech-desc">Scale your applications with microservices architecture designed for maximum uptime and resilience.</p>
+        </div>
+        <div class="it-tech-image-box">
+            <img src="https://images.unsplash.com/photo-1733534843143-a4df42fe8bfe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cloud tech">
+        </div>
+    </div>
+
+    <div class="it-tech-row">
+        <div class="it-tech-text-box">
+            <h2 class="it-tech-title">Cyber Security First</h2>
+            <p class="it-tech-desc">End-to-end encryption and real-time threat detection to protect your most sensitive data assets.</p>
+        </div>
+        <div class="it-tech-image-box">
+            <img src="https://images.unsplash.com/photo-1692825122355-bf1daadefb76?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Security">
+        </div>
+    </div>
+
+    <div class="it-tech-row">
+        <div class="it-tech-text-box">
+            <h2 class="it-tech-title">AI Driven Analytics</h2>
+            <p class="it-tech-desc">Transform raw data into actionable insights using our proprietary machine learning models.</p>
+        </div>
+        <div class="it-tech-image-box">
+            <img src="https://images.unsplash.com/photo-1702409096882-5508585181fb?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Analytics">
+        </div>
+    </div>
+
+    <div class="it-tech-row">
+        <div class="it-tech-text-box">
+            <h2 class="it-tech-title">Edge Computing</h2>
+            <p class="it-tech-desc">Reduce latency by processing data closer to the source with our distributed edge network.</p>
+        </div>
+        <div class="it-tech-image-box">
+            <img src="https://images.unsplash.com/photo-1714548835781-f910461db159?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Edge Computing">
+        </div>
+    </div>
+
+    <div class="it-tech-row">
+        <div class="it-tech-text-box">
+            <h2 class="it-tech-title">DevOps Automation</h2>
+            <p class="it-tech-desc">Streamline your CI/CD pipelines and eliminate manual bottlenecks in your release cycle.</p>
+        </div>
+        <div class="it-tech-image-box">
+            <img src="https://images.unsplash.com/photo-1704748430013-41227f6abf2f?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Automation">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --it-bg: #040608;
+        --it-text-main: #ffffff;
+        --it-text-muted: #999999;
+        --it-radius: 8px;
+        --it-accent: #007AFF;
+    }
+
+    .it-scroll-wrapper {
+        background-color: var(--it-bg);
+        color: var(--it-text-main);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Main Container */
+    .it-scroll-container {
+        display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    /* --- DESKTOP: LEFT STICKY PANEL --- */
+    .it-sticky-visual {
+        flex: 0 0 50%; /* Half width */
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        /* Hidden on mobile by default via media query below */
+    }
+
+    .it-image-stack {
+        width: 100%;
+        height: 400px; /* Fixed height for consistency */
+        position: relative;
+        border-radius: var(--it-radius);
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .it-image-stack img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+    }
+
+    .it-image-stack img.active {
+        opacity: 1;
+    }
+
+    /* --- RIGHT CONTENT PANEL --- */
+    .it-scroll-content {
+        flex: 0 0 50%;
+        padding: 40px;
+    }
+
+    .it-text-step {
+        min-height: 100vh; /* Ensures enough scroll space on desktop */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 0;
+    }
+
+    .it-step-title {
+        font-size: 3rem;
+        font-weight: 600;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.03em;
+    }
+
+    .it-step-desc {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: var(--it-text-muted);
+        max-width: 450px;
+        font-weight: 600;
+    }
+
+    /* --- MOBILE IMAGE (Hidden on Desktop) --- */
+    .it-mobile-image {
+        display: none; /* Hidden by default */
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: var(--it-radius);
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    /* --- RESPONSIVE LOGIC --- */
+    @media (max-width: 900px) {
+        .it-scroll-container {
+            flex-direction: column;
+        }
+
+        /* Hide the sticky desktop panel */
+        .it-sticky-visual {
+            display: none;
+        }
+
+        /* Reset right panel width */
+        .it-scroll-content {
+            flex: 0 0 100%;
+            padding: 20px 20px 60px 20px;
+        }
+
+        /* Reset step height so they stack naturally */
+        .it-text-step {
+            min-height: auto;
+            margin-bottom: 80px;
+            display: block; /* Normal block flow */
+        }
+
+        /* Show the mobile image inside the text block */
+        .it-mobile-image {
+            display: block;
+        }
+
+        .it-step-title {
+            font-size: 2.2rem;
+        }
+    }
+</style>
+
+<div class="it-scroll-wrapper">
+    <div class="it-scroll-container">
+        
+        <div class="it-sticky-visual">
+            <div class="it-image-stack">
+                <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1000" class="active" data-id="1">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" data-id="2">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" data-id="3">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" data-id="4">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000" data-id="5">
+            </div>
+        </div>
+
+        <div class="it-scroll-content">
+            
+            <div class="it-text-step" data-target="1">
+                <h2 class="it-step-title">Decentralized Security</h2>
+                <p class="it-step-desc">
+                    The foundation of our stack is built on zero-trust architecture, ensuring your nodes are invisible to threats.
+                </p>
+                <img class="it-mobile-image" src="https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1000" alt="Security">
+            </div>
+
+            <div class="it-text-step" data-target="2">
+                <h2 class="it-step-title">Real-time Monitoring</h2>
+                <p class="it-step-desc">
+                    Watch your deployment scale in real-time with granular metrics at every layer of the infrastructure.
+                </p>
+                <img class="it-mobile-image" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="Monitoring">
+            </div>
+
+            <div class="it-text-step" data-target="3">
+                <h2 class="it-step-title">Neural Networks</h2>
+                <p class="it-step-desc">
+                    Our AI automatically optimizes traffic routing based on global latency patterns and user behavior.
+                </p>
+                <img class="it-mobile-image" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" alt="AI">
+            </div>
+
+            <div class="it-text-step" data-target="4">
+                <h2 class="it-step-title">Global Connectivity</h2>
+                <p class="it-step-desc">
+                    Connect your team across 40+ countries with low-latency private tunneling and dedicated backbones.
+                </p>
+                <img class="it-mobile-image" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" alt="Connectivity">
+            </div>
+
+            <div class="it-text-step" data-target="5">
+                <h2 class="it-step-title">Edge Resilience</h2>
+                <p class="it-step-desc">
+                    Hardware-accelerated edge points ensure that even under heavy load, your users stay connected.
+                </p>
+                <img class="it-mobile-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000" alt="Edge">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Only run the observer logic if we are on desktop (width > 900px)
+    // However, keeping it active generally doesn't hurt mobile, but we can optimize.
+    
+    const stackImages = document.querySelectorAll('.it-image-stack img');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Get the ID of the text section currently in view
+                const targetId = entry.target.getAttribute('data-target');
+                
+                // Show the corresponding image in the sticky stack
+                stackImages.forEach(img => {
+                    if (img.getAttribute('data-id') === targetId) {
+                        img.classList.add('active');
+                    } else {
+                        img.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px', // Trigger when content is in the middle of the screen
+        threshold: 0
+    });
+
+    document.querySelectorAll('.it-text-step').forEach(step => {
+        observer.observe(step);
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    /* Scoped container to ensure no style leakage */
+    .nexus-it-hero-wrapper {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        align-items: center;
+        min-height: 600px;
+        width: 100%;
+        /* Dark technical background with gradient overlay for text readability */
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.2) 100%), 
+                    url('https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=2000');
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        padding: 0 8%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nexus-it-hero-content {
+        max-width: 700px;
+        z-index: 2;
+    }
+
+    /* Top Category Label */
+    .nexus-it-category-tag {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.2rem;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Icon mimicking the logo in the original */
+    .nexus-it-icon {
+        width: 32px;
+        height: 32px;
+        border: 2px solid #ffffff;
+        border-radius: 6px;
+        display: inline-block;
+        position: relative;
+    }
+    .nexus-it-icon::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 12px;
+        height: 12px;
+        background: #ffffff;
+        border-radius: 2px;
+    }
+
+    /* Headline Styling */
+    .nexus-it-headline {
+        font-size: 3.8rem;
+        line-height: 1.05;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.03em;
+    }
+
+    /* Sub-text and Disclaimer */
+    .nexus-it-sub-headline {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        opacity: 0.95;
+    }
+
+    .nexus-it-footer-note {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: #aaaaaa;
+        margin-top: 0.8rem;
+    }
+
+    /* Floating Technical Element (The Golden Tech Sphere) */
+    .nexus-it-floating-element {
+        position: absolute;
+        right: 10%;
+        width: 400px;
+        height: 400px;
+        background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000');
+        background-size: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+        .nexus-it-floating-element { display: none; }
+        .nexus-it-headline { font-size: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+        .nexus-it-hero-wrapper { padding: 0 5%; text-align: center; justify-content: center; }
+        .nexus-it-category-tag { justify-content: center; font-size: 1.4rem; }
+        .nexus-it-headline { font-size: 2.5rem; }
+    }
+</style>
+
+<section class="nexus-it-hero-wrapper">
+    <div class="nexus-it-hero-content">
+        <div class="nexus-it-category-tag">
+            <span class="nexus-it-icon"></span>
+            IT/TECHNOLOGY
+        </div>
+        
+        <h1 class="nexus-it-headline">
+            Innovate your future.<br>
+            Build it when you're right.
+        </h1>
+
+        <p class="nexus-it-sub-headline">Available throughout the US.</p>
+        
+        <p class="nexus-it-footer-note">
+            Currently only available in the United States.
+        </p>
+    </div>
+
+    <div class="nexus-it-floating-element"></div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --secure-bg: #030a17;
+        --secure-text: #ffffff;
+        --secure-muted: #8a94a6;
+        --secure-blue: #4ca2ff;
+        --secure-radius: 12px;
+    }
+
+    .secure-it-wrapper {
+        background-color: var(--secure-bg);
+        color: var(--secure-text);
+        font-family: 'Inter', sans-serif;
+        padding: 100px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        overflow: hidden;
+    }
+
+    .secure-it-container {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+    /* Left Side Content */
+    .secure-it-content {
+        flex: 1;
+        max-width: 500px;
+    }
+
+    .secure-it-label {
+        color: var(--secure-blue);
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1.1rem;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .secure-it-title {
+        font-size: 3.5rem;
+        font-weight: 600;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+    }
+
+    .secure-it-desc {
+        color: var(--secure-muted);
+        font-size: 1.15rem;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+
+    .secure-it-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        border: 1px solid #ffffff;
+        border-radius: 30px;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .secure-it-btn:hover {
+        background: #ffffff;
+        color: var(--secure-bg);
+    }
+
+    .secure-it-btn::after {
+        content: '→';
+        margin-left: 10px;
+    }
+
+    /* Right Side Visuals (Floating Cards) */
+    .secure-it-visual {
+        flex: 1;
+        position: relative;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Main Phone Silhouette Shadow */
+    .secure-it-phone-shape {
+        width: 240px;
+        height: 490px;
+        background: linear-gradient(135deg, #0d1b31 0%, #050d1a 100%);
+        border-radius: 40px; 
+        box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Floating UI Elements */
+    .secure-it-card {
+        position: absolute;
+        background: #ffffff;
+        color: #000;
+        padding: 15px;
+        border-radius: var(--secure-radius);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        animation: float-it 6s ease-in-out infinite;
+    }
+
+    .secure-it-card.face-id {
+        top: 20%;
+        left: 0;
+        width: 140px;
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        animation-delay: 0s;
+    }
+
+    .secure-it-card.two-fa {
+        bottom: 15%;
+        right: 0;
+        width: 220px;
+        animation-delay: 1s;
+    }
+
+    .secure-it-code-tag {
+        position: absolute;
+        top: 40%;
+        right: -10%;
+        background: var(--secure-blue);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: monospace;
+        font-weight: bold;
+        letter-spacing: 2px;
+        animation-delay: 2s;
+    }
+
+    @keyframes float-it {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    /* Mobile Logic */
+    @media (max-width: 992px) {
+        .secure-it-container { flex-direction: column; text-align: center; }
+        .secure-it-content { max-width: 100%; order: 1; }
+        .secure-it-visual { order: 2; width: 100%; height: 400px; margin-top: 50px; }
+        .secure-it-title { font-size: 2.5rem; }
+        .secure-it-desc { max-width: 100%; }
+    }
+</style>
+
+<section class="secure-it-wrapper">
+    <div class="secure-it-container">
+        
+        <div class="secure-it-content">
+            <span class="secure-it-label">Security</span>
+            <h2 class="secure-it-title">Take your keys into your own hands</h2>
+            <p class="secure-it-desc">
+                Your private keys are encrypted locally on your device with Secure Enclave, 
+                protected by biometric and 2-Factor Authentication.
+            </p>
+            <a href="#" class="secure-it-btn">Learn More</a>
+        </div>
+
+        <div class="secure-it-visual">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=600" alt="Phone Silhouette" class="secure-it-phone-shape">
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Unique class prefix to avoid conflicts: tech-bold-launch- */
+  .tech-bold-launch-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height for whole background effect */
+    background: url('https://images.pexels.com/photos/2091399/pexels-photo-2091399.jpeg') no-repeat center/cover; /* Replace with actual tech-themed image URL */
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  /* Optional overlay for better text readability on background image */
+  .tech-bold-launch-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+    z-index: 0;
+  }
+
+  .tech-bold-launch-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .tech-bold-launch-title {
+    font-size: 72px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 52px;
+  }
+
+  .tech-bold-launch-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .tech-bold-launch-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .tech-bold-launch-button:hover {
+    background-color: #f0f0f0;
+  }
+
+  .tech-bold-launch-button-ai {
+    background-color: #1e3a8a;
+    color: #ffffff;
+  }
+
+  .tech-bold-launch-button-ai:hover {
+    background-color: #152e6e;
+  }
+</style>
+
+<div class="tech-bold-launch-container">
+  <div class="tech-bold-launch-content">
+    <h1 class="tech-bold-launch-title">Innovate bold.<br>Launch fast.</h1>
+    <div class="tech-bold-launch-buttons">
+      <button class="tech-bold-launch-button">Start for Free</button>
+      <button class="tech-bold-launch-button tech-bold-launch-button-ai">Start with AI</button>
+    </div>
+  </div>
+</div>
+
+

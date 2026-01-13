@@ -1,0 +1,196 @@
+<style>
+    /* =============================================
+        HYPERION HEADER - UNIQUE STYLES
+        ============================================= */
+    :root {
+        /* Palette */
+        --hyperion-color-header-bg: #080d1b;
+        --hyperion-color-accent: #0091ff;
+        --hyperion-color-text-light: #fff;
+        --hyperion-color-background-dark: #000;
+        --hyperion-color-off-white: #f4f4f4;
+        --hyperion-color-text-muted: #A0A9BE;
+        --hyperion-color-menu-bg: #080d1b;
+        --hyperion-color-menu-border: rgba(0, 145, 255, 0.2);
+        --hyperion-color-qr-dropdown-bg: #1c1a3b;
+        
+        /* Sizing */
+        --hyperion-header-height: 55px;
+        --hyperion-content-max-width-fg: 1420px;
+    }
+
+    /* ... [Rest of your existing CSS remains unchanged] ... */
+    /* Only adding the new menu items into the existing HTML structure below */
+</style>
+
+<header class="hyperion-header-wrapper" id="hyperionHeader">
+    <div class="hyperion-container">
+        <div class="hyperion-header-inner">
+            <div class="hyperion-brand">
+                <a href="/" class="hyperion-logo-link">
+                    <span class="hyperion-logo-text">MALUTI<span style="color:var(--hyperion-color-accent)">TVET</span></span>
+                </a>
+            </div>
+
+            <nav class="hyperion-nav-desktop">
+                <ul class="hyperion-nav-list">
+                    <li class="hyperion-nav-item hyperion-has-megamenu" data-menu="discover">
+                        <a href="#" class="hyperion-nav-link">Discover <span class="hyperion-chevron"></span></a>
+                    </li>
+
+                    <li class="hyperion-nav-item hyperion-has-megamenu" data-menu="students">
+                        <a href="#" class="hyperion-nav-link">Students <span class="hyperion-chevron"></span></a>
+                    </li>
+
+                    <li class="hyperion-nav-item hyperion-has-megamenu" data-menu="staff">
+                        <a href="#" class="hyperion-nav-link">Staff <span class="hyperion-chevron"></span></a>
+                    </li>
+
+                    <li class="hyperion-nav-item hyperion-has-megamenu" data-menu="apply">
+                        <a href="#" class="hyperion-nav-link">Apply <span class="hyperion-chevron"></span></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="hyperion-actions">
+                <button class="hyperion-mobile-toggle" id="hyperionMobileToggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="hyperion-megamenu-overlay" id="hyperionMegamenuOverlay">
+        <div class="hyperion-container">
+            
+            <div class="hyperion-megamenu-content" id="menu-discover">
+                <div class="hyperion-megamenu-grid">
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">About Us</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Our History</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">Campuses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hyperion-megamenu-content" id="menu-students">
+                <div class="hyperion-megamenu-grid">
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Academic Portal</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Student iEnabler</a></li>
+                            <li><a href="#">Examination Timetables</a></li>
+                            <li><a href="#">Results Inquiry</a></li>
+                            <li><a href="#">E-Learning (Moodle)</a></li>
+                        </ul>
+                    </div>
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Support & Services</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">NSFAS / Bursaries</a></li>
+                            <li><a href="#">Student Support Services</a></li>
+                            <li><a href="#">SRC Info</a></li>
+                            <li><a href="#">Library Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Campus Life</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Sports & Culture</a></li>
+                            <li><a href="#">Residence / Housing</a></li>
+                            <li><a href="#">Health & Wellness</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hyperion-megamenu-content" id="menu-staff">
+                <div class="hyperion-megamenu-grid">
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Admin Systems</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Staff Email (Outlook)</a></li>
+                            <li><a href="#">ITS iEnabler (Staff)</a></li>
+                            <li><a href="#">Document Vault</a></li>
+                        </ul>
+                    </div>
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">HR & Finance</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Pay-slips Portal</a></li>
+                            <li><a href="#">Leave Applications</a></li>
+                            <li><a href="#">HR Policies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hyperion-megamenu-content" id="menu-apply">
+                <div class="hyperion-megamenu-grid">
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Prospective Students</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Online Application 2026</a></li>
+                            <li><a href="#">Check Application Status</a></li>
+                            <li><a href="#">Upload Documents</a></li>
+                        </ul>
+                    </div>
+                    <div class="hyperion-megamenu-column">
+                        <h4 class="hyperion-megamenu-title">Course Information</h4>
+                        <ul class="hyperion-megamenu-list">
+                            <li><a href="#">Nated Programs</a></li>
+                            <li><a href="#">NCV Programs</a></li>
+                            <li><a href="#">Skills & Occupational</a></li>
+                            <li><a href="#">Admission Requirements</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hyperionHeaderWrapper = document.getElementById('hyperionHeader');
+    const hyperionNavItems = document.querySelectorAll('.hyperion-nav-item.hyperion-has-megamenu');
+    const hyperionMegamenuOverlay = document.getElementById('hyperionMegamenuOverlay');
+    const hyperionMegamenuContents = document.querySelectorAll('.hyperion-megamenu-content');
+
+    // Desktop Hover Logic
+    hyperionNavItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const menuId = this.getAttribute('data-menu');
+            hyperionSetActiveMenu(menuId, item);
+        });
+    });
+
+    hyperionHeaderWrapper.addEventListener('mouseleave', function() {
+        if (window.innerWidth > 1024) {
+            hyperionSetActiveMenu(null, null);
+        }
+    });
+
+    function hyperionSetActiveMenu(menuId, activeNavItem) {
+        hyperionMegamenuContents.forEach(content => content.classList.remove('active'));
+        hyperionNavItems.forEach(nav => nav.classList.remove('active'));
+
+        if (menuId) {
+            const activeContent = document.getElementById(`menu-${menuId}`);
+            if (activeContent) {
+                activeContent.classList.add('active');
+                hyperionMegamenuOverlay.classList.add('active');
+                if (activeNavItem) activeNavItem.classList.add('active');
+            }
+        } else {
+            hyperionMegamenuOverlay.classList.remove('active');
+        }
+    }
+
+    // [Mobile Toggle Logic from original remains the same]
+});
+</script>

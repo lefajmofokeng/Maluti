@@ -3,357 +3,959 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maluti Vault | Secure Staff Access</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+    <title>Maluti TVET - Document Vault</title>
     <style>
-        :root {
-            --primary: #6366f1;
-            --bg-dark: #050d38;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            font-family: 'Bricolage Grotesque', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background: radial-gradient(circle at top right, #0a196e, #050d38);
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
         }
 
-        /* --- LOGIN SECTION --- */
-        #login-section {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            z-index: 10;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
         }
 
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        .vault-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            display: inline-block;
-            background: linear-gradient(to bottom right, #818cf8, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        h2 { font-size: 28px; margin-bottom: 10px; font-weight: 700; }
-        p.subtitle { color: var(--text-dim); margin-bottom: 30px; font-size: 14px; }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        input[type="password"] {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            transition: 0.3s;
-            outline: none;
-        }
-
-        input[type="password"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            border: none;
-            border-radius: 12px;
-            color: white;
+        .hero-content h1 {
+            font-size: 56px;
             font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #b0b0b0;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-bottom: 48px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 16px;
         }
 
-        .login-btn:hover { background: #4f46e5; transform: translateY(-2px); }
-        .login-btn:active { transform: translateY(0); }
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #4ade80;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4ade80;
+            font-size: 14px;
+        }
 
-        #error-msg {
-            color: #ef4444;
-            font-size: 13px;
-            margin-top: 15px;
+        .footer-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        .right-panel {
+            flex: 1;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 48px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .login-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .login-box .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 20px;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 8px;
             display: none;
         }
 
-        /* --- VAULT SECTION --- */
-        #vault-section {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
+        .error-message.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 32px;
+            position: relative;
+        }
+
+        .submit-btn:hover {
+            background: #2d2d2d;
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Vault Dashboard Styles */
+        .vault-container {
             display: none;
-            opacity: 0;
-            overflow-y: auto;
-            padding: 40px 20px;
-            transition: opacity 0.5s ease;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            background: #f8f9fa;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        .vault-container.active {
+            display: flex;
         }
 
-        .vault-header {
+        .header {
+            background: white;
+            padding: 20px 40px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .logout-btn {
+            padding: 10px 24px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .welcome-section {
             margin-bottom: 40px;
         }
 
-        .search-box {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 12px 20px;
-            border-radius: 50px;
-            color: white;
-            width: 300px;
+        .welcome-section h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .welcome-section p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .search-bar {
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 16px 12px 44px;
+            font-size: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
             outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
         }
 
         .filter-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
         }
 
-        .tab {
-            padding: 8px 20px;
-            background: var(--glass);
-            border-radius: 50px;
+        .filter-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
             font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
             cursor: pointer;
-            white-space: nowrap;
-            border: 1px solid transparent;
+            transition: all 0.2s;
         }
 
-        .tab.active {
-            background: var(--primary);
-            border-color: var(--primary);
+        .filter-tab:hover {
+            border-color: #d1d5db;
+            color: #374151;
         }
 
-        /* DOCUMENT GRID */
-        .doc-grid {
+        .filter-tab.active {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            color: white;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .no-results p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .documents-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
         }
 
-        .doc-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 25px;
-            border-radius: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            transition: 0.3s;
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        .doc-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .doc-icon {
-            font-size: 30px;
-            background: rgba(99, 102, 241, 0.1);
-            padding: 10px;
+        .document-card {
+            background: white;
             border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
-        .doc-info h4 { font-size: 16px; margin-bottom: 5px; }
-        .doc-info p { font-size: 12px; color: var(--text-dim); }
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .document-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .document-card.pdf .document-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .document-card.excel .document-icon {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .document-card.word .document-icon {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .document-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .document-meta {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
 
         .download-btn {
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 13px;
-            color: var(--primary);
+            width: 100%;
+            padding: 10px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
-            text-decoration: underline;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .download-btn:hover {
+            background: #2d2d2d;
         }
 
-        /* --- RESPONSIVE --- */
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-badge {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
-            .vault-header { flex-direction: column; gap: 20px; align-items: flex-start; }
-            .search-box { width: 100%; }
+            .login-container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                padding: 40px 24px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .login-box {
+                padding: 32px 24px;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
-    <section id="login-section">
-        <div class="glass-card">
-            <span class="vault-icon">🔒</span>
-            <h2>Maluti Vault</h2>
-            <p class="subtitle">Enter your credentials to access staff documents.</p>
-            
-            <div class="input-group">
-                <input type="password" id="passInput" placeholder="Password" required>
-            </div>
-            
-            <button class="login-btn" onclick="handleLogin()">Unlock Vault</button>
-            <p id="error-msg">Incorrect password. Please try again.</p>
-        </div>
-    </section>
-
-    <section id="vault-section">
-        <div class="container">
-            <div class="vault-header">
-                <div>
-                    <h2>Maluti Staff Vault</h2>
-                    <p style="color: var(--text-dim)">Welcome back, Faculty Member</p>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="left-panel">
+            <div>
+                <div class="logo-section">
+                    <div class="logo">M</div>
+                    <span class="logo-text">Maluti TVET</span>
                 </div>
-                <input type="text" class="search-box" id="searchInput" placeholder="Search documents..." onkeyup="filterDocs()">
+
+                <div class="hero-content">
+                    <h1>Your Documents,<br>Securely Connected</h1>
+                    <p>Access academic documents, calendars, policies, and resources—all in one secure place for Maluti TVET College staff.</p>
+
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <span>Secure document storage</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <span>24/7 access to resources</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✓</div>
+                            <span>Organized by category</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-text">
+                © 2026 Maluti TVET College. All rights reserved.
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="login-box">
+                <h2>Welcome back</h2>
+                <p class="subtitle">Sign in to access the document vault</p>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                            <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+                        </div>
+                        <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Sign in →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vault Dashboard -->
+    <div class="vault-container" id="vaultPage">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-logo">M</div>
+                <span class="header-title">Maluti TVET - Document Vault</span>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Log out</button>
+        </div>
+
+        <div class="main-content">
+            <div class="welcome-section">
+                <h1>Document Vault</h1>
+                <p>Access and download important documents and resources</p>
+            </div>
+
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search documents...">
             </div>
 
             <div class="filter-tabs">
-                <div class="tab active" onclick="filterCategory('all', this)">All Documents</div>
-                <div class="tab" onclick="filterCategory('academic', this)">Academic</div>
-                <div class="tab" onclick="filterCategory('calendar', this)">Calendars</div>
-                <div class="tab" onclick="filterCategory('finance', this)">Finance & HR</div>
+                <button class="filter-tab active" data-filter="all">All Documents</button>
+                <button class="filter-tab" data-filter="academic">Academic</button>
+                <button class="filter-tab" data-filter="policy">Policies</button>
+                <button class="filter-tab" data-filter="forms">Forms</button>
             </div>
 
-            <div class="doc-grid" id="docGrid">
-                </div>
-        </div>
-    </section>
+            <div class="no-results" id="noResults">
+                <div class="no-results-icon">🔍</div>
+                <h3>No documents found</h3>
+                <p>Try adjusting your search or filter to find what you're looking for.</p>
+            </div>
 
-    <script>
-        // DATA MODEL
-        const documents = [
-            { title: "2024 Academic Calendar", category: "calendar", size: "1.2 MB", type: "PDF" },
-            { title: "Student Enrollment Policy", category: "academic", size: "850 KB", type: "PDF" },
-            { title: "Staff Leave Form 2024", category: "finance", size: "400 KB", type: "DOCX" },
-            { title: "Department Budget Template", category: "finance", size: "2.1 MB", type: "XLSX" },
-            { title: "Q3 Examination Timetable", category: "academic", size: "1.5 MB", type: "PDF" },
-            { title: "Campus Safety Protocol", category: "academic", size: "3.2 MB", type: "PDF" },
-            { title: "Winter Graduation Schedule", category: "calendar", size: "900 KB", type: "PDF" },
-            { title: "IQMS Assessment Guidelines", category: "academic", size: "1.1 MB", type: "PDF" }
-        ];
+            <div class="category-section">
+                <h2 class="category-title">
+                    Academic Documents
+                    <span class="category-badge">4 documents</span>
+                </h2>
+                <div class="documents-grid" id="academicDocs">
+                    <div class="document-card pdf" data-category="academic">
+                        <div class="document-icon">📄</div>
+                        <div class="document-title">Academic Calendar 2026</div>
+                        <div class="document-meta">Updated: Jan 2026 • PDF</div>
+                        <button class="download-btn" onclick="downloadDocument('Academic_Calendar_2026.pdf')">Download</button>
+                    </div>
 
-        // AUTHENTICATION LOGIC
-        function handleLogin() {
-            const pass = document.getElementById('passInput').value;
-            const error = document.getElementById('error-msg');
-            const loginSection = document.getElementById('login-section');
-            const vaultSection = document.getElementById('vault-section');
+                    <div class="document-card word" data-category="academic">
+                        <div class="document-icon">📝</div>
+                        <div class="document-title">Curriculum Guidelines</div>
+                        <div class="document-meta">Updated: Dec 2025 • DOCX</div>
+                        <button class="download-btn" onclick="downloadDocument('Curriculum_Guidelines.docx')">Download</button>
+                    </div>
 
-            if (pass === "Lefa@1234") {
-                // Success Transition
-                loginSection.style.transform = "scale(0.9)";
-                loginSection.style.opacity = "0";
-                
-                setTimeout(() => {
-                    loginSection.style.display = "none";
-                    vaultSection.style.display = "block";
-                    renderDocuments(documents); // Initial Load
-                    setTimeout(() => {
-                        vaultSection.style.opacity = "1";
-                    }, 50);
-                }, 400);
-            } else {
-                // Error Shake Effect
-                error.style.display = "block";
-                loginSection.style.animation = "shake 0.4s ease";
-                setTimeout(() => { loginSection.style.animation = ""; }, 400);
-            }
-        }
+                    <div class="document-card excel" data-category="academic">
+                        <div class="document-icon">📊</div>
+                        <div class="document-title">Student Assessment Template</div>
+                        <div class="document-meta">Updated: Jan 2026 • XLSX</div>
+                        <button class="download-btn" onclick="downloadDocument('Assessment_Template.xlsx')">Download</button>
+                    </div>
 
-        // RENDER DOCUMENTS
-        function renderDocuments(items) {
-            const grid = document.getElementById('docGrid');
-            grid.innerHTML = items.map((doc, index) => `
-                <div class="doc-card" data-category="${doc.category}" style="animation-delay: ${index * 0.05}s">
-                    <div class="doc-icon">${getFileIcon(doc.type)}</div>
-                    <div class="doc-info">
-                        <h4>${doc.title}</h4>
-                        <p>${doc.type} • ${doc.size}</p>
-                        <a href="#" class="download-btn">Download File</a>
+                    <div class="document-card pdf" data-category="academic">
+                        <div class="document-icon">📄</div>
+                        <div class="document-title">Examination Timetable</div>
+                        <div class="document-meta">Updated: Jan 2026 • PDF</div>
+                        <button class="download-btn" onclick="downloadDocument('Exam_Timetable_2026.pdf')">Download</button>
                     </div>
                 </div>
-            `).join('');
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">
+                    Policies & Procedures
+                    <span class="category-badge">3 documents</span>
+                </h2>
+                <div class="documents-grid" id="policyDocs">
+                    <div class="document-card pdf" data-category="policy">
+                        <div class="document-icon">📋</div>
+                        <div class="document-title">Staff Handbook 2026</div>
+                        <div class="document-meta">Updated: Jan 2026 • PDF</div>
+                        <button class="download-btn" onclick="downloadDocument('Staff_Handbook_2026.pdf')">Download</button>
+                    </div>
+
+                    <div class="document-card word" data-category="policy">
+                        <div class="document-icon">📝</div>
+                        <div class="document-title">Code of Conduct</div>
+                        <div class="document-meta">Updated: Nov 2025 • DOCX</div>
+                        <button class="download-btn" onclick="downloadDocument('Code_of_Conduct.docx')">Download</button>
+                    </div>
+
+                    <div class="document-card pdf" data-category="policy">
+                        <div class="document-icon">📄</div>
+                        <div class="document-title">Health & Safety Guidelines</div>
+                        <div class="document-meta">Updated: Dec 2025 • PDF</div>
+                        <button class="download-btn" onclick="downloadDocument('Health_Safety_Guidelines.pdf')">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">
+                    Forms & Templates
+                    <span class="category-badge">3 documents</span>
+                </h2>
+                <div class="documents-grid" id="formDocs">
+                    <div class="document-card excel" data-category="forms">
+                        <div class="document-icon">📊</div>
+                        <div class="document-title">Leave Application Form</div>
+                        <div class="document-meta">Updated: Jan 2026 • XLSX</div>
+                        <button class="download-btn" onclick="downloadDocument('Leave_Application.xlsx')">Download</button>
+                    </div>
+
+                    <div class="document-card word" data-category="forms">
+                        <div class="document-icon">📝</div>
+                        <div class="document-title">Incident Report Template</div>
+                        <div class="document-meta">Updated: Dec 2025 • DOCX</div>
+                        <button class="download-btn" onclick="downloadDocument('Incident_Report.docx')">Download</button>
+                    </div>
+
+                    <div class="document-card excel" data-category="forms">
+                        <div class="document-icon">📊</div>
+                        <div class="document-title">Budget Request Form</div>
+                        <div class="document-meta">Updated: Jan 2026 • XLSX</div>
+                        <button class="download-btn" onclick="downloadDocument('Budget_Request.xlsx')">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CORRECT_PASSWORD = 'Lefa@1234';
+        const SESSION_KEY = 'maluti_vault_session';
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const vaultPage = document.getElementById('vaultPage');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const errorMessage = document.getElementById('errorMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const searchInput = document.getElementById('searchInput');
+
+        // Session Management
+        function isAuthenticated() {
+            const session = sessionStorage.getItem(SESSION_KEY);
+            return session === 'authenticated';
         }
 
-        function getFileIcon(type) {
-            if (type === 'PDF') return '📄';
-            if (type === 'XLSX') return '📊';
-            return '📁';
+        function setAuthenticated() {
+            sessionStorage.setItem(SESSION_KEY, 'authenticated');
         }
 
-        // FILTERING LOGIC
-        function filterCategory(cat, el) {
-            // Update Tab UI
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+        function clearAuthentication() {
+            sessionStorage.removeItem(SESSION_KEY);
+        }
 
-            if (cat === 'all') {
-                renderDocuments(documents);
+        // Check authentication on page load
+        function checkAuth() {
+            if (isAuthenticated()) {
+                showVault();
             } else {
-                const filtered = documents.filter(d => d.category === cat);
-                renderDocuments(filtered);
+                showLogin();
             }
         }
 
-        function filterDocs() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = documents.filter(d => d.title.toLowerCase().includes(query));
-            renderDocuments(filtered);
+        function showLogin() {
+            loginPage.style.display = 'flex';
+            vaultPage.classList.remove('active');
         }
 
-        // Trigger login on Enter key
-        document.getElementById('passInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleLogin();
+        function showVault() {
+            loginPage.style.display = 'none';
+            vaultPage.classList.add('active');
+        }
+
+        // Login Form Handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const enteredPassword = passwordInput.value;
+            const submitBtn = loginForm.querySelector('.submit-btn');
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner"></span>Signing in...';
+
+            // Simulate loading for 3-4 seconds
+            const loadingTime = 3000 + Math.random() * 1000; // 3-4 seconds
+            
+            await new Promise(resolve => setTimeout(resolve, loadingTime));
+
+            if (enteredPassword === CORRECT_PASSWORD) {
+                errorMessage.classList.remove('show');
+                setAuthenticated();
+                passwordInput.value = '';
+                showVault();
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            } else {
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+        // Toggle Password Visibility
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePasswordBtn.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        });
+
+        // Logout Handler
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to log out?')) {
+                clearAuthentication();
+                showLogin();
+            }
+        });
+
+        // Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const allCards = document.querySelectorAll('.document-card');
+            const noResults = document.getElementById('noResults');
+            const categorySections = document.querySelectorAll('.category-section');
+            let hasResults = false;
+
+            allCards.forEach(card => {
+                const title = card.querySelector('.document-title').textContent.toLowerCase();
+                const meta = card.querySelector('.document-meta').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || meta.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Check if any category has visible cards
+            categorySections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.document-card[style*="display: block"], .document-card:not([style*="display: none"])');
+                if (visibleCards.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            // Show/hide no results message
+            if (!hasResults && searchTerm !== '') {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        });
+
+        // Filter Functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        let currentFilter = 'all';
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Get filter value
+                currentFilter = tab.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const allCards = document.querySelectorAll('.document-card');
+            const categorySections = document.querySelectorAll('.category-section');
+            const noResults = document.getElementById('noResults');
+            let hasResults = false;
+
+            allCards.forEach(card => {
+                const title = card.querySelector('.document-title').textContent.toLowerCase();
+                const meta = card.querySelector('.document-meta').textContent.toLowerCase();
+                const category = card.dataset.category;
+
+                // Check if card matches both filter and search
+                const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                const matchesSearch = searchTerm === '' || title.includes(searchTerm) || meta.includes(searchTerm);
+
+                if (matchesFilter && matchesSearch) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide category sections based on visible cards
+            categorySections.forEach(section => {
+                const visibleCards = Array.from(section.querySelectorAll('.document-card')).filter(
+                    card => card.style.display !== 'none'
+                );
+                
+                if (visibleCards.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            // Show/hide no results message
+            if (!hasResults) {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        }
+
+        // Update search to work with filters
+        searchInput.addEventListener('input', applyFilters);
+
+        // Download Function
+        function downloadDocument(filename) {
+            // Create a blob with sample content
+            const content = `Maluti TVET College
+Document: ${filename}
+
+This is a placeholder document from the Maluti TVET Document Vault.
+In a production environment, this would contain the actual document content.
+
+Document generated: ${new Date().toLocaleString()}
+`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Downloaded';
+            btn.style.background = '#10b981';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 2000);
+        }
+
+        // Initialize on page load
+        checkAuth();
+
+        // Handle page visibility change (when user returns to tab)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                checkAuth();
+            }
         });
     </script>
-
-    <style>
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-    </style>
 </body>
 </html>

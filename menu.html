@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maluti School | Excellence in Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & BASICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: #ffffff;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; -webkit-tap-highlight-color: transparent; }
+        ul { list-style: none; }
+        button { outline: none; }
+
+        /* --- HEADER CONTAINER --- */
+        .kw-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 13, 56, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        
+        /* --- TOP BAR --- */
+        .kw-top-bar {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1001;
+            transition: transform 0.4s, opacity 0.3s, height 0.4s;
+            height: 45px;
+        }
+        .kw-header.scrolled .kw-top-bar {
+            transform: translateY(-100%);
+            opacity: 0;
+            height: 0;
+            pointer-events: none;
+        }
+        .kw-top-nav-list {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            padding: 0 50px;
+            height: 100%;
+            align-items: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .kw-top-link-wrapper {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .kw-top-link {
+            color: rgba(255, 255, 255, 0.934);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            height: 100%;
+            padding: 0 10px;
+        }
+        .kw-top-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+        /* --- MAIN NAV --- */
+        .kw-main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 45px;
+            height: 70px;
+            position: relative;
+            transition: height 0.3s ease;
+        }
+        .kw-header.scrolled .kw-main-nav { height: 60px; }
+        
+        .kw-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+        .kw-header.scrolled .kw-logo img { height: 35px; }
+
+        .kw-nav-links {
+            display: flex;
+            
+            align-items: center;
+            height: 100%;
+        }
+        .kw-nav-item { 
+            position: relative; 
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .kw-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0 15px;
+            height: 100%;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .kw-nav-link:hover, .kw-nav-item:hover .kw-nav-link {
+            color: #ffffff;
+            background: rgba(255,255,255,0.05);
+        }
+        .kw-caret {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            transition: transform 0.3s;
+        }
+
+        /* --- STANDARD DROPDOWNS --- */
+        .kw-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 240px;
+            background: rgb(5, 13, 56);
+            
+            border-radius: 0 0 4px 4px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            
+            transform: translateY(10px);
+            z-index: 2000;
+        }
+        .kw-nav-item:last-child .kw-dropdown { left: auto; right: 0; }
+        .kw-drop-link {
+            display: block;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #d1d5db;
+            text-transform: none;
+            border-left: 3px solid transparent;
+        }
+        .kw-drop-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #ffffff;
+        }
+
+        /* --- MEGA MENU (DESKTOP) --- */
+        .kw-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 10px);
+            width: 900px;
+            background: rgb(5, 13, 56);
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2000;
+            overflow: hidden;
+        }
+        .kw-mega-sidebar {
+            width: 250px;
+            background: rgba(0,0,0,0.2);
+            padding: 20px 0;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .kw-cat-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 25px;
+            color: #a1a1aa;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .kw-cat-link:hover, .kw-cat-link.active {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .kw-cat-link.active {
+            border-left: 3px solid #ffffff;
+            padding-left: 22px;
+        }
+        .kw-mega-content {
+            flex-grow: 1;
+            padding: 30px;
+            background: rgb(5, 13, 56);
+            min-height: 300px;
+        }
+        .kw-course-group {
+            display: none;
+           
+        }
+        .kw-course-group.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .kw-group-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .kw-course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .kw-mega-link {
+            font-size: 14px;
+            color: #d1d5db;
+            line-height: 1.4;
+            display: block;
+            padding: 5px 0;
+        }
+        .kw-mega-link:hover {
+            color: #ffffff;
+        }
+
+        /* Desktop Hover Logic */
+        @media (min-width: 1101px) {
+            .kw-nav-item:hover .kw-dropdown,
+            .kw-top-link-wrapper:hover .kw-dropdown,
+            .kw-nav-item:hover .kw-mega-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) translateX(0);
+            }
+            .kw-nav-item:hover .kw-mega-menu {
+                 transform: translate(-50%, 0);
+            }
+            .kw-nav-item:hover .kw-caret,
+            .kw-top-link-wrapper:hover .kw-caret {
+                transform: rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        /* --- HERO SECTION --- */
+        .kw-hero {
+            position: relative;
+            height: 100vh;
+            height: 100dvh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+        }
+        .kw-hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.6;
+            animation: slowZoom 20s infinite alternate;
+        }
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        .kw-hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(5, 13, 56, 0.4), #0a0a0a);
+            z-index: 2;
+        }
+        .kw-hero-content {
+            position: relative; z-index: 3; text-align: center;
+            padding: 0 20px; max-width: 900px;
+            width: 100%;
+        }
+        .kw-hero-title {
+            font-size: clamp(36px, 8vw, 72px); line-height: 1.1;
+            font-weight: 600; margin-bottom: 25px; letter-spacing: -0.02em;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .kw-cta {
+            display: inline-block; padding: 16px 36px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4); 
+            color: #ffffff;
+            border-radius: 60px; font-weight: 600; font-size: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .kw-cta:hover {
+            transform: translateY(-2px);
+            background: #fff;
+            color: #050d38;
+        }
+
+        /* --- MOBILE TOGGLE --- */
+        .kw-mobile-toggle {
+            display: none; border: none; color: #f1f1f1;
+            padding: 8px 10px; background-color: transparent; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.2); border-radius: 100px;
+            transition: background 0.2s; vertical-align: middle; align-items: center;
+            justify-content: center;
+        }
+        .kw-mobile-toggle:active { background: rgba(255,255,255,0.1); }
+
+        /* --- RESPONSIVE LOGIC (THE FIX) --- */
+        @media (max-width: 1100px) {
+            .kw-top-bar { display: none; }
+            .kw-mobile-toggle { display: block; }
+            .kw-main-nav { height: 60px; padding: 0 20px; }
+            .kw-logo img { height: 32px; }
+
+            .kw-header {background-color: #050d38;}
+            
+            /* Mobile Nav Container */
+            .kw-nav-links {
+                position: fixed;
+                top: 100%; /* Positions it directly below the header */
+                left: 0;
+                width: 100%;
+                /* Use dynamic viewport height - header height (approx 60px) */
+                height: calc(100dvh - 60px); 
+                background: #050d38;
+                flex-direction: column;
+                justify-content: flex-start; /* CRITICAL FIX: Stacks items at top, doesn't stretch them */
+                padding: 0 0 40px 0;
+                /* Add safe area inset for iPhone home bar */
+                padding-bottom: calc(20px + env(safe-area-inset-bottom));
+                gap: 0;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                overflow-y: auto; /* Allow scrolling within menu */
+                align-items: stretch;
+            }
+            .kw-nav-links.active { transform: translateX(0); }
+            
+            .kw-nav-item { 
+                height: auto; /* CRITICAL FIX: Stops the item from trying to be 100% height */
+                min-height: auto;
+                display: block; 
+                flex-grow: 0; /* CRITICAL FIX: Stops item from expanding to fill empty space */
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                flex-shrink: 0;
+            }
+            
+            /* Mobile Main Links */
+            .kw-nav-link {
+                padding: 18px 25px;
+                height: auto; /* CRITICAL FIX: Resets the 100% height from desktop */
+                font-size: 17px;
+                justify-content: space-between;
+                width: 100%;
+                font-weight: 600;
+            }
+            
+            /* --- MOBILE DROPDOWNS --- */
+            .kw-dropdown {
+                position: static !important; /* CRITICAL FIX: Forces it to take up physical space, pushing siblings down */
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none !important;
+                background: rgba(0,0,0,0.3);
+                display: none; 
+                border: none;
+                box-shadow: none;
+                padding: 10px 0;
+                border-top: 1px solid rgba(255,255,255,0.05);
+                animation: slideDown 0.3s ease forwards;
+            }
+
+            /* --- MOBILE MEGA MENU --- */
+            .kw-mega-menu {
+                position: static !important; /* CRITICAL FIX: Forces it to take up physical space */
+                width: 100%;
+                transform: none !important;
+                flex-direction: column;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                background: rgba(0,0,0,0.3);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                height: auto;
+                animation: slideDown 0.3s ease forwards;
+            }
+            
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* Top Tabs (Categories) for Mobile */
+            .kw-mega-sidebar {
+                width: 100%;
+                border-right: none;
+                padding: 0;
+                display: flex;
+                flex-direction: column; 
+                background: transparent;
+            }
+            .kw-cat-link {
+                padding: 15px 25px;
+                background: rgba(255,255,255,0.02);
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                font-size: 15px;
+                color: #9ca3af;
+            }
+            .kw-cat-link:hover, .kw-cat-link.active {
+                background: rgba(99, 102, 241, 0.15);
+                border-left: none; 
+                padding-left: 25px; 
+                color: #fff;
+            }
+            
+            /* Content Area Mobile */
+            .kw-mega-content {
+                padding: 20px 25px;
+                min-height: auto;
+            }
+            .kw-group-title {
+                font-size: 15px;
+                color: #818cf8; 
+                border-bottom: none;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .kw-course-grid {
+                grid-template-columns: 1fr; 
+                gap: 12px;
+            }
+            .kw-mega-link {
+                font-size: 15px;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                color: #e5e7eb;
+            }
+            
+            /* Open States */
+            .kw-nav-item.open .kw-dropdown { display: block; }
+            .kw-nav-item.open .kw-mega-menu { display: flex; }
+            .kw-nav-item.open .kw-caret { transform: rotate(180deg); }
+            .kw-nav-item.open > .kw-nav-link { color: #818cf8; background: rgba(255,255,255,0.05); }
+        }
+
+        /* Small Phones */
+        @media (max-width: 480px) {
+            .kw-hero-title { font-size: 38px; }
+            .kw-cta { width: 100%; padding: 18px; text-align: center; }
+            .kw-main-nav { padding: 0 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="kw-header" id="header">
+        <div class="kw-top-bar">
+            <ul class="kw-top-nav-list">
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
+                        Applications
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Online Application</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Application Deadlines</a></li>
+                        <li><a href="#" class="kw-drop-link">International Students</a></li>
+                    </ul>
+                </li>
+                <li class="kw-top-link-wrapper">
+                    <div class="kw-top-link">
+                        Calendar
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Academic Year</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports Calendar</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Events</a></li>
+                        <li><a href="#" class="kw-drop-link">Exam Timetable</a></li>
+                    </ul>
+                </li>
+                <li><a href="vaul.html" class="kw-top-link">Staff</a></li>
+                <li><a href="#" class="kw-top-link">Students</a></li>
+                <li><a href="#" class="kw-top-link">Alumni & Friends</a></li>
+                <li><a href="#" class="kw-top-link">Noticeboard</a></li>
+                <li><a href="#" class="kw-top-link">Contact</a></li>
+            </ul>
+        </div>
+        <div class="kw-main-nav">
+            <a href="#" class="kw-logo">
+                <img src="images/logo.png" alt="Maluti School">
+            </a>
+            <button class="kw-mobile-toggle" id="menuBtn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" id="line1"></line>
+                    <line x1="3" y1="6" x2="21" y2="6" id="line2"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" id="line3"></line>
+                </svg>
+            </button>
+            <ul class="kw-nav-links" id="navLinks">
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
+                        Maluti
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Our History</a></li>
+                        <li><a href="#" class="kw-drop-link">Philosophy</a></li>
+                        <li><a href="#" class="kw-drop-link">Executive Leadership</a></li>
+                        <li><a href="#" class="kw-drop-link">Faculty & Staff Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Office & Department Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Corporate Affairs</a></li>
+                        <li><a href="#" class="kw-drop-link">Awards & Achievements</a></li>
+                        <li><a href="#" class="kw-drop-link">Official Maluti Merchandise</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vision 2030</a></li>
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
+                        Admissions & Aid
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">How to Apply</a></li>
+                        <li><a href="#" class="kw-drop-link">Admission Requirements</a></li>
+                        <li><a href="#" class="kw-drop-link">Tuition, Fees & Payments</a></li>
+                        <li><a href="#" class="kw-drop-link">Registration</a></li>
+                        <li><a href="#" class="kw-drop-link">Assessments</a></li>
+                        <li><a href="#" class="kw-drop-link">Financial Aid</a></li>
+                        <li><a href="#" class="kw-drop-link">Late Enquires</a></li>
+                        <li><a href="#" class="kw-drop-link">Check Your Status</a></li>
+                        <li><a href="#" class="kw-drop-link">Timetables</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
+                        Study @ Maluti
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Faculty Directory</a></li>
+                        <li><a href="#" class="kw-drop-link">Academic Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Library Resources</a></li>
+                    </ul>
+                </li>
+                
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
+                        Courses & Programs
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <div class="kw-mega-menu">
+                        <div class="kw-mega-sidebar">
+                            <div class="kw-cat-link active" data-target="engineering">
+                                Engineering <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="it">
+                                Information Technology <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="hospitality">
+                                Hospitality & Tourism <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="business">
+                                Business Studies <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                            <div class="kw-cat-link" data-target="skills">
+                                Short Courses (Skills Programmes) <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                        </div>
+                        <div class="kw-mega-content">
+                            <div class="kw-course-group active" id="engineering">
+                                <div class="kw-group-title">School of Engineering</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Electrical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Mechanical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Civil Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Electrical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Mechanical Engineering</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Civil Engineering</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Agricultural Sciences</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="it">
+                                <div class="kw-group-title">School of Information Technology</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Information Technology</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Information Technology</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Systems Development</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Network Architecture</a>
+                                    <a href="#" class="kw-mega-link">Short Course: Cybersecurity</a>
+                                    <a href="#" class="kw-mega-link">Short Course: Data Science</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="hospitality">
+                                <div class="kw-group-title">School of Hospitality & Tourism</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Education & Development</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Health & Social Care</a>
+                                    <a href="#" class="kw-mega-link">Food & Beverage Service</a>
+                                    <a href="#" class="kw-mega-link">Tourism Management</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="business">
+                                <div class="kw-group-title">School of Business & Economics</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Hospitality Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Business Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Financial Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Management Assistant</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Public Management</a>
+                                    <a href="#" class="kw-mega-link">Diploma in Educare</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Marketing Management</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert in Office Administration</a>
+                                    <a href="#" class="kw-mega-link">Food & Beverage Service</a>
+                                    <a href="#" class="kw-mega-link">Tourism Management</a>
+                                </div>
+                            </div>
+                            <div class="kw-course-group" id="skills">
+                                <div class="kw-group-title">Skills Programmes</div>
+                                <div class="kw-course-grid">
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Brick Laying</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Boiler Making</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Motor Mechanic</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Panel Beating</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Motor Mechanic</a>
+                                    <a href="#" class="kw-mega-link">Higher Cert. in Welding</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="kw-nav-item">
+                    <div class="kw-nav-link">
+                        Campus Life
+                        <svg class="kw-caret" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </div>
+                    <ul class="kw-dropdown">
+                        <li><a href="#" class="kw-drop-link">Student Activities</a></li>
+                        <li><a href="#" class="kw-drop-link">Clubs & Socities</a></li>
+                        <li><a href="#" class="kw-drop-link">Sports & Recreation</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Facilities</a></li>
+                        <li><a href="#" class="kw-drop-link">Campus Support</a></li>
+                        <li><a href="#" class="kw-drop-link">Residence Life</a></li>
+                    </ul>
+                </li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">News & Events</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Maluti Innovations</a></li>
+                <li class="kw-nav-item"><a href="#" class="kw-nav-link">Vacancies</a></li>
+            </ul>
+        </div>
+    </header>
+   
+    <script>
+        // 1. Scroll Handler
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', () => {
+            const isActive = navLinks.classList.toggle('active');
+            // Toggle body scroll
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            
+            // Hamburger Animation
+            if(isActive) {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+            }
+        });
+
+        // 3. Mobile Accordion Logic (For Main Menu Items)
+        const accordionHandler = (e) => {
+            if (window.innerWidth <= 1100) {
+                e.preventDefault();
+                e.stopPropagation();
+                const item = e.currentTarget.closest('.kw-nav-item');
+                const isOpen = item.classList.contains('open');
+                
+                // Close others
+                document.querySelectorAll('.kw-nav-item').forEach(other => {
+                    if(other !== item) other.classList.remove('open');
+                });
+                
+                // Toggle current
+                item.classList.toggle('open');
+            }
+        };
+
+        function attachAccordionListeners() {
+            document.querySelectorAll('.kw-nav-item .kw-nav-link').forEach(link => {
+                const item = link.closest('.kw-nav-item');
+                if (item.querySelector('.kw-dropdown, .kw-mega-menu')) {
+                    link.removeEventListener('click', accordionHandler);
+                    link.addEventListener('click', accordionHandler);
+                }
+            });
+        }
+
+        // 4. MEGA MENU LOGIC (Handling Desktop Hover AND Mobile Click)
+        const catLinks = document.querySelectorAll('.kw-cat-link');
+        const courseGroups = document.querySelectorAll('.kw-course-group');
+
+        function activateCategory(link) {
+            // Remove active class from all sidebar links
+            catLinks.forEach(l => l.classList.remove('active'));
+            // Add active class to clicked/hovered link
+            link.classList.add('active');
+            
+            // Get target ID
+            const targetId = link.getAttribute('data-target');
+            
+            // Hide all groups, show target
+            courseGroups.forEach(group => {
+                group.classList.remove('active');
+                if(group.id === targetId) {
+                    group.classList.add('active');
+                }
+            });
+        }
+
+        catLinks.forEach(link => {
+            // Desktop: Hover behavior
+            link.addEventListener('mouseenter', () => {
+                if(window.innerWidth > 1100) {
+                    activateCategory(link);
+                }
+            });
+            
+            // Mobile: Click behavior
+            link.addEventListener('click', (e) => {
+                if(window.innerWidth <= 1100) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    activateCategory(link);
+                }
+            });
+        });
+
+        // 5. Responsive Handler for Top Links
+        let mobileTopLinks = [];
+
+        function handleResponsive() {
+            const topBar = document.querySelector('.kw-top-bar');
+            
+            if (window.innerWidth <= 1100) {
+                topBar.style.display = 'none';
+                
+                if (mobileTopLinks.length === 0) {
+                    const topItems = document.querySelectorAll('.kw-top-nav-list > li');
+                    topItems.forEach(originalLi => {
+                        const li = originalLi.cloneNode(true);
+                        
+                        // Convert classes for mobile styling
+                        if (li.classList.contains('kw-top-link-wrapper')) {
+                            li.classList.remove('kw-top-link-wrapper');
+                            li.classList.add('kw-nav-item');
+                            
+                            const topLink = li.querySelector('.kw-top-link');
+                            if (topLink) {
+                                topLink.classList.remove('kw-top-link');
+                                topLink.classList.add('kw-nav-link');
+                            }
+                        } else {
+                            li.classList.add('kw-nav-item');
+                            const a = li.querySelector('.kw-top-link');
+                            if (a) {
+                                a.classList.remove('kw-top-link');
+                                a.classList.add('kw-nav-link');
+                            }
+                        }
+                        
+                        navLinks.appendChild(li);
+                        mobileTopLinks.push(li);
+                    });
+                    
+                    // Re-attach listeners to the newly added nodes
+                    attachAccordionListeners();
+                }
+            } else {
+                topBar.style.display = '';
+                if (mobileTopLinks.length > 0) {
+                    mobileTopLinks.forEach(li => li.remove());
+                    mobileTopLinks = [];
+                }
+            }
+            
+            // Re-run this always to ensure logic is bound correctly
+            attachAccordionListeners();
+        }
+
+        // Initial Setup and Resize
+        handleResponsive();
+        
+        window.addEventListener('resize', () => {
+            handleResponsive();
+            
+            // Reset mobile states if going back to desktop
+            if (window.innerWidth > 1100) {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+                document.querySelectorAll('.kw-nav-item').forEach(item => item.classList.remove('open'));
+            }
+        });
+    </script>
+</body>
+</html>
