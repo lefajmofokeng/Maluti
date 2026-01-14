@@ -16,8 +16,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,6 +171,1771 @@
 </html>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Enterprise Infrastructure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Reset & Global Styles --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Setting the requested font and dark theme base */
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0E17; /* Deep charcoal background matching the image */
+            color: #FFFFFF;
+            
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Main Section Wrapper --- */
+        /* Using a semantic section tag with a descriptive class */
+        .enterprise-hero-section {
+            width: 100%;
+            min-height: 80vh; /* Ensures substantial vertical space */
+            padding: 150px 24px 200px 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container to constrain width on large screens */
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* --- Header Area Styling --- */
+        .hero-headline-block {
+            margin-bottom: 96px; /* Large spacing between title and columns */
+            max-width: 850px;
+            margin-top: 5rem;
+        }
+
+        .hero-main-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0091ff; /* Muted gray/blue for subtitle */
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* The main H1 title */
+        .hero-title {
+            font-size: 44px; /* Large scale typography */
+            font-weight: 600; /* Regular weight by default */
+            line-height: 1.2;
+            color: #ffffff; /* Slightly softened white */
+        }
+
+        /* --- Three-Column Grid Styling --- */
+        .solutions-grid {
+            display: grid;
+            /* Create three equal columns */
+            grid-template-columns: repeat(3, 1fr);
+            /* Large horizontal gap between columns */
+            gap: 64px;
+            align-items: flex-start;
+        }
+
+        /* Semantic article tag for each feature block */
+        .solution-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Wrapper for the icons */
+        .card-icon-wrapper {
+            margin-bottom: 24px;
+            color: #E2E8F0; /* Icon color matches soft white text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 58px;
+            width: 58px;
+            stroke-width: 0.1;
+        }
+
+        /* The H3 headings for each column */
+        .card-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            color: #FFFFFF;
+        }
+
+        /* The descriptive paragraph text */
+        .card-description {
+            font-size: 1.1rem;
+            /* Muted gray/blue for descriptions to create hierarchy */
+            color: #94A3B8;
+            font-weight: 500; 
+            line-height: 1.6;
+            max-width: 340px; /* Ensures optimal reading width */
+        }
+
+        /* --- Responsive Adjustments --- */
+        /* Tablet breakpoints */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .solutions-grid {
+                gap: 40px;
+            }
+
+            .solution-card {
+                border: 2px solid #303c55;
+                padding: 15px;
+                border-radius: 20px;
+            }
+        }
+
+        /* Mobile breakpoints */
+        @media (max-width: 768px) {
+            .enterprise-hero-section {
+                padding: 9rem 20px;
+            }
+            .hero-headline-block {
+                margin-bottom: 56px;
+            }
+            .hero-title {
+                font-size: 2.25rem;
+            }
+            /* Stack the grid columns vertically on mobile */
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .card-description {
+                max-width: 100%;
+            }
+        }
+
+        .service-btn {
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #fff;
+            background-color: transparent;
+            margin-top: 35px;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="enterprise-hero-section">
+        <div class="hero-container">
+            
+            <header class="hero-headline-block">
+                <h1 class="hero-main-title">Cronos Solutions</h1>
+                <h1 class="hero-title">
+                    Building Digital <br>Ecosystems That Work
+                </h1>
+            </header>
+
+            <div class="solutions-grid">
+                
+                <article class="solution-card">
+                    <div class="card-icon-wrapper">
+                        <svg width="70" height="70"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M21.49 13.115l-9-5a1 1 0 0 0-1 0l-9 5A1.008 1.008 0 0 0 2 14v9.995a1 1 0 0 0 .52.87l9 5A1.004 1.004 0 0 0 12 30a1.056 1.056 0 0 0 .49-.135l9-5A.992.992 0 0 0 22 24V14a1.008 1.008 0 0 0-.51-.885zM11 27.295l-7-3.89v-7.72l7 3.89zm1-9.45L5.06 14L12 10.135l6.94 3.86zm8 5.56l-7 3.89v-7.72l7-3.89z" fill="#ffffff"/><path d="M30 6h-4V2h-2v4h-4v2h4v4h2V8h4V6z" fill="#ffffff"/></svg>
+                    </div>
+                    <h3 class="card-heading">Software Development</h3>
+                    <p class="card-description">
+                        All-in-one infrastructure. From cloud migration and cybersecurity to custom software development, data analytics, and managed network services.
+                    </p>
+                    <button class="service-btn"><a href="page.html">Learn More
+                        <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7L14.6 7H7q-.425 0-.713-.288T6 6q0-.425.288-.713T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17q-.425 0-.713-.288T16 16V8.4Z"/></svg>
+                    </a></button>
+                </article>
+
+                <article class="solution-card">
+                    <div class="card-icon-wrapper">
+                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l8.66 5v10L12 22l-8.66-5V7L12 2z"/>
+                            <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-heading">IT Infrastructure</h3>
+                    <p class="card-description">
+                        Facilitating robust, zero-trust access to regulated data across distributed networks and hybrid cloud environments for maximum integrity.
+                    </p>
+                    <button class="service-btn"><a href="page.html">Learn More
+                        <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7L14.6 7H7q-.425 0-.713-.288T6 6q0-.425.288-.713T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17q-.425 0-.713-.288T16 16V8.4Z"/></svg>
+                    </a></button>
+                </article>
+
+                <article class="solution-card">
+                    <div class="card-icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/>
+                            <path d="M12 3v2"/><path d="M12 19v2"/><path d="M3 12h2"/><path d="M19 12h2"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-heading">Marketing & Creative Studio</h3>
+                    <p class="card-description">
+                        Composable utility for systems across existing and new tech stacks. Instant scalability, enhanced performance, and seamless API interoperability.
+                    </p>
+                    <button class="service-btn"><a href="page.html">Learn More
+                        <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7L14.6 7H7q-.425 0-.713-.288T6 6q0-.425.288-.713T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17q-.425 0-.713-.288T16 16V8.4Z"/></svg>
+                    </a></button>
+                </article>
+
+            </div>
+            </div>
+    </section>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  class ItTechSolutions extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' }); // Use Shadow DOM for complete style isolation
+    }
+
+    connectedCallback() {
+      this.render();
+    }
+
+    render() {
+      this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          all: initial; /* Reset inheritance from parent document */
+          display: block;
+          font-family: 'Inter', sans-serif;
+          background-color: #F5F5F7; /* Overall page background */
+          color: #1D1D1F;
+          line-height: 1.5;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- CSS Variables & Resets within Shadow DOM --- */
+        .it-ts-wrapper {
+          --c-bg-dark: #0A0A0A;
+          --c-bg-card: #FFFFFF;
+          --c-bg-banner: #E8E8ED;
+          --c-text-light: #FFFFFF;
+          --c-text-dark: #1D1D1F;
+          --c-text-grey: #86868B;
+          --c-blue: #0066CC;
+          --section-spacing: 120px;
+          --content-width: 1200px;
+          
+          box-sizing: border-box;
+          width: 100%;
+        }
+
+        .it-ts-wrapper *, .it-ts-wrapper *::before, .it-ts-wrapper *::after {
+          box-sizing: inherit;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* --- Utilities --- */
+        .it-ts-container {
+          max-width: var(--content-width);
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        .it-ts-grid-3 {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 40px;
+        }
+
+        .it-ts-grid-2 {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 40px;
+        }
+
+        h1, h2, h3, h4 { color: inherit; font-weight: 600; }
+        p { color: var(--c-text-grey); font-size: 16px; font-weight: 400; }
+
+        .it-ts-btn {
+          display: inline-block;
+          padding: 12px 24px;
+          border-radius: 980px;
+          font-size: 16px;
+          font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .it-ts-btn-white { background: #FFF; color: #000; border: 1px solid #FFF; }
+        .it-ts-btn-outline { background: transparent; color: #FFF; border: 1px solid #FFF; margin-left: 10px; }
+
+        /* --- Section 1: Hero Header --- */
+        .it-ts-hero {
+          background-color: var(--c-bg-dark);
+          color: var(--c-text-light);
+          padding: 100px 0;
+          /* Placeholder for dark server room background image */
+          background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('https://placehold.co/1600x900/1a1a1a/1a1a1a?text=Server+Room+Background');
+          background-size: cover;
+          background-position: center;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          overflow: hidden;
+        }
+
+        .it-ts-hero-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .it-ts-hero-text { max-width: 50%; }
+        .it-ts-logo-line { display: flex; align-items: center; margin-bottom: 24px; font-size: 14px; font-weight: 600; }
+        .it-ts-logo-icon { width: 20px; height: 20px; background: #fff; margin-right: 8px; border-radius: 4px; /* Placeholder logo */ }
+        
+        .it-ts-hero h1 { font-size: 48px; line-height: 1.1; margin-bottom: 20px; }
+        .it-ts-hero p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 400px; }
+
+        .it-ts-hero-visual {
+          /* Placeholder for the large 3D logo */
+          width: 300px; height: 300px;
+          background: linear-gradient(135deg, #333, #555);
+          border-radius: 30px;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 100px; color: rgba(255,255,255,0.1);
+        }
+
+        /* --- Section 2: UI Showcase --- */
+        .it-ts-showcase { padding: var(--section-spacing) 0; text-align: center; }
+        .it-ts-showcase h2 { font-size: 32px; margin-bottom: 60px; color: var(--c-text-dark); }
+        .it-ts-ui-mockup {
+          width: 100%;
+          border-radius: 12px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+          overflow: hidden;
+        }
+        /* Placeholder for the dashboard screenshot */
+        .it-ts-ui-img-placeholder { width: 100%; height: auto; display: block; }
+
+
+        /* --- Section 3 & 4: Feature Grids --- */
+        .it-ts-features { padding-bottom: var(--section-spacing); }
+        .it-ts-feature-row { margin-bottom: 60px; }
+        .it-ts-feature-item { text-align: left; }
+        .it-ts-f-icon {
+          width: 48px; height: 48px;
+          /* Using generic SVG shapes to mimic the style */
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230066CC'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.022.547c-.264.346-.423.766-.423 1.219 0 2.21 1.791 4.014 4 4.022a2.028 2.028 0 001.414-.566l.152-.152c.408-.408.953-.644 1.529-.644a2.184 2.184 0 011.53.645l.151.152a2.028 2.028 0 001.415.566c2.21-.008 4-1.812 4-4.022 0-.453-.159-.873-.423-1.22z' /%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M12 11a5 5 0 100-10 5 5 0 000 10z' /%3E%3C/svg%3E");
+          background-repeat: no-repeat; background-position: center;
+          margin-bottom: 20px;
+        }
+        /* Varying icons for visual distinction */
+        .it-ts-f-icon-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230066CC'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4' /%3E%3C/svg%3E"); }
+        .it-ts-f-icon-3 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230066CC'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' /%3E%3C/svg%3E"); }
+
+        .it-ts-feature-item h3 { font-size: 18px; margin-bottom: 12px; color: var(--c-text-dark); }
+        .it-ts-feature-item p { font-size: 14px; line-height: 1.6; max-width: 300px; }
+
+
+        /* --- Section 5: Robust Banner --- */
+        .it-ts-banner {
+          background-color: var(--c-bg-banner);
+          border-radius: 24px;
+          padding: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: var(--section-spacing);
+          overflow: hidden;
+        }
+        .it-ts-banner-text { max-width: 45%; }
+        .it-ts-banner h2 { font-size: 32px; margin-bottom: 20px; color: var(--c-text-dark); }
+        .it-ts-banner p { max-width: 400px; }
+        .it-ts-banner-visual {
+          /* Placeholder for complex 3D illustration */
+          width: 400px; height: 250px;
+          background: linear-gradient(to right, #d0d0d5, #a0a0a5);
+          border-radius: 12px;
+          position: relative;
+          right: -40px; /* Subtle overlap effect */
+        }
+
+
+        /* --- Section 6: Security Details --- */
+        .it-ts-details { padding-bottom: var(--section-spacing); }
+        .it-ts-Detail-col h3 { font-size: 18px; margin-bottom: 20px; color: var(--c-text-dark); }
+        .it-ts-Detail-col p { font-size: 14px; margin-bottom: 30px; max-width: 320px; }
+        
+        .it-ts-cert-logos { display: flex; gap: 15px; flex-wrap: wrap; }
+        .it-ts-cert-logo { width: 60px; height: 60px; background: #E1E1E6; border-radius: 50%; /* Placeholder */ }
+
+        .it-ts-infra-diagram, .it-ts-api-diagram {
+          height: 120px; background: #E1E1E6; border-radius: 8px; width: 80%;
+          /* Placeholder for flowcharts */
+          display: flex; align-items: center; justify-content: center; color: #86868B; font-size: 12px;
+        }
+
+        /* --- Section 7: Summary --- */
+        .it-ts-summary { padding-bottom: var(--section-spacing); border-top: 1px solid #E1E1E6; padding-top: 60px; }
+        .it-ts-summary h3 { font-size: 16px; margin-bottom: 12px; color: var(--c-text-dark); }
+        .it-ts-summary p { font-size: 14px; max-width: 350px; }
+
+
+        /* --- Section 8: Footer CTA --- */
+        .it-ts-footer {
+          background-color: var(--c-bg-dark);
+          color: var(--c-text-light);
+          padding: 80px 0;
+          /* Placeholder background */
+          background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url('https://placehold.co/1600x600/2a2a2a/2a2a2a?text=IT+Footer+Background');
+          background-size: cover;
+          background-position: center;
+          border-radius: 20px;
+          margin-bottom: 40px;
+        }
+        .it-ts-footer-content { max-width: 500px; }
+        .it-ts-footer h2 { font-size: 36px; margin-bottom: 30px; line-height: 1.2; }
+
+        /* Responsive tweaks for smaller screens if needed */
+        @media (max-width: 768px) {
+          .it-ts-hero-content, .it-ts-banner { flex-direction: column; text-align: center; }
+          .it-ts-hero-text, .it-ts-banner-text { max-width: 100%; margin-bottom: 40px; }
+          .it-ts-hero-visual, .it-ts-banner-visual { width: 100%; }
+          .it-ts-grid-3, .it-ts-grid-2 { grid-template-columns: 1fr; }
+          .it-ts-banner-visual { right: 0; height: 200px; }
+        }
+
+      </style>
+
+      <div class="it-ts-wrapper">
+        
+        <section class="it-ts-hero">
+          <div class="it-ts-container it-ts-hero-content">
+            <div class="it-ts-hero-text">
+              <div class="it-ts-logo-line">
+                <div class="it-ts-logo-icon"></div> <span>Enterprise IT Solutions</span>
+              </div>
+              <h1>Your Enterprise IT Foundation</h1>
+              <p>Secure your infrastructure with industry-leading compliance, security, and reliability since 2016.</p>
+              <div class="it-ts-hero-btns">
+                <a class="it-ts-btn it-ts-btn-white">Get Started</a>
+                <a class="it-ts-btn it-ts-btn-outline">Learn More -></a>
+              </div>
+            </div>
+            <div class="it-ts-hero-visual">
+              <span style="font-size: 80px; opacity: 0.2;">IT</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="it-ts-showcase">
+          <div class="it-ts-container">
+            <h2>Optimized solutions for scalability and management</h2>
+            <div class="it-ts-ui-mockup">
+              <img src="https://placehold.co/1200x600/FFFFFF/E5E5E5?text=Enterprise+Dashboard+UI+Mockup" alt="Dashboard UI" class="it-ts-ui-img-placeholder">
+            </div>
+          </div>
+        </section>
+
+        <section class="it-ts-features">
+          <div class="it-ts-container">
+            <div class="it-ts-grid-3 it-ts-feature-row">
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon"></div>
+                <h3>Data Segregation</h3>
+                <p>Critical data is isolated in separate environments, ensuring strict access controls and auditability.</p>
+              </div>
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon it-ts-f-icon-2"></div>
+                <h3>Comprehensive Cloud Coverage</h3>
+                <p>Support for major public and private cloud providers, including AWS, Azure, and GCP integration.</p>
+              </div>
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon it-ts-f-icon-3"></div>
+                <h3>Dynamic Access Controls</h3>
+                <p>Flexibly define user roles and permissions with granular policies that adapt to your organizational structure.</p>
+              </div>
+            </div>
+
+            <div class="it-ts-grid-3 it-ts-feature-row">
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon it-ts-f-icon-3"></div>
+                <h3>Advanced Encryption Standards</h3>
+                <p>Utilizing AES-256 and TLS 1.3 protocols to ensure data is secure both in transit and at rest.</p>
+              </div>
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon"></div>
+                <h3>High-Availability Architecture</h3>
+                <p>Redundant systems and failover mechanisms ensure maximum uptime for mission-critical applications.</p>
+              </div>
+              <div class="it-ts-feature-item">
+                <div class="it-ts-f-icon it-ts-f-icon-2"></div>
+                <h3>Isolated Tenant Environments</h3>
+                <p>Prevent data leakage with strict logical separation between different business units or clients.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="it-ts-container">
+          <div class="it-ts-banner">
+            <div class="it-ts-banner-text">
+              <h2>Robust Infrastructure Protection</h2>
+              <p>Enterprise IT Solutions operates under strict global standards for data security, operational integrity, and risk management.</p>
+            </div>
+            <div class="it-ts-banner-visual">
+              </div>
+          </div>
+        </section>
+
+        <section class="it-ts-details">
+          <div class="it-ts-container">
+            <div class="it-ts-grid-3">
+              <div class="it-ts-Detail-col">
+                <h3>Security certification</h3>
+                <p>Our platform and operations are certified to meet international standards including ISO 27001, SOC 2 Type II, and GDPR compliance.</p>
+                <div class="it-ts-cert-logos">
+                  <div class="it-ts-cert-logo" title="SOC2"></div>
+                  <div class="it-ts-cert-logo" title="ISO"></div>
+                  <div class="it-ts-cert-logo" title="GDPR"></div>
+                </div>
+              </div>
+              <div class="it-ts-Detail-col">
+                <h3>Layered infrastructure</h3>
+                <p>Multiple defense-in-depth layers protect your data, mitigating the risk of single points of failure in the stack.</p>
+                <div class="it-ts-infra-diagram">Diagram Placeholder</div>
+              </div>
+              <div class="it-ts-Detail-col">
+                <h3>Seamless integration</h3>
+                <p>A powerful suite of RESTful APIs and SDKs allows for easy integration into your existing tech stack and workflows.</p>
+                <div class="it-ts-api-diagram">API Flow Placeholder</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="it-ts-summary">
+          <div class="it-ts-container">
+            <div class="it-ts-grid-2">
+              <div>
+                <h3>Increased operational efficiency</h3>
+                <p>Streamline IT operations and reduce overhead with centralized management and automation tools.</p>
+              </div>
+              <div>
+                <h3>Scalable resource management</h3>
+                <p>Easily scale compute and storage resources up or down based on real-time demand.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="it-ts-container">
+          <div class="it-ts-footer">
+            <div class="it-ts-container it-ts-footer-content">
+              <div class="it-ts-logo-line">
+                <div class="it-ts-logo-icon"></div>
+                <span>Enterprise IT Solutions</span>
+              </div>
+              <h2>Secure your technology stack with Enterprise IT Solutions.</h2>
+              <a class="it-ts-btn it-ts-btn-white">Get Started</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    `;
+    }
+  }
+
+  customElements.define('it-tech-solutions', ItTechSolutions);
+</script>
+
+<it-tech-solutions></it-tech-solutions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Technology Layout</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Namespace Prefix: .spec-tech- */
+        
+        .spec-tech-wrapper {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FB; /* Light neutral background */
+            width: 100%;
+            margin: 0;
+            padding: 80px 0; /* Vertical padding only */
+            overflow-x: hidden; /* Prevents scrollbars from the offset screen */
+            color: #111827;
+        }
+
+        .spec-tech-wrapper * {
+            box-sizing: border-box;
+        }
+
+        /* Top Header - Stays centered or adapts to container */
+        .spec-tech-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px auto;
+            padding: 0 20px;
+        }
+
+        .spec-tech-eyebrow {
+            color: #0066FF;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .spec-tech-title {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .spec-tech-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Split Section: Image Left, Text Right */
+        .spec-tech-split-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            width: 100%;
+        }
+
+        /* Left Side: The Screen */
+        .spec-tech-screen-box {
+            position: relative;
+            width: 100%;
+            /* This makes the image container stick to the left edge 
+               and creates the "half-screen" look */
+            margin-left: -50px; 
+        }
+
+        .spec-tech-screen-image {
+            width: 100%;
+            display: block;
+            border-radius: 0 16px 16px 0; /* Rounded only on the right side */
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.15);
+            background-color: #1a1a1a;
+            border: 1px solid rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        /* Right Side: Footer Content */
+        .spec-tech-footer-content {
+            padding-right: 10%;
+            max-width: 500px;
+        }
+
+        .spec-tech-footer-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .spec-tech-footer-desc {
+            font-size: 18px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Animations */
+        .spec-tech-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .spec-tech-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            .spec-tech-split-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .spec-tech-screen-box {
+                margin-left: 0;
+                padding-right: 40px;
+            }
+            .spec-tech-footer-content {
+                padding: 0 20px;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="spec-tech-wrapper">
+        
+        <header class="spec-tech-header spec-tech-reveal">
+            <span class="spec-tech-eyebrow">Browser Extension</span>
+            <h1 class="spec-tech-title">Two ways to access, yours to choose</h1>
+            <p class="spec-tech-subtitle">
+                Apart from the IT Hub console, you can manage cloud infrastructure 
+                directly via our Chrome® extension — the choice is yours.
+            </p>
+        </header>
+
+        <section class="spec-tech-split-container">
+            
+            <div class="spec-tech-screen-box spec-tech-reveal">
+                <img 
+                    src="https://placehold.co/1000x700/1e1e2e/FFF?text=IT+System+Interface" 
+                    alt="IT Technology Dashboard" 
+                    class="spec-tech-screen-image"
+                >
+            </div>
+
+            <div class="spec-tech-footer-content spec-tech-reveal">
+                <h2 class="spec-tech-footer-title">Connect seamlessly</h2>
+                <p class="spec-tech-footer-desc">
+                    Easily connect your local environment or hardware security modules 
+                    to access global IT projects, DevOps protocols, and secure APIs instantly.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('spec-tech-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.spec-tech-reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Technology Trust Component</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Unique Namespace Prefix: it-tech- */
+
+    :root {
+        --it-tech-font-inter: 'Inter', sans-serif;
+        --it-tech-color-dark-blue: #0C224A;
+        --it-tech-color-text-main: #1F2937;
+        --it-tech-color-text-sub: #4B5563;
+        --it-tech-color-link-blue: #0066CC;
+        --it-tech-color-bg-hero-start: #9BB2C4;
+        --it-tech-color-bg-hero-end: #D8E1E9;
+        --it-tech-color-bg-light: #F9FAFB;
+        --it-tech-color-white: #FFFFFF;
+    }
+
+    /* Component Wrapper to isolate styles */
+    it-tech-trust-component {
+        display: block;
+        font-family: var(--it-tech-font-inter);
+        color: var(--it-tech-color-text-main);
+        line-height: 1.5;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* --- Section 1: Hero --- */
+    .it-tech-hero-section {
+        /* Gradient approximation based on image_0.png */
+        background: linear-gradient(135deg, var(--it-tech-color-bg-hero-start) 0%, var(--it-tech-color-bg-hero-end) 60%, var(--it-tech-color-white) 100%);
+        padding: 120px 20px 160px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .it-tech-container {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+    }
+
+    .it-tech-hero-content {
+        max-width: 50%;
+    }
+
+    .it-tech-title-large {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--it-tech-color-text-main);
+        line-height: 1.1;
+        margin-bottom: 24px;
+    }
+
+    .it-tech-text-sub-large {
+        font-size: 16px;
+        color: var(--it-tech-color-text-sub);
+        margin-bottom: 40px;
+        max-width: 480px;
+    }
+
+    .it-tech-button-group {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .it-tech-btn {
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .it-tech-btn-primary {
+        background-color: var(--it-tech-color-dark-blue);
+        color: var(--it-tech-color-white);
+        border: none;
+    }
+
+    .it-tech-btn-outline {
+        background-color: transparent;
+        color: var(--it-tech-color-dark-blue);
+        border: 1px solid var(--it-tech-color-dark-blue);
+    }
+
+    .it-tech-helper-text {
+        font-size: 10px;
+        color: var(--it-tech-color-text-sub);
+        display: flex;
+        gap: 24px;
+        margin-left: 12px;
+    }
+    .it-tech-helper-text span {
+         display: flex;
+         align-items: center;
+    }
+     .it-tech-verified-icon {
+        color: #00C087; /* Greenish color from image */
+        margin-right: 4px;
+        font-size: 12px;
+    }
+
+    /* Hero Image Styles */
+    .it-tech-hero-image {
+        max-width: 45%;
+        height: auto;
+        display: block;
+        /* Adds a subtle floating shadow effect matching the original's depth */
+        filter: drop-shadow(0 25px 50px rgba(12, 34, 74, 0.25));
+        /* Optional gentle float animation */
+        animation: it-tech-float 8s ease-in-out infinite;
+    }
+
+    @keyframes it-tech-float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+
+    /* --- Section 2: Centered Text --- */
+    .it-tech-middle-section {
+        background-color: var(--it-tech-color-white);
+        padding: 120px 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .it-tech-middle-content {
+        max-width: 700px;
+    }
+
+    .it-tech-title-medium {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--it-tech-color-text-main);
+        margin-bottom: 40px;
+    }
+
+    .it-tech-text-body-large {
+        font-size: 18px;
+        color: var(--it-tech-color-text-sub);
+        line-height: 1.6;
+        margin-bottom: 32px;
+        font-weight: 500;
+    }
+
+    .it-tech-link-arrow {
+        color: var(--it-tech-color-link-blue);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        transition: gap 0.2s ease;
+    }
+    
+    .it-tech-link-arrow:hover {
+        gap: 4px;
+    }
+
+    .it-tech-link-arrow::after {
+        content: '→';
+        margin-left: 8px;
+        font-size: 18px;
+    }
+
+    /* --- Section 3: Bottom Feature --- */
+    .it-tech-bottom-section {
+        background-color: var(--it-tech-color-bg-light);
+        padding: 120px 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .it-tech-bottom-container {
+        max-width: 1000px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 80px;
+    }
+
+    .it-tech-bottom-content {
+        flex: 1;
+    }
+
+    .it-tech-title-small {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--it-tech-color-text-main);
+        margin-bottom: 24px;
+    }
+
+    .it-tech-text-body {
+        font-size: 16px;
+        color: var(--it-tech-color-text-sub);
+        line-height: 1.6;
+        margin-bottom: 32px;
+    }
+
+    /* CSS Placeholder for the bottom graphic */
+    .it-tech-bottom-graphic-placeholder {
+        width: 300px;
+        height: 300px;
+        /* Mimicking the blue square style */
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .it-tech-bottom-graphic-inner {
+        width: 70%;
+        height: 70%;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: white;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+        .it-tech-container, .it-tech-bottom-container {
+            flex-direction: column;
+            text-align: center;
+            gap: 60px;
+        }
+        .it-tech-hero-content, .it-tech-bottom-content {
+            max-width: 100%;
+        }
+        .it-tech-hero-image {
+            max-width: 80%;
+            margin-top: 40px;
+        }
+        .it-tech-button-group {
+            justify-content: center;
+        }
+        .it-tech-helper-text {
+            justify-content: center;
+            margin-left: 0;
+        }
+        .it-tech-text-sub-large {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
+</head>
+<body>
+
+<it-tech-trust-component>
+
+    <div class="it-tech-hero-section">
+        <div class="it-tech-container">
+            <div class="it-tech-hero-content" style="background: transparent;">
+                <h1 class="it-tech-title-large">First, verify<br>Then integrate</h1>
+                <p class="it-tech-text-sub-large">All our enterprise IT solutions are rigorously tested (1:1), securely deployed, and available for immediate integration into your infrastructure.</p>
+                <div class="it-tech-button-group">
+                    <a href="#" class="it-tech-btn it-tech-btn-primary">Explore Solutions</a>
+                    <a href="#" class="it-tech-btn it-tech-btn-outline">View Case Studies</a>
+                </div>
+                <div class="it-tech-helper-text">
+                    <span>How to verify?</span>
+                    <span><span class="it-tech-verified-icon">✓</span> Verified by TechAudit Grp.</span>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Abstract IT Core Architecture" class="it-tech-hero-image">
+        </div>
+    </div>
+
+    <div class="it-tech-middle-section">
+        <div class="it-tech-middle-content">
+            <h2 class="it-tech-title-medium">Results, Not words</h2>
+            <p class="it-tech-text-body-large">The digital landscape demands a foundation built on reliability. That's why cybersecurity, cloud compliance, and data privacy have been our core focus since day one.</p>
+            <p class="it-tech-text-body-large">As an industry leader in technological integration, trusted by global enterprises worldwide, we are more committed than ever to setting the highest standard for IT excellence.</p>
+            <a href="#" class="it-tech-link-arrow">Our commitment to security</a>
+        </div>
+    </div>
+
+    <div class="it-tech-bottom-section">
+        <div class="it-tech-bottom-container">
+            <div class="it-tech-bottom-content">
+                <h3 class="it-tech-title-small">What is Zero Trust Architecture?</h3>
+                <p class="it-tech-text-body">Zero Trust is a strategic initiative that prevents successful data breaches by eliminating the concept of trust from an organization's network architecture. Rooted in the principle of "never trust, always verify," it requires continuous validation of every digital interaction across the infrastructure, regardless of location.</p>
+                <a href="#" class="it-tech-link-arrow">Learn about Zero Trust</a>
+            </div>
+             <div class="it-tech-bottom-graphic-placeholder">
+                <div class="it-tech-bottom-graphic-inner">SECURE<br>CORE</div>
+            </div>
+        </div>
+    </div>
+
+</it-tech-trust-component>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="itc-svc-container">
+  <div class="itc-svc-alert-banner">
+    <div class="itc-svc-alert-inner">
+      <p class="itc-svc-alert-message">
+        <strong>Auto-Scaling is active for Cluster-01!</strong> Optimize performance and reduce latency with our latest edge nodes.
+      </p>
+      <a href="/docs/auto-scaling" class="itc-svc-cta-link">
+        View Documentation
+        <svg class="itc-svc-icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="itc-svc-disclaimer-row">
+    <div class="itc-svc-info-wrapper">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="#3b82f6" stroke-width="2"/>
+        <path d="M12 16V11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 8H12.01" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="itc-svc-details">
+      <p class="itc-svc-fine-print">
+        Metrics are based on real-time telemetry and estimated throughput from API gateway logs. Final billing cycles may vary based on egress data spikes. System uptime guarantees are subject to the Service Level Agreement (SLA).
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+    /* Container Scoping */
+.itc-svc-container {
+  font-family: 'Inter', -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Banner Component */
+.itc-svc-alert-banner {
+  background-color: #f0f7ff; /* Light Tech Blue */
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.itc-svc-alert-banner:hover {
+  border-color: #3b82f6;
+}
+
+.itc-svc-alert-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.itc-svc-alert-message {
+  margin: 0;
+  font-size: 14px;
+  color: #1e293b; /* Slate 800 */
+  line-height: 1.5;
+}
+
+.itc-svc-alert-message strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* CTA Link Styling */
+.itc-svc-cta-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.itc-svc-cta-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Disclaimer / Info Section */
+.itc-svc-disclaimer-row {
+  display: flex;
+  gap: 10px;
+  padding: 4px 8px;
+}
+
+.itc-svc-info-wrapper {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.itc-svc-fine-print {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #64748b; /* Slate 500 */
+}
+
+/* Breakpoints for Dashboards */
+@media (max-width: 768px) {
+  .itc-svc-alert-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Tech Independent Slide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Namespace: 'it-sep-' to avoid conflicts */
+        :root {
+            --it-sep-font: 'Inter', sans-serif;
+            --it-sep-bg: #FFFFFF;
+            --it-sep-text: #0B1221;
+            --it-sep-sub: #556987;
+            --it-sep-accent: #0B1221;
+            --it-sep-line: #E5E7EB;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--it-sep-font);
+            padding-top: 50vh; /* Spacer */
+            padding-bottom: 100vh;
+        }
+
+        /* 1. Track: Controls the total scroll length */
+        .it-sep-track {
+            position: relative;
+            height: 400vh; /* 100vh per section */
+            background: var(--it-sep-bg);
+        }
+
+        /* 2. Sticky Container: Pins the component */
+        .it-sep-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .it-sep-header {
+            text-align: center;
+            margin-bottom: 50px;
+            z-index: 10;
+        }
+
+        .it-sep-title {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin: 0;
+            color: var(--it-sep-text);
+        }
+
+        /* 3. The Central Layout */
+        .it-sep-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 2px 1fr;
+            gap: 60px;
+            width: 100%;
+            max-width: 1200px;
+            height: 400px;
+            align-items: center;
+        }
+
+        /* Center Progress Line */
+        .it-sep-line-container {
+            height: 100%;
+            background: var(--it-sep-line);
+            position: relative;
+        }
+
+        .it-sep-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--it-sep-accent);
+            height: 0%;
+            transition: height 0.1s ease-out;
+        }
+
+        /* 4. Content Slots (Image side and Text side) */
+        .it-sep-slot {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* This creates the "box" mask */
+            border-radius: 20px;
+        }
+
+        .it-sep-text-slot {
+            overflow: hidden;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* The Individual Layers */
+        .it-sep-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        /* Active State */
+        .it-sep-layer.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Image Logic: Slides DOWN into view */
+        .it-sep-img-layer {
+            transform: translateY(-100%);
+        }
+
+        /* Text Logic: Slides UP into view */
+        .it-sep-text-layer {
+            transform: translateY(100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .it-sep-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .it-sep-h3 { font-size: 32px; font-weight: 600; margin: 0 0 15px 0; color: var(--it-sep-text); letter-spacing: -0.02em;}
+        .it-sep-p { font-size: 18px; color: var(--it-sep-sub); line-height: 1.2; margin: 0; font-weight: 200; opacity: 1;}
+
+        .it-sep-footer {
+            margin-top: 60px;
+        }
+
+        .it-sep-btn {
+            background: #0B1221;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 900px) {
+            .it-sep-grid { grid-template-columns: 1fr; height: auto; padding: 20px; }
+            .it-sep-line-container { display: none; }
+            .it-sep-slot { height: 300px; margin-bottom: 20px; }
+            .it-sep-layer { position: relative; opacity: 1; transform: none; margin-bottom: 40px; }
+            .it-sep-track { height: auto; }
+            .it-sep-sticky { position: relative; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="it-sep-track" id="itTrack">
+    <div class="it-sep-sticky">
+        
+        <div class="it-sep-header">
+            <h2 class="it-sep-title">See why 4,000+ merchants trust us</h2>
+        </div>
+
+        <div class="it-sep-grid">
+            <div class="it-sep-slot">
+                <div class="it-sep-layer it-sep-img-layer active" data-index="0">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" class="it-sep-img" alt="Tech 1">
+                </div>
+                <div class="it-sep-layer it-sep-img-layer" data-index="1">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" class="it-sep-img" alt="Tech 2">
+                </div>
+                <div class="it-sep-layer it-sep-img-layer" data-index="2">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" class="it-sep-img" alt="Tech 3">
+                </div>
+                <div class="it-sep-layer it-sep-img-layer" data-index="3">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800" class="it-sep-img" alt="Tech 4">
+                </div>
+            </div>
+
+            <div class="it-sep-line-container">
+                <div class="it-sep-line-fill" id="itLine"></div>
+            </div>
+
+            <div class="it-sep-slot it-sep-text-slot">
+                <div class="it-sep-layer it-sep-text-layer active" data-index="0">
+                    <h3 class="it-sep-h3">Advanced Data Security</h3>
+                    <p class="it-sep-p">Protect your infrastructure with hardware-level encryption and real-time threat monitoring.</p>
+                </div>
+                <div class="it-sep-layer it-sep-text-layer" data-index="1">
+                    <h3 class="it-sep-h3">Cloud Infrastructure</h3>
+                    <p class="it-sep-p">Scalable cloud solutions that grow with your business, ensuring 99.9% uptime across all regions.</p>
+                </div>
+                <div class="it-sep-layer it-sep-text-layer" data-index="2">
+                    <h3 class="it-sep-h3">AI Performance</h3>
+                    <p class="it-sep-p">Harness the power of neural networks to automate complex workflows and data analysis.</p>
+                </div>
+                <div class="it-sep-layer it-sep-text-layer" data-index="3">
+                    <h3 class="it-sep-h3">Smart Interfaces</h3>
+                    <p class="it-sep-p">Intuitive dashboards designed for deep technical oversight without the clutter.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="it-sep-footer">
+            <button class="it-sep-btn">Start Accepting Crypto</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function() {
+    const track = document.getElementById('itTrack');
+    const line = document.getElementById('itLine');
+    const imgLayers = document.querySelectorAll('.it-sep-img-layer');
+    const textLayers = document.querySelectorAll('.it-sep-text-layer');
+    const totalItems = 4;
+
+    function updateScroll() {
+        if (!track || window.innerWidth <= 900) return;
+
+        const rect = track.getBoundingClientRect();
+        const viewHeight = window.innerHeight;
+        
+        // Total scrollable distance
+        const totalDist = rect.height - viewHeight;
+        // Current progress (0 to 1)
+        let progress = -rect.top / totalDist;
+        progress = Math.max(0, Math.min(1, progress));
+
+        // Update Line
+        line.style.height = `${progress * 100}%`;
+
+        // Determine current active index based on scroll progress
+        // Dividing into 4 zones
+        const activeIndex = Math.min(Math.floor(progress * totalItems), totalItems - 1);
+
+        // Update Layers
+        imgLayers.forEach((layer, idx) => {
+            if (idx === activeIndex) {
+                layer.classList.add('active');
+                layer.style.transform = 'translateY(0)';
+            } else if (idx < activeIndex) {
+                // Already scrolled past: push it DOWN out of the box
+                layer.classList.remove('active');
+                layer.style.transform = 'translateY(100%)';
+            } else {
+                // Not reached yet: keep it UP above the box
+                layer.classList.remove('active');
+                layer.style.transform = 'translateY(-100%)';
+            }
+        });
+
+        textLayers.forEach((layer, idx) => {
+            if (idx === activeIndex) {
+                layer.classList.add('active');
+                layer.style.transform = 'translateY(0)';
+            } else if (idx < activeIndex) {
+                // Already scrolled past: push it UP out of the box
+                layer.classList.remove('active');
+                layer.style.transform = 'translateY(-100%)';
+            } else {
+                // Not reached yet: keep it DOWN below the box
+                layer.classList.remove('active');
+                layer.style.transform = 'translateY(100%)';
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    window.addEventListener('resize', updateScroll);
+    updateScroll();
+})();
+</script>
+
+</body>
+</html>
 
 
 
@@ -1936,3 +3699,258 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Team Component</title>
+<style>
+  /* Import Inter font from Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+  /* * IT Tech Team Component Styles
+   * Uses a unique namespace 'it-tech-' to avoid conflicts.
+   */
+
+  .it-tech-team-section {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 60px 20px;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    box-sizing: border-box;
+  }
+
+  /* Reset box-sizing for component elements */
+  .it-tech-team-section * {
+    box-sizing: border-box;
+  }
+
+  .it-tech-team-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Header Section: Title, Subtitle, and Logos */
+  .it-tech-team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .it-tech-team-title-group {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 20px;
+  }
+
+  .it-tech-team-title {
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .it-tech-team-subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #666666;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .it-tech-team-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    /* Pushing logos to the right to match the design */
+    margin-left: auto; 
+  }
+
+  /* Styling for the greyed-out logos */
+  .it-tech-team-logo {
+    height: auto;
+    max-height: 80px; /* Adjust based on actual logo aspect ratios */
+    width: auto;
+    /* Using filters to achieve the grey, muted look */
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+
+  /* Profile Grid Section */
+  .it-tech-team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px;
+  }
+
+  /* Individual Profile Card */
+  .it-tech-team-card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .it-tech-team-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Ensures the image is a perfect square */
+    object-fit: cover;
+    border-radius: 24px; /* Prominent rounded corners */
+    margin-bottom: 16px;
+    background-color: #e0e0e0; /* Placeholder background color */
+  }
+
+  .it-tech-team-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+    color: #1a1a1a;
+  }
+
+  .it-tech-team-role {
+    font-size: 16px;
+    font-weight: 600;
+    color: #666666;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  /* Responsive Breakpoints */
+
+  /* Tablet: 2 columns */
+  @media (max-width: 1024px) {
+    .it-tech-team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Mobile Landscape / Small Tablet: Stack header and logos */
+  @media (max-width: 768px) {
+    .it-tech-team-header {
+      flex-direction: column;
+    }
+    .it-tech-team-logos {
+      margin-left: 0;
+      margin-top: 20px;
+      justify-content: flex-start;
+    }
+    .it-tech-team-title-group {
+      padding-right: 0;
+    }
+    .it-tech-team-title {
+      font-size: 28px;
+    }
+  }
+
+  /* Mobile Portrait: 1 column grid */
+  @media (max-width: 480px) {
+    .it-tech-team-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .it-tech-team-logos {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="it-tech-team-section">
+  <div class="it-tech-team-container">
+    
+    <div class="it-tech-team-header">
+      <div class="it-tech-team-title-group">
+        <h2 class="it-tech-team-title">Architected by world-class IT experts</h2>
+        <p class="it-tech-team-subtitle">Supported by the world's top technology leaders and innovators.</p>
+      </div>
+      <div class="it-tech-team-logos">
+        <img src="images/coursera_.png" alt="TechGlobal Logo" class="it-tech-team-logo">
+        <img src="images/erlang_.png" alt="Innovate Systems Logo" class="it-tech-team-logo">
+        <img src="images/helm_.png" alt="FutureNet Logo" class="it-tech-team-logo">
+      </div>
+    </div>
+
+    <div class="it-tech-team-grid">
+      
+      <div class="it-tech-team-card">
+        <img src="https://images.pexels.com/photos/6474475/pexels-photo-6474475.jpeg" alt="Alex Chen" class="it-tech-team-photo">
+        <h3 class="it-tech-team-name">Alex Chen</h3>
+        <p class="it-tech-team-role">Chief Technology Officer, Ex-Google & MIT Alum</p>
+      </div>
+      
+      <div class="it-tech-team-card">
+        <img src="https://images.pexels.com/photos/3862614/pexels-photo-3862614.jpeg" alt="Sarah Jenkins" class="it-tech-team-photo">
+        <h3 class="it-tech-team-name">Sarah Jenkins</h3>
+        <p class="it-tech-team-role">Principal Software Architect & Founder of CodeCraft</p>
+      </div>
+      
+      <div class="it-tech-team-card">
+        <img src="https://images.pexels.com/photos/6893898/pexels-photo-6893898.jpeg" alt="David Lee" class="it-tech-team-photo">
+        <h3 class="it-tech-team-name">David Lee</h3>
+        <p class="it-tech-team-role">Director of Cybersecurity & Ethical Hacker</p>
+      </div>
+      
+      <div class="it-tech-team-card">
+        <img src="https://images.pexels.com/photos/6980994/pexels-photo-6980994.jpeg" alt="Maria Rodriguez" class="it-tech-team-photo">
+        <h3 class="it-tech-team-name">Maria Rodriguez</h3>
+        <p class="it-tech-team-role">AI Research Scientist, Stanford PhD, Best-selling Author</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
