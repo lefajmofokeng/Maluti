@@ -133,14 +133,14 @@
   tpl.innerHTML = /* html */`
   <style>
 
-    @import url('https://fonts.cdnfonts.com/css/circular-std');
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
     @font-face{font-family:'Sodo Sans';src:url('fonts/SoDoSans-Regular.ttf') format('truetype');font-weight:400}
 @font-face{font-family:'Sodo Sans';src:url('fonts/SoDoSans-SemiBold.woff') format('woff');font-weight:500}
 @font-face{font-family:'Sodo Sans';src:url('fonts/SoDoSans-Bold.ttf') format('truetype');font-weight:700}
 
     :host {
       display: block;
-      font-family: 'Sodo Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       color: #ffffff;
@@ -478,7 +478,7 @@
     <section class="bottom-bar">
       <div class="brand-block">
         <div class="logo-placeholder">
-          <img src="images/education.jpg" alt="Cronos IT"/>
+          <img src="images/edited.png" alt="Cronos IT"/>
         </div>
         <p class="brand-tagline">
           Proudly part of the Department of Higher Education and Training. Committed to providing quality technical and vocational education that empowers students for the workplace and entrepreneurship.

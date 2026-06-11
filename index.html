@@ -44,13 +44,13 @@
     * { box-sizing: border-box; font-family: 'Work Sans', sans-serif; line-height: 1.2; }
 
     :host {
-        --hyperion-color-header-bg: #000;
+        --hyperion-color-header-bg: #080d1b;
         --hyperion-color-accent: #0077cc;
         --hyperion-color-text-light: #fff;
-        --hyperion-color-background-dark: #000;
+        --hyperion-color-background-dark: #080d1b;
         --hyperion-color-off-white: #fff;
         --hyperion-color-text-muted: #fff;
-        --hyperion-color-menu-bg: #000;
+        --hyperion-color-menu-bg: #080d1b;
         --hyperion-color-menu-border: rgba(0, 145, 255, 0.2);
         --hyperion-color-qr-dropdown-bg: #06273e;
         --hyperion-header-height: 55px;
@@ -2142,7 +2142,7 @@
             color: var(--defcon-navy);
             -webkit-font-smoothing: antialiased;
             /* Extra breathing space to demonstrate the scroll stacking engine */
-            padding-bottom: 60vh; 
+            padding-bottom: 60vh; padding-top: 60vh;
         }
 
         /* ---------------------------------- */
@@ -2687,287 +2687,6 @@
 
 
 
-    <style>
-        
-        :root {
-            --itsvc-bg: transparent;
-            --itsvc-text-dark: #0A0A3C; 
-            --itsvc-text-body: #0a0a3c; 
-            --itsvc-text-muted: #CBD5E1; 
-            --itsvc-accent: #0077CC; 
-            --itsvc-border: #E2E8F0;
-            --itsvc-font: 'Work Sans', sans-serif;
-            --itsvc-anim-speed: 5s;
-        }
-
-        .itsvc-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        .itsvc-wrapper {
-            font-family: var(--itsvc-font);
-            background-color: var(--itsvc-bg);
-            padding: 150px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* --- Header: 1000px --- */
-        .itsvc-header-section {
-            width: 100%;
-            max-width: 900px;
-            text-align: left;
-            margin-bottom: 80px;
-        }
-
-        .itsvc-eyebrow {
-            color: var(--itsvc-accent);
-            font-weight: 600;
-            font-size: 17px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .itsvc-h1 {
-            font-size: 35px;
-            line-height: 1.1;
-            font-weight: 500;
-            color: var(--itsvc-text-dark);
-            margin-bottom: 30px; letter-spacing: -0.02em;
-        }
-
-        /* --- Main Content: 1200px --- */
-        .itsvc-main-section {
-            width: 100%;
-            max-width: 1200px; padding: 0 20px;
-            display: flex; /* Using Flex for equal height stretching */
-            gap: 80px;
-            align-items: stretch; /* This makes left and right equal height */
-        }
-
-        /* Left Column: The Image */
-        .itsvc-image-col {
-            flex: 1;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            min-height: 400px; /* Base height for mobile/empty states */
-        }
-
-        .itsvc-img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .itsvc-img.active { opacity: 1; z-index: 2; }
-
-        /* Right Column: The Content */
-        .itsvc-content-col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        /* Tabs */
-        .itsvc-tabs-stack {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 40px;
-        }
-
-        .itsvc-tab-item {
-            position: relative;
-            cursor: pointer;
-            margin-bottom: 30px;
-            display: inline-block; /* Crucial for progress bar width */
-            width: fit-content;
-        }
-
-        .itsvc-tab-title {
-            font-size: 35px;
-            font-weight: 600;
-            color: var(--itsvc-text-muted);
-            transition: color 0.3s ease;
-            line-height: 1.2; font-family: 'Work Sans', sans-serif;
-        }
-
-        .itsvc-tab-item.active .itsvc-tab-title {
-            color: var(--itsvc-text-dark);
-        }
-
-        /* Progress Bar: Width of the Tab Title */
-        .itsvc-progress-bg {
-            height: 3px;
-            width: 100%;
-            background-color: transparent;
-            margin-top: 8px;
-        }
-
-        .itsvc-tab-item.active .itsvc-progress-bg {
-            background-color: var(--itsvc-border);
-        }
-
-        .itsvc-progress-fill {
-            height: 3px;
-            width: 0%;
-            background-color: var(--itsvc-text-dark);
-        }
-
-        .itsvc-animating {
-            animation: itsvc-fill var(--itsvc-anim-speed) linear forwards;
-        }
-
-        @keyframes itsvc-fill { from { width: 0%; } to { width: 100%; } }
-
-        /* Description & Button Section */
-        .itsvc-description-area {
-            position: relative;
-            margin-top: auto; /* Pushes content to the bottom of the column if needed */
-        }
-
-        .itsvc-desc-content {
-            display: none;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
-        .itsvc-desc-content.active { display: block; }
-
-        .itsvc-body-text {
-            font-size: 19px;
-            line-height: 1.6;
-            margin-bottom: 40px; color: var(--itsvc-text-body);
-        }
-
-        .itsvc-btn {
-            display: inline-block;
-            background-color: #0A0A3C;
-            color: #fff;
-            padding: 12px 30px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 50px;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Responsive --- */
-        @media (max-width: 1024px) {
-            .itsvc-main-section { flex-direction: column; }
-            .itsvc-image-col { order: 2; height: 400px; min-height: 400px; }
-            .itsvc-content-col { order: 1; }
-            .itsvc-h1 { font-size: 34px; }
-            .itsvc-tab-title { font-size: 40px; }
-            .itsvc-main-section {
-                padding: 0 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="itsvc-wrapper">
-    <header class="itsvc-header-section">
-        <span class="itsvc-eyebrow">OUR MAIN OFFICES</span>
-        <h1 class="itsvc-h1">We have 2 main offices with Maluti college, serving as our operational hubs of business across all our campuses.</h1>
-    </header>
-
-    <section class="itsvc-main-section">
-        <div class="itsvc-image-col">
-            <img src="https://images.unsplash.com/photo-1590230946777-9f2ade879639?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="itsvc-img active" data-id="0">
-            <img src="https://images.unsplash.com/photo-1576495199011-eb94736d05d6?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="itsvc-img" data-id="1">
-        </div>
-
-        <div class="itsvc-content-col">
-            <span class="itsvc-eyebrow">PAY US A VISIT</span>
-            
-            <div class="itsvc-tabs-stack">
-                <div class="itsvc-tab-item active" data-id="0">
-                    <div class="itsvc-tab-title">1. Corporate Office</div>
-                    <div class="itsvc-progress-bg">
-                        <div class="itsvc-progress-fill itsvc-animating"></div>
-                    </div>
-                </div>
-
-                <div class="itsvc-tab-item" data-id="1">
-                    <div class="itsvc-tab-title">2. Central Office</div>
-                    <div class="itsvc-progress-bg">
-                        <div class="itsvc-progress-fill"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="itsvc-description-area">
-                <div class="itsvc-desc-content active" data-id="0">
-                    <p class="itsvc-body-text">
-                        From system architecture to full-scale cloud migrations—fast, clean, and reliable engineering for your infrastructure. We cover security, scalability, and 24/7 maintenance.
-                    </p>
-                    <a href="#" class="itsvc-btn">See Offices</a>
-                </div>
-
-                <div class="itsvc-desc-content" data-id="1">
-                    <p class="itsvc-body-text">
-                        Rapid MVP development to launch your vision. We build high-performance web and mobile applications designed to scale alongside your user base and business goals.
-                    </p>
-                    <a href="#" class="itsvc-btn">See Offices</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<script>
-    const tabs = document.querySelectorAll('.itsvc-tab-item');
-    const images = document.querySelectorAll('.itsvc-img');
-    const contents = document.querySelectorAll('.itsvc-desc-content');
-    let currentIndex = 0;
-    let timer;
-
-    function switchStep(index) {
-        currentIndex = index % tabs.length;
-
-        tabs.forEach((tab, i) => {
-            const isActive = i === currentIndex;
-            tab.classList.toggle('active', isActive);
-            
-            const bar = tab.querySelector('.itsvc-progress-fill');
-            bar.classList.remove('itsvc-animating');
-            if (isActive) {
-                void bar.offsetWidth; // Trigger reflow
-                bar.classList.add('itsvc-animating');
-            }
-        });
-
-        images.forEach((img, i) => img.classList.toggle('active', i === currentIndex));
-        contents.forEach((desc, i) => desc.classList.toggle('active', i === currentIndex));
-
-        resetTimer();
-    }
-
-    function resetTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => switchStep(currentIndex + 1), 5000);
-    }
-
-    tabs.forEach((tab, i) => {
-        tab.addEventListener('click', () => switchStep(i));
-    });
-
-    resetTimer();
-</script>
-
-</body>
-</html>
-
-
-
-
-
 
 
 
@@ -3426,7 +3145,7 @@
            ========================================= */
 
         :root {
-            --ft-font-family: 'Sodo Sans', sans-serif;
+            --ft-font-family: 'Work Sans', sans-serif;
             --ft-color-bg: #020035; /* Deep Navy Blue matching the screenshot */
             --ft-color-text: #ffffff;
             --ft-color-border: #ffffff;
@@ -3509,7 +3228,7 @@
             font-weight: 600;
             line-height: 1.1;
             letter-spacing: -0.01em;
-            font-family: 'Canela',sans-serif;
+            font-family: 'Work Sans',sans-serif;
         }
 
         .ft-description {
@@ -3705,7 +3424,7 @@
         */
 
         :root {
-            --ra-font-family: 'Sodo Sans', sans-serif;
+            --ra-font-family: 'Work Sans', sans-serif;
             --ra-color-text-main: #111111;
             --ra-color-text-secondary: #666666;
             --ra-color-bg-tag: #dedede;
@@ -3742,7 +3461,7 @@
             font-weight: 600;
             letter-spacing: -1.5px;
             line-height: 1;
-            font-family: 'Canela',sans-serif;
+            font-family: 'Work Sans',sans-serif;
         }
 
         .ra-browse-btn {
@@ -3757,7 +3476,7 @@
             border-radius: 999px; /* Pill shape */
             cursor: pointer;
             transition: background-color 0.2s ease;
-            white-space: nowrap; font-family: 'Source Sans Pro', sans-serif;
+            white-space: nowrap; font-family: 'Work Sans', sans-serif;
         }
 
         .ra-browse-btn:hover {
@@ -3837,8 +3556,8 @@
         .ra-card-title {
             font-size: 27px;
             font-weight: 600;
-            line-height: 1.6;
-            margin-bottom: 12px; color: #232d3f; font-family: 'Canela',sans-serif;
+            line-height: 1.1;
+            margin-bottom: 12px; color: #232d3f; font-family: 'Work Sans',sans-serif;
         }
 
         .ra-card-title:hover {
